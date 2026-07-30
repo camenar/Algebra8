@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Multiplicando con Fichas Algebraicas</title>
+<style>
+  :root{
+    --navy:#1F2A6E; --navy-dark:#141c4d;
+    --orange:#E67E22; --orange-dark:#c96a15;
+    --paper:#FBFAF3; --grid-line:#c9d6ea; --ink:#2b2f3a;
+    --pos-x2:#3853C9; --pos-x:#2E9E5B; --pos-1:#F2C230;
+    --neg:#D9534A; --ok:#2E9E5B; --bad:#D9534A;
+    --u:34px; --xl:112px;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{
+    font-family:Arial, Helvetica, sans-serif; background:#EDF0F7; color:var(--ink);
+    -webkit-user-select:none; user-select:none; padding-bottom:20px;
+  }
+  header{
+    background:var(--navy); color:#fff; padding:14px 20px;
+    display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap;
+  }
+  header h1{font-size:1.2rem; letter-spacing:.3px;}
+  header h1 .ast{color:var(--orange); margin-right:6px;}
+  .hud{display:flex; gap:9px; align-items:center; flex-wrap:wrap;}
+  .hud .pill{
+    background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.25);
+    padding:5px 12px; border-radius:999px; font-size:.82rem; font-weight:bold;
+  }
+  .hud .pill span{color:#FFD27A;}
+  button{font-family:inherit; font-weight:bold; border:none; border-radius:8px; cursor:pointer;
+    transition:transform .08s ease, background .15s ease;}
+  button:active{transform:scale(.96);}
+  button:focus-visible{outline:3px solid var(--orange); outline-offset:2px;}
+  .btn-orange{background:var(--orange); color:#fff; padding:9px 16px; font-size:.9rem;}
+  .btn-orange:hover{background:var(--orange-dark);}
+  .btn-ghost{background:rgba(255,255,255,.15); color:#fff; padding:9px 14px; font-size:.9rem;
+    border:1px solid rgba(255,255,255,.35);}
+
+  .levels{display:flex; gap:8px; align-items:center; padding:10px 20px; flex-wrap:wrap;
+    background:#fff; border-bottom:2px solid #dfe4f0;}
+  .levels .lbl{font-size:.85rem; font-weight:bold; color:var(--navy);}
+  .lvl{padding:7px 13px; border-radius:999px; font-size:.83rem;
+    background:#eef1f9; color:var(--navy); border:2px solid transparent;}
+  .lvl.active{background:var(--navy); color:#fff; border-color:var(--orange);}
+  .mode-switch{display:flex; border:2px solid var(--navy); border-radius:999px; overflow:hidden;}
+  .mode-switch button{border-radius:0; padding:7px 13px; font-size:.83rem; background:#fff; color:var(--navy);}
+  .mode-switch button.active{background:var(--orange); color:#fff;}
+
+  main{max-width:1080px; margin:0 auto; padding:14px; display:flex; flex-direction:column; gap:12px;}
+  .card{background:#fff; border:3px solid var(--navy); border-radius:12px; padding:12px 16px;
+    box-shadow:0 3px 0 #d5dae8;}
+  .tag{background:var(--orange); color:#fff; font-size:.7rem; font-weight:bold;
+    padding:4px 10px; border-radius:999px; letter-spacing:.5px; white-space:nowrap;}
+  .tag.navy{background:var(--navy);}
+
+  .exprcard{display:flex; align-items:center; gap:14px; flex-wrap:wrap;}
+  .expr{font-size:1.4rem; font-weight:bold; color:var(--navy);}
+  .expr sup{font-size:.72em;}
+
+  .phase-bar{display:flex; align-items:center; gap:8px; flex-wrap:wrap;}
+  .step{display:flex; align-items:center; gap:7px; font-size:.8rem; font-weight:bold;
+    color:#9aa1b8; padding:5px 11px; border-radius:999px; background:#eef1f9;}
+  .step .num{width:21px; height:21px; border-radius:50%; background:#c8cede; color:#fff;
+    display:flex; align-items:center; justify-content:center; font-size:.72rem;}
+  .step.current{background:var(--navy); color:#fff;}
+  .step.current .num{background:var(--orange);}
+  .step.done{background:#e4f5ea; color:#1c6b3c;}
+  .step.done .num{background:var(--ok);}
+  .step-arrow{color:var(--navy); font-weight:bold;}
+  .phase-bar .btn-orange{margin-left:auto;}
+
+  /* ---- Área de trabajo ---- */
+  .work{display:flex; gap:14px; align-items:flex-start; flex-wrap:wrap;}
+  .boardbox{
+    flex:1 1 380px; background:var(--paper); border:3px solid var(--navy); border-radius:12px;
+    padding:14px; overflow:auto; box-shadow:0 3px 0 #d5dae8;
+  }
+  #grid{display:grid; gap:3px; margin:0 auto; width:max-content;}
+  .corner{background:#e7ebf5; border-radius:6px; display:flex; align-items:center;
+    justify-content:center; color:var(--navy); font-weight:bold; font-size:.9rem;}
+  .slot, .cell{
+    border:2px dashed #b9c3da; border-radius:6px; background:#fff;
+    display:flex; align-items:center; justify-content:center; cursor:pointer;
+    transition:border-color .12s ease, background .12s ease;
+  }
+  .slot.ready, .cell.ready{border-color:var(--orange); background:#fff8ef;}
+  .slot.locked, .cell.locked{cursor:default; opacity:.5;}
+  .cell.wrong{border:3px solid var(--bad) !important;}
+  .tile{
+    width:100%; height:100%; border-radius:5px; border:2px solid rgba(0,0,0,.28);
+    display:flex; align-items:center; justify-content:center;
+    color:#fff; font-weight:bold; font-size:.85rem; box-shadow:1px 2px 3px rgba(20,28,77,.25);
+  }
+  .tile sup{font-size:.72em;}
+  .t-x2{background:var(--pos-x2);}
+  .t-x{background:var(--pos-x);}
+  .t-1{background:var(--pos-1); color:#5b4300;}
+  .tile.neg{background:var(--neg); color:#fff; border-style:dashed;}
+  .tile.small{font-size:.65rem;}
+
+  /* ---- Bandeja ---- */
+  .tray{flex:0 0 168px; background:#fff; border:3px solid var(--navy); border-radius:12px;
+    padding:12px; display:flex; flex-direction:column; gap:9px; align-items:center;
+    box-shadow:0 3px 0 #d5dae8;}
+  .tray h2{font-size:.75rem; color:var(--navy); text-align:center; letter-spacing:.4px;}
+  .tray .row{display:flex; gap:9px; justify-content:center; align-items:flex-end; flex-wrap:wrap;}
+  .src{border-radius:6px; border:2px solid rgba(0,0,0,.28); color:#fff; font-weight:bold;
+    display:flex; align-items:center; justify-content:center; cursor:grab; touch-action:none;
+    box-shadow:1px 2px 4px rgba(20,28,77,.25); position:relative;}
+  .src sup{font-size:.72em;}
+  .src.sel{outline:4px solid var(--orange); outline-offset:2px;}
+  .src-x2{width:52px; height:52px; background:var(--pos-x2); font-size:.85rem;}
+  .src-x{width:22px; height:52px; background:var(--pos-x); font-size:.75rem;}
+  .src-1{width:24px; height:24px; background:var(--pos-1); color:#5b4300; font-size:.68rem;}
+  .src.neg{background:var(--neg) !important; color:#fff; border-style:dashed;}
+  .tray .divider{width:80%; border-top:2px dashed #dfe4f0;}
+  .tray-lbl{font-size:.7rem; font-weight:bold; color:var(--navy);}
+  .tray-lbl.negl{color:var(--neg);}
+  .tray .hint{font-size:.68rem; color:#7a819a; text-align:center; line-height:1.35;}
+  #ghost{position:fixed; z-index:3000; pointer-events:none; opacity:.85; border-radius:5px;
+    border:2px solid rgba(0,0,0,.3); display:none;}
+
+  /* ---- Respuesta ---- */
+  .answer{display:flex; align-items:center; gap:11px; flex-wrap:wrap;}
+  .poly-inputs{display:flex; align-items:center; gap:5px; font-size:1.15rem;
+    font-weight:bold; color:var(--navy); flex-wrap:wrap;}
+  .answer input{width:58px; padding:8px 5px; font-size:1.05rem; font-weight:bold; text-align:center;
+    border:2px solid var(--navy); border-radius:8px; font-family:inherit; color:var(--ink); background:#f6f8ff;}
+  .answer input:focus{outline:3px solid var(--orange); outline-offset:1px;}
+  .sign-btn{width:42px; height:42px; font-size:1.25rem; background:#fff; color:var(--navy);
+    border:2px solid var(--navy); border-radius:8px; margin-right:2px;}
+  .sign-btn.negativo{background:var(--neg); color:#fff; border-color:var(--neg);}
+  .answer.locked{opacity:.45; pointer-events:none; filter:grayscale(.4);}
+  .feedback{flex-basis:100%; font-size:.92rem; font-weight:bold; padding:8px 12px;
+    border-radius:8px; display:none;}
+  .feedback.ok{display:block; background:#e4f5ea; color:#1c6b3c; border:2px solid var(--ok);}
+  .feedback.bad{display:block; background:#fdeceb; color:#8f2620; border:2px solid var(--bad);}
+  .feedback.info{display:block; background:#fff4e3; color:#8a5410; border:2px solid var(--orange);}
+
+  /* ---- Modales ---- */
+  .modal-bg{position:fixed; inset:0; background:rgba(20,28,77,.55); display:none;
+    align-items:center; justify-content:center; padding:16px; z-index:2000;}
+  .modal-bg.show{display:flex;}
+  .modal{background:#fff; border-radius:14px; max-width:660px; width:100%; max-height:88vh;
+    overflow:auto; padding:22px 24px; border-top:8px solid var(--orange);}
+  .modal h2{color:var(--navy); margin-bottom:10px;}
+  .modal h3{color:var(--orange-dark); font-size:.95rem; margin:14px 0 6px;}
+  .modal p, .modal li{font-size:.9rem; line-height:1.55;}
+  .modal ol{padding-left:20px;}
+  .modal .close-row{text-align:right; margin-top:16px;}
+  .demo-grid{display:grid; grid-template-columns:26px 60px 26px 26px; grid-template-rows:26px 60px 26px 26px;
+    gap:3px; margin:10px 0;}
+  .demo-grid div{border-radius:4px;}
+
+  @media (max-width:760px){
+    .work{flex-direction:column;}
+    .tray{flex:1 1 auto; width:100%; flex-direction:column;}
+    .tray .row{gap:14px;}
+    .expr{font-size:1.15rem;}
+    header h1{font-size:1rem;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1><span class="ast">*</span>Multiplicando con Fichas Algebraicas</h1>
+  <div class="hud">
+    <div class="pill">👤 <span id="studentPill">—</span></div>
+    <div class="pill">⭐ <span id="score">0</span></div>
+    <div class="pill">📊 Nota: <span id="notaPill">1.0</span></div>
+    <div class="pill">🎯 <span id="lvlProg">0/3</span></div>
+    <div class="pill">✅ <span id="hits">0</span>/<span id="tries">0</span></div>
+    <button class="btn-ghost" id="btnHelp">❓ Cómo se juega</button>
+  </div>
+</header>
+
+<div class="levels">
+  <span class="lbl">Nivel:</span>
+  <button class="lvl active" data-lvl="1">1 · Monomio × binomio</button>
+  <button class="lvl" data-lvl="2">2 · Con negativos</button>
+  <button class="lvl" data-lvl="3">3 · Binomio × binomio</button>
+  <span style="flex:1"></span>
+  <span class="lbl">Modo:</span>
+  <div class="mode-switch" role="group" aria-label="Modo de juego">
+    <button id="modeGuided" class="active">🧭 Guiado</button>
+    <button id="modeFree">🕊 Libre</button>
+  </div>
+  <button class="btn-orange" id="btnNew">🎲 Nuevo</button>
+</div>
+
+<main>
+  <div class="card exprcard">
+    <span class="tag">MULTIPLICACIÓN</span>
+    <span class="expr" id="exprBox"></span>
+  </div>
+
+  <div class="card phase-bar" id="phaseBar">
+    <div class="step current" id="step1"><span class="num">1</span> Coloca los factores en los bordes</div>
+    <span class="step-arrow">→</span>
+    <div class="step" id="step2"><span class="num">2</span> Llena el rectángulo</div>
+    <span class="step-arrow">→</span>
+    <div class="step" id="step3"><span class="num">3</span> Escribe el producto</div>
+    <button class="btn-orange" id="btnVerify">Verificar</button>
+  </div>
+
+  <div class="work">
+    <div class="boardbox">
+      <div id="grid"></div>
+    </div>
+
+    <div class="tray">
+      <h2>FICHAS</h2>
+      <span class="tray-lbl">Positivas</span>
+      <div class="row" id="trayPos"></div>
+      <div class="divider"></div>
+      <span class="tray-lbl negl">Negativas</span>
+      <div class="row" id="trayNeg"></div>
+      <div class="divider"></div>
+      <p class="hint">Toca una ficha y luego la casilla,<br>o arrástrala hasta su lugar.<br>Toca una ficha colocada para quitarla.</p>
+    </div>
+  </div>
+
+  <div class="card answer" id="answerCard">
+    <span class="tag navy">PRODUCTO</span>
+    <div class="poly-inputs">
+      <button class="sign-btn" data-for="inA" aria-label="Cambiar signo de x²">±</button><input type="text" id="inA" inputmode="numeric" autocomplete="off" aria-label="Coeficiente de x al cuadrado"> <span>x²&nbsp;+</span>
+      <button class="sign-btn" data-for="inB" aria-label="Cambiar signo de x">±</button><input type="text" id="inB" inputmode="numeric" autocomplete="off" aria-label="Coeficiente de x"> <span>x&nbsp;+</span>
+      <button class="sign-btn" data-for="inC" aria-label="Cambiar signo del término independiente">±</button><input type="text" id="inC" inputmode="numeric" autocomplete="off" aria-label="Término independiente">
+    </div>
+    <button class="btn-orange" id="btnCheck">Comprobar</button>
+    <div class="feedback" id="fb"></div>
+  </div>
+</main>
+
+<div id="ghost"></div>
+
+<!-- Registro del estudiante -->
+<div class="modal-bg show" id="nameModal">
+  <div class="modal" style="max-width:420px; text-align:center;">
+    <h2>👋 ¡Bienvenido/a!</h2>
+    <p style="margin:10px 0;">Escribe tu <strong>nombre completo y grupo</strong> para registrar tu puntaje:</p>
+    <input type="text" id="inName" placeholder="Ej: Ana Pérez — 8.2" maxlength="60"
+      style="width:100%; padding:10px; font-size:1rem; border:2px solid var(--navy); border-radius:8px; font-family:inherit; text-align:center;">
+    <div class="close-row" style="text-align:center;">
+      <button class="btn-orange" id="btnStart">Comenzar 🚀</button>
+    </div>
+  </div>
+</div>
+
+<!-- Instrucciones -->
+<div class="modal-bg" id="modal">
+  <div class="modal">
+    <h2>¿Cómo se juega?</h2>
+    <h3>El modelo de área</h3>
+    <p>Multiplicar dos expresiones es como calcular el <strong>área de un rectángulo</strong>: los factores son los lados y el producto es lo que cabe adentro.</p>
+    <div class="demo-grid">
+      <div style="background:#e7ebf5"></div>
+      <div style="background:var(--pos-x)"></div>
+      <div style="background:var(--pos-1)"></div>
+      <div style="background:var(--pos-1)"></div>
+      <div style="background:var(--pos-x)"></div>
+      <div style="background:var(--pos-x2)"></div>
+      <div style="background:var(--pos-x)"></div>
+      <div style="background:var(--pos-x)"></div>
+      <div style="background:var(--pos-1)"></div>
+      <div style="background:var(--pos-x)"></div>
+      <div style="background:var(--pos-1)"></div>
+      <div style="background:var(--pos-1)"></div>
+    </div>
+    <p>Arriba: (x + 2). A la izquierda: (x + 1). Adentro quedan 1 ficha x², 3 fichas x y 2 unidades → <strong>x² + 3x + 2</strong>.</p>
+    <h3>La regla de cada casilla</h3>
+    <p>Cada casilla del interior es el producto de su fila por su columna:</p>
+    <p>x · x = <strong>x²</strong> &nbsp;·&nbsp; x · 1 = <strong>x</strong> &nbsp;·&nbsp; 1 · 1 = <strong>1</strong></p>
+    <p>Y los signos se multiplican: positivo × positivo = positivo, positivo × negativo = <span style="color:var(--neg)"><strong>negativo</strong></span>, negativo × negativo = positivo.</p>
+    <h3>Pasos</h3>
+    <ol>
+      <li><strong>Fase 1:</strong> coloca las fichas de cada factor en los bordes (arriba y a la izquierda).</li>
+      <li><strong>Fase 2:</strong> llena el interior del rectángulo con la ficha correcta en cada casilla.</li>
+      <li><strong>Fase 3:</strong> cuenta las fichas del interior y escribe el producto. Usa el botón <strong>±</strong> para los coeficientes negativos.</li>
+    </ol>
+    <h3>¿Cómo se gana?</h3>
+    <p>Supera cada nivel logrando los ejercicios que pide: <strong>Nivel 1 → 3</strong>, <strong>Nivel 2 → 4</strong>, <strong>Nivel 3 → 5</strong>. Al completar los tres, ¡terminas el juego con 5.0! 🏆</p>
+    <div class="close-row"><button class="btn-orange" id="btnCloseModal">¡A jugar!</button></div>
+  </div>
+</div>
+
+<!-- Victoria -->
+<div class="modal-bg" id="winModal">
+  <div class="modal" style="max-width:460px; text-align:center; border-top-color:var(--ok);">
+    <h2>🏆 ¡JUEGO COMPLETADO!</h2>
+    <p style="font-size:1.05rem; margin:8px 0;"><strong id="winName"></strong></p>
+    <p>Dominaste la multiplicación con el modelo de área.</p>
+    <p style="font-size:1.6rem; font-weight:bold; color:var(--orange); margin:12px 0;">⭐ <span id="winScore">0</span> puntos</p>
+    <p style="font-size:1.3rem; font-weight:bold; color:var(--ok);">📊 Nota: <span id="winNota">5.0</span></p>
+    <p style="color:#555; margin-top:6px;">Aciertos: <span id="winHits"></span></p>
+    <div class="close-row" style="text-align:center;">
+      <button class="btn-orange" id="btnReplay">🔁 Jugar de nuevo</button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  // ============================================================
+  // CONFIGURACIÓN: URL de la App Web de Apps Script.
+  // Si se deja vacía, el juego funciona pero no guarda registros.
+  // ============================================================
+  const SHEETS_URL = "";
+  const JUEGO = "Multiplicacion";
+
+  const GOALS = {1:3, 2:4, 3:5};
+
+  const state = {
+    level:1, mode:"guiado", phase:1,
+    student:"", progress:{1:0,2:0,3:0}, finished:false,
+    score:0, hits:0, tries:0,
+    ex:null, rows:[], cols:[], solved:false,
+    borderTop:[], borderLeft:[], cellFill:[],
+    selected:null
+  };
+
+  let U = 34, XL = 112;
+  const LABEL = {x2:"x²", x:"x", "1":"1"};
+  const grid = document.getElementById("grid");
+  const fb = document.getElementById("fb");
+
+  const rnd = (a,b)=>Math.floor(Math.random()*(b-a+1))+a;
+  const rndSign = ()=> Math.random()<0.5 ? -1 : 1;
+
+  function applyScale(){
+    const small = window.innerWidth < 560;
+    U = small ? 24 : 34;
+    XL = small ? 80 : 112;
+  }
+
+  // ---------- Generación de ejercicios ----------
+  function genExercise(){
+    let f1, f2;
+    if(state.level===1){
+      f1 = Math.random()<0.5 ? {a:rnd(1,2), b:0} : {a:0, b:rnd(2,3)};
+      f2 = {a:rnd(1,2), b:rnd(1,3)};
+    } else if(state.level===2){
+      f1 = Math.random()<0.5 ? {a:rnd(1,2)*rndSign(), b:0} : {a:0, b:rnd(2,3)*rndSign()};
+      f2 = {a:rnd(1,2)*rndSign(), b:rnd(1,3)*rndSign()};
+    } else {
+      f1 = {a:rndSign(), b:rnd(1,3)*rndSign()};
+      f2 = {a:rndSign(), b:rnd(1,3)*rndSign()};
+    }
+    state.ex = {f1:f1, f2:f2};
+    state.solved = false;
+    state.rows = segments(f1);
+    state.cols = segments(f2);
+    state.borderTop = new Array(state.cols.length).fill(null);
+    state.borderLeft = new Array(state.rows.length).fill(null);
+    state.cellFill = state.rows.map(()=>new Array(state.cols.length).fill(null));
+    state.selected = null;
+
+    document.getElementById("exprBox").innerHTML =
+      "( " + fmtFactor(f1) + " ) &nbsp;·&nbsp; ( " + fmtFactor(f2) + " )";
+    ["inA","inB","inC"].forEach(id=>{ document.getElementById(id).value=""; syncSignBtn(id); });
+    hideFb();
+    setPhase(state.mode==="guiado" ? 1 : 3);
+    buildGrid();
+    buildTray();
+    updateProgressUI();
+  }
+
+  // Un factor {a,b} se descompone en segmentos de borde
+  function segments(f){
+    const s = [];
+    for(let i=0;i<Math.abs(f.a);i++) s.push({base:"x", sign:Math.sign(f.a)});
+    for(let i=0;i<Math.abs(f.b);i++) s.push({base:"1", sign:Math.sign(f.b)});
+    return s;
+  }
+
+  function fmtFactor(f){
+    const p = [];
+    if(f.a!==0){
+      const c = Math.abs(f.a)===1 ? "" : Math.abs(f.a);
+      p.push((f.a<0?"−":"") + c + "x");
+    }
+    if(f.b!==0){
+      if(p.length) p.push((f.b<0?"− ":"+ ") + Math.abs(f.b));
+      else p.push((f.b<0?"−":"") + Math.abs(f.b));
+    }
+    return p.length ? p.join(" ") : "0";
+  }
+
+  function targets(){
+    const {f1,f2} = state.ex;
+    return {ta:f1.a*f2.a, tb:f1.a*f2.b + f2.a*f1.b, tc:f1.b*f2.b};
+  }
+
+  // ---------- Construcción del tablero ----------
+  function len(seg){ return seg.base==="x" ? XL : U; }
+
+  function buildGrid(){
+    grid.innerHTML = "";
+    grid.style.gridTemplateColumns = U+"px " + state.cols.map(c=>len(c)+"px").join(" ");
+    grid.style.gridTemplateRows = U+"px " + state.rows.map(r=>len(r)+"px").join(" ");
+
+    const corner = document.createElement("div");
+    corner.className = "corner";
+    corner.textContent = "×";
+    grid.appendChild(corner);
+
+    state.cols.forEach((c,j)=>{
+      const s = document.createElement("div");
+      s.className = "slot";
+      s.dataset.kind = "top"; s.dataset.idx = j;
+      grid.appendChild(s);
+    });
+
+    state.rows.forEach((r,i)=>{
+      const s = document.createElement("div");
+      s.className = "slot";
+      s.dataset.kind = "left"; s.dataset.idx = i;
+      grid.appendChild(s);
+      state.cols.forEach((c,j)=>{
+        const cell = document.createElement("div");
+        cell.className = "cell";
+        cell.dataset.kind = "cell"; cell.dataset.i = i; cell.dataset.j = j;
+        grid.appendChild(cell);
+      });
+    });
+    refreshBoard();
+  }
+
+  function tileEl(base, sign, small){
+    const t = document.createElement("div");
+    t.className = "tile t-" + (base==="x2"?"x2":base==="x"?"x":"1") + (sign<0?" neg":"") + (small?" small":"");
+    t.innerHTML = (sign<0?"−":"") + (base==="x2" ? "x<sup>2</sup>" : LABEL[base]);
+    return t;
+  }
+
+  function refreshBoard(){
+    const enabledBorder = state.phase===1 || state.mode==="libre";
+    const enabledCells  = state.phase>=2 || state.mode==="libre";
+    grid.querySelectorAll(".slot").forEach(el=>{
+      const kind = el.dataset.kind, idx = +el.dataset.idx;
+      const val = kind==="top" ? state.borderTop[idx] : state.borderLeft[idx];
+      el.innerHTML = "";
+      if(val) el.appendChild(tileEl(val.base, val.sign, true));
+      el.classList.toggle("locked", !enabledBorder);
+      el.classList.toggle("ready", enabledBorder && !val && !!state.selected);
+    });
+    grid.querySelectorAll(".cell").forEach(el=>{
+      const i = +el.dataset.i, j = +el.dataset.j;
+      const val = state.cellFill[i][j];
+      el.innerHTML = "";
+      el.classList.remove("wrong");
+      if(val) el.appendChild(tileEl(val.base, val.sign, true));
+      el.classList.toggle("locked", !enabledCells);
+      el.classList.toggle("ready", enabledCells && !val && !!state.selected);
+    });
+  }
+
+  // ---------- Bandeja ----------
+  function buildTray(){
+    const pos = document.getElementById("trayPos");
+    const neg = document.getElementById("trayNeg");
+    pos.innerHTML = ""; neg.innerHTML = "";
+    const bases = (state.phase===1 && state.mode==="guiado") ? ["x","1"] : ["x2","x","1"];
+    bases.forEach(b=>{
+      pos.appendChild(srcEl(b, 1));
+      neg.appendChild(srcEl(b, -1));
+    });
+  }
+
+  function srcEl(base, sign){
+    const d = document.createElement("div");
+    d.className = "src src-" + (base==="x2"?"x2":base==="x"?"x":"1") + (sign<0?" neg":"");
+    d.dataset.base = base; d.dataset.sign = sign;
+    d.innerHTML = (sign<0?"−":"") + (base==="x2" ? "x<sup>2</sup>" : LABEL[base]);
+    if(state.selected && state.selected.base===base && state.selected.sign===sign) d.classList.add("sel");
+    return d;
+  }
+
+  function markSelected(){
+    document.querySelectorAll(".src").forEach(el=>{
+      const s = state.selected;
+      el.classList.toggle("sel", !!s && el.dataset.base===s.base && +el.dataset.sign===s.sign);
+    });
+    refreshBoard();
+  }
+
+  // ---------- Interacción: tocar o arrastrar ----------
+  const ghost = document.getElementById("ghost");
+  let drag = null;
+
+  document.addEventListener("pointerdown", (e)=>{
+    const src = e.target.closest(".src");
+    if(src){
+      e.preventDefault();
+      const base = src.dataset.base, sign = +src.dataset.sign;
+      state.selected = {base:base, sign:sign};
+      markSelected();
+      drag = {base:base, sign:sign, moved:false};
+      ghost.className = "tile t-" + (base==="x2"?"x2":base==="x"?"x":"1") + (sign<0?" neg":"");
+      ghost.innerHTML = (sign<0?"−":"") + (base==="x2" ? "x<sup>2</sup>" : LABEL[base]);
+      ghost.style.width = (base==="1"?U:base==="x"?U:XL)+"px";
+      ghost.style.height = (base==="1"?U:XL)+"px";
+      moveGhost(e);
+      return;
+    }
+    const target = e.target.closest(".slot, .cell");
+    if(target) handleTargetTap(target);
+  });
+
+  document.addEventListener("pointermove", (e)=>{
+    if(!drag) return;
+    drag.moved = true;
+    moveGhost(e);
+  }, {passive:false});
+
+  document.addEventListener("pointerup", (e)=>{
+    if(!drag) return;
+    ghost.style.display = "none";
+    const wasDrag = drag.moved;
+    drag = null;
+    if(!wasDrag) return; // fue un toque: la ficha queda seleccionada
+    const el = document.elementFromPoint(e.clientX, e.clientY);
+    const target = el && el.closest(".slot, .cell");
+    if(target) handleTargetTap(target);
+  });
+
+  function moveGhost(e){
+    ghost.style.display = "block";
+    ghost.style.left = (e.clientX - ghost.offsetWidth/2) + "px";
+    ghost.style.top = (e.clientY - ghost.offsetHeight/2) + "px";
+  }
+
+  function handleTargetTap(el){
+    if(el.classList.contains("locked")) return;
+    const kind = el.dataset.kind;
+    if(kind==="cell"){
+      const i = +el.dataset.i, j = +el.dataset.j;
+      if(state.cellFill[i][j]){ state.cellFill[i][j] = null; refreshBoard(); return; }
+      if(!state.selected) return;
+      state.cellFill[i][j] = {base:state.selected.base, sign:state.selected.sign};
+    } else {
+      const idx = +el.dataset.idx;
+      const arr = kind==="top" ? state.borderTop : state.borderLeft;
+      if(arr[idx]){ arr[idx] = null; refreshBoard(); return; }
+      if(!state.selected) return;
+      if(state.selected.base==="x2"){
+        showFb("info","La ficha x² no va en los bordes: los bordes son longitudes (x o 1).");
+        return;
+      }
+      arr[idx] = {base:state.selected.base, sign:state.selected.sign};
+    }
+    hideFb();
+    refreshBoard();
+  }
+
+  // ---------- Fases ----------
+  function setPhase(p){
+    state.phase = p;
+    const s1 = document.getElementById("step1"), s2 = document.getElementById("step2"), s3 = document.getElementById("step3");
+    const btnV = document.getElementById("btnVerify");
+    const ans = document.getElementById("answerCard");
+    const bar = document.getElementById("phaseBar");
+    if(state.mode==="libre"){
+      bar.style.display = "none";
+      ans.classList.remove("locked");
+      return;
+    }
+    bar.style.display = "flex";
+    s1.className = "step" + (p===1?" current":" done");
+    s2.className = "step" + (p===2?" current":(p>2?" done":""));
+    s3.className = "step" + (p===3?" current":"");
+    btnV.style.display = p<3 ? "" : "none";
+    btnV.textContent = p===1 ? "Verificar factores" : "Verificar rectángulo";
+    ans.classList.toggle("locked", p<3);
+    buildTray();
+  }
+
+  function multiset(list){
+    const m = {};
+    list.forEach(t=>{ if(t){ const k = t.base+":"+t.sign; m[k]=(m[k]||0)+1; } });
+    return m;
+  }
+  function sameMultiset(a,b){
+    const ka = Object.keys(a), kb = Object.keys(b);
+    if(ka.length!==kb.length) return false;
+    return ka.every(k=>a[k]===b[k]);
+  }
+
+  function verify(){
+    if(state.phase===1){
+      const okTop = sameMultiset(multiset(state.borderTop), multiset(state.cols));
+      const okLeft = sameMultiset(multiset(state.borderLeft), multiset(state.rows));
+      if(state.borderTop.some(v=>!v) || state.borderLeft.some(v=>!v)){
+        showFb("info","Faltan fichas por colocar en los bordes.");
+        return;
+      }
+      if(okTop && okLeft){
+        state.score += 5; renderHud();
+        showFb("ok","✅ ¡Factores correctos! +5 puntos. Ahora llena el rectángulo: cada casilla es fila × columna.");
+        // fijar los bordes reales según lo colocado
+        state.rows = state.borderLeft.map(v=>({base:v.base, sign:v.sign}));
+        state.cols = state.borderTop.map(v=>({base:v.base, sign:v.sign}));
+        setPhase(2);
+        refreshBoard();
+      } else {
+        let msg = "❌ Revisa los bordes: ";
+        if(!okTop) msg += "el factor de arriba no coincide. ";
+        if(!okLeft) msg += "el factor de la izquierda no coincide. ";
+        showFb("bad", msg + "Recuerda usar fichas rojas para los términos negativos.");
+      }
+      return;
+    }
+    // Fase 2
+    let faltan = 0, malas = 0;
+    grid.querySelectorAll(".cell").forEach(el=>el.classList.remove("wrong"));
+    for(let i=0;i<state.rows.length;i++){
+      for(let j=0;j<state.cols.length;j++){
+        const esperado = expected(i,j);
+        const puesto = state.cellFill[i][j];
+        if(!puesto){ faltan++; continue; }
+        if(puesto.base!==esperado.base || puesto.sign!==esperado.sign){
+          malas++;
+          const el = grid.querySelector('.cell[data-i="'+i+'"][data-j="'+j+'"]');
+          if(el) el.classList.add("wrong");
+        }
+      }
+    }
+    if(faltan){ showFb("info","Faltan "+faltan+" casilla(s) por llenar."); return; }
+    if(malas){
+      showFb("bad","❌ Hay "+malas+" casilla(s) marcada(s) en rojo. Revisa: x·x = x², x·1 = x, 1·1 = 1, y multiplica los signos.");
+      return;
+    }
+    state.score += 5; renderHud();
+    showFb("ok","✅ ¡Rectángulo perfecto! +5 puntos. Ahora cuenta las fichas y escribe el producto.");
+    setPhase(3);
+  }
+
+  function expected(i,j){
+    const r = state.rows[i], c = state.cols[j];
+    const base = (r.base==="x" && c.base==="x") ? "x2" : (r.base==="x" || c.base==="x") ? "x" : "1";
+    return {base:base, sign:r.sign*c.sign};
+  }
+
+  // ---------- Comprobación final ----------
+  function check(){
+    if(!state.ex || state.finished) return;
+    const A = intVal("inA"), B = intVal("inB"), C = intVal("inC");
+    if(A===null || B===null || C===null){
+      showFb("info","Escribe los tres coeficientes (usa 0 si el término no aparece).");
+      return;
+    }
+    const {ta,tb,tc} = targets();
+    state.tries++;
+    const correcto = (A===ta && B===tb && C===tc);
+    logToSheets({evento:"intento", ejercicio:exprText(),
+      respuesta:A+"x² + "+B+"x + "+C, correcto:correcto?"SÍ":"NO"});
+
+    if(correcto){
+      if(!state.solved){
+        state.solved = true; state.hits++;
+        state.score += 10;
+        if(state.progress[state.level] < GOALS[state.level]) state.progress[state.level]++;
+      }
+      const done = state.progress[state.level] >= GOALS[state.level];
+      if(done && state.level<3){
+        state.score += 10;
+        const next = state.level+1;
+        showFb("ok","🎉 ¡NIVEL "+state.level+" SUPERADO! Bono +10. Pasas al Nivel "+next+"…");
+        logToSheets({evento:"nivel_superado", ejercicio:"Nivel "+state.level, respuesta:"", correcto:"SÍ"});
+        renderHud();
+        setTimeout(()=>{ setLevelUI(next); genExercise(); }, 2200);
+        return;
+      }
+      if(done && state.level===3){
+        state.score += 20; state.finished = true; renderHud();
+        logToSheets({evento:"JUEGO_COMPLETADO", ejercicio:"Niveles 1-2-3", respuesta:"", correcto:"SÍ"});
+        showWin();
+        return;
+      }
+      showFb("ok","✅ ¡Correcto! "+plainPoly(ta,tb,tc)+"  ("+state.progress[state.level]+"/"+GOALS[state.level]+" del nivel)");
+    } else {
+      const conteo = contarInterior();
+      let hint;
+      if(conteo.a===ta && conteo.b===tb && conteo.c===tc){
+        hint = "Tus fichas están bien: revisa cómo pasaste el conteo a los coeficientes (¡cuidado con los signos!).";
+      } else {
+        hint = "Cuenta de nuevo las fichas del rectángulo: cuántas x², cuántas x y cuántas unidades, contando las rojas como negativas.";
+      }
+      showFb("bad","❌ Todavía no. " + hint);
+    }
+    renderHud();
+  }
+
+  function contarInterior(){
+    let a=0,b=0,c=0;
+    state.cellFill.forEach(fila=>fila.forEach(v=>{
+      if(!v) return;
+      if(v.base==="x2") a+=v.sign; else if(v.base==="x") b+=v.sign; else c+=v.sign;
+    }));
+    return {a:a,b:b,c:c};
+  }
+
+  function intVal(id){
+    const v = document.getElementById(id).value.trim();
+    if(v==="" || v==="-") return null;
+    const n = parseInt(v,10);
+    return Number.isNaN(n) ? null : n;
+  }
+
+  function plainPoly(a,b,c){
+    const p = [];
+    if(a!==0) p.push((a===1?"":a===-1?"−":(a<0?"−"+Math.abs(a):a))+"x²");
+    if(b!==0) p.push((p.length?(b<0?"− ":"+ "):(b<0?"−":"")) + (Math.abs(b)===1?"":Math.abs(b)) + "x");
+    if(c!==0) p.push((p.length?(c<0?"− ":"+ "):(c<0?"−":"")) + Math.abs(c));
+    return p.length ? p.join(" ") : "0";
+  }
+
+  function exprText(){
+    return "("+fmtFactor(state.ex.f1).replace(/−/g,"-")+") * ("+fmtFactor(state.ex.f2).replace(/−/g,"-")+")";
+  }
+
+  // ---------- Nota y registro ----------
+  function computeNota(){
+    const done = Math.min(state.progress[1],GOALS[1]) + Math.min(state.progress[2],GOALS[2]) + Math.min(state.progress[3],GOALS[3]);
+    return (1 + 4*done/(GOALS[1]+GOALS[2]+GOALS[3])).toFixed(1);
+  }
+
+  function logToSheets(data){
+    if(!SHEETS_URL || SHEETS_URL.indexOf("http")!==0) return;
+    try{
+      const params = new URLSearchParams({
+        estudiante: state.student || "Sin nombre",
+        nivel: String(state.level),
+        modo: state.mode,
+        puntaje: String(state.score),
+        nota: computeNota(),
+        progreso: "N1:"+state.progress[1]+"/"+GOALS[1]+" N2:"+state.progress[2]+"/"+GOALS[2]+" N3:"+state.progress[3]+"/"+GOALS[3],
+        operacion: JUEGO,
+        juego: JUEGO,
+        ejercicio: data.ejercicio||"",
+        respuesta: data.respuesta||"",
+        correcto: data.correcto||"",
+        evento: data.evento||""
+      });
+      fetch(SHEETS_URL, {method:"POST", mode:"no-cors", body:params}).catch(()=>{});
+    }catch(err){}
+  }
+
+  // ---------- HUD ----------
+  function renderHud(){
+    document.getElementById("score").textContent = state.score;
+    document.getElementById("hits").textContent = state.hits;
+    document.getElementById("tries").textContent = state.tries;
+    document.getElementById("notaPill").textContent = computeNota();
+  }
+
+  function updateProgressUI(){
+    document.getElementById("lvlProg").textContent = state.progress[state.level]+"/"+GOALS[state.level];
+    document.getElementById("notaPill").textContent = computeNota();
+    document.querySelectorAll(".lvl[data-lvl]").forEach(b=>{
+      const l = +b.dataset.lvl;
+      const base = b.dataset.base || b.textContent;
+      b.dataset.base = base.replace(" ✔","");
+      b.textContent = b.dataset.base + (state.progress[l]>=GOALS[l] ? " ✔" : "");
+    });
+  }
+
+  function setLevelUI(lvl){
+    state.level = lvl;
+    document.querySelectorAll(".lvl[data-lvl]").forEach(b=>b.classList.toggle("active", +b.dataset.lvl===lvl));
+    updateProgressUI();
+  }
+
+  function showWin(){
+    document.getElementById("winScore").textContent = state.score;
+    document.getElementById("winNota").textContent = computeNota();
+    document.getElementById("winHits").textContent = state.hits+" de "+state.tries+" intentos";
+    document.getElementById("winName").textContent = state.student || "¡Campeón/a!";
+    document.getElementById("winModal").classList.add("show");
+  }
+
+  function showFb(kind,msg){ fb.className = "feedback "+kind; fb.textContent = msg; }
+  function hideFb(){ fb.className = "feedback"; fb.textContent = ""; }
+
+  // ---------- Signos ± ----------
+  function syncSignBtn(id){
+    const btn = document.querySelector('.sign-btn[data-for="'+id+'"]');
+    if(btn) btn.classList.toggle("negativo", document.getElementById(id).value.startsWith("-"));
+  }
+  document.querySelectorAll(".sign-btn").forEach(btn=>{
+    btn.addEventListener("click", ()=>{
+      const inp = document.getElementById(btn.dataset.for);
+      inp.value = inp.value.startsWith("-") ? inp.value.slice(1) : "-"+inp.value;
+      syncSignBtn(btn.dataset.for);
+      inp.focus();
+    });
+  });
+  ["inA","inB","inC"].forEach(id=>{
+    const inp = document.getElementById(id);
+    inp.addEventListener("keydown",(e)=>{ if(e.key==="Enter") check(); });
+    inp.addEventListener("input", ()=>{
+      let v = inp.value.replace(/[^0-9-]/g,"");
+      v = (v.startsWith("-") ? "-" : "") + v.replace(/-/g,"");
+      inp.value = v;
+      syncSignBtn(id);
+    });
+  });
+
+  // ---------- Eventos ----------
+  document.querySelectorAll(".lvl[data-lvl]").forEach(btn=>{
+    btn.addEventListener("click", ()=>{ setLevelUI(+btn.dataset.lvl); genExercise(); });
+  });
+  document.getElementById("btnNew").addEventListener("click", genExercise);
+  document.getElementById("btnVerify").addEventListener("click", verify);
+  document.getElementById("btnCheck").addEventListener("click", check);
+
+  const mG = document.getElementById("modeGuided"), mF = document.getElementById("modeFree");
+  function setMode(m){
+    state.mode = m;
+    mG.classList.toggle("active", m==="guiado");
+    mF.classList.toggle("active", m==="libre");
+    genExercise();
+  }
+  mG.addEventListener("click", ()=>setMode("guiado"));
+  mF.addEventListener("click", ()=>setMode("libre"));
+
+  const modal = document.getElementById("modal");
+  document.getElementById("btnHelp").addEventListener("click", ()=>modal.classList.add("show"));
+  document.getElementById("btnCloseModal").addEventListener("click", ()=>modal.classList.remove("show"));
+  modal.addEventListener("click",(e)=>{ if(e.target===modal) modal.classList.remove("show"); });
+
+  const nameModal = document.getElementById("nameModal");
+  const inName = document.getElementById("inName");
+  function startGame(){
+    const n = inName.value.trim();
+    if(n.length < 3){ inName.style.borderColor = "var(--bad)"; inName.placeholder = "Escribe tu nombre para comenzar"; return; }
+    state.student = n;
+    document.getElementById("studentPill").textContent = n.split("—")[0].trim().split(" ")[0];
+    nameModal.classList.remove("show");
+    logToSheets({evento:"inicio_sesion", ejercicio:"", respuesta:"", correcto:""});
+    modal.classList.add("show");
+  }
+  document.getElementById("btnStart").addEventListener("click", startGame);
+  inName.addEventListener("keydown",(e)=>{ if(e.key==="Enter") startGame(); });
+
+  document.getElementById("btnReplay").addEventListener("click", ()=>{
+    state.progress = {1:0,2:0,3:0}; state.finished = false;
+    state.score = 0; state.hits = 0; state.tries = 0;
+    document.getElementById("winModal").classList.remove("show");
+    renderHud(); setLevelUI(1); genExercise();
+  });
+
+  window.addEventListener("resize", ()=>{ applyScale(); buildGrid(); });
+
+  // ---------- Inicio ----------
+  applyScale();
+  genExercise();
+  renderHud();
+})();
+</script>
+</body>
+</html>
