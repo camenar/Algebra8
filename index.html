@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
-<meta name="description" content="Serie de clases interactivas de Álgebra 8° · I.E. Merceditas Gómez Martínez, Medellín. Portada e índice de las presentaciones semana a semana.">
+<meta name="description" content="Serie de clases interactivas de Álgebra 8° · I.E. Merceditas Gómez Martínez, Medellín. Índice de los tres períodos, semana a semana.">
 <meta property="og:title" content="Álgebra 8° · Serie de clases interactivas">
-<meta property="og:description" content="Período 2 — Construcción del Lenguaje Algebraico. Presentaciones semana a semana, I.E. Merceditas Gómez Martínez, Medellín.">
+<meta property="og:description" content="Los tres períodos del año: Universo Numérico, Lenguaje Algebraico y Modelación. Presentaciones semana a semana, I.E. Merceditas Gómez Martínez, Medellín.">
 <meta property="og:type" content="website">
 <title>Álgebra 8° · Portada de la serie · I.E. Merceditas Gómez Martínez</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -268,31 +268,119 @@ footer{
   .card{flex-direction:row}
   .bloque__range{margin-left:0;width:100%}
 }
+
+/* ============ SELECTOR DE PERÍODO ============ */
+.skip-link{
+  position:absolute;left:-9999px;top:0;z-index:99;
+  background:var(--ambar);color:var(--azul-noche);
+  padding:10px 18px;border-radius:0 0 10px 0;font-weight:700;font-size:var(--fs-sm);
+}
+.skip-link:focus{left:0}
+
+.periodos{
+  display:flex;flex-wrap:wrap;gap:10px;
+  margin-bottom:clamp(12px,1.6vw,18px);
+}
+.periodo-tab{
+  display:flex;align-items:center;gap:10px;
+  font-family:'DM Sans',sans-serif;
+  background:rgba(255,255,255,.07);
+  border:1px solid rgba(142,202,230,.32);
+  border-radius:100px;
+  padding:9px 18px 9px 12px;
+  color:#dbeef6;
+  cursor:pointer;
+  transition:background .18s ease, border-color .18s ease, transform .18s ease, color .18s ease;
+  max-width:100%;
+}
+.periodo-tab:hover{
+  background:rgba(255,255,255,.14);
+  border-color:var(--azul-cielo);
+  transform:translateY(-2px);
+}
+.periodo-tab__n{
+  font-family:'DM Serif Display',serif;
+  font-size:clamp(15px,1.25vw,20px);
+  line-height:1;
+  background:rgba(142,202,230,.22);
+  color:var(--azul-cielo);
+  border-radius:100px;
+  padding:5px 11px;
+  transition:background .18s ease, color .18s ease;
+}
+.periodo-tab__t{
+  font-size:var(--fs-sm);font-weight:500;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.periodo-tab.is-active{
+  background:var(--ambar);
+  border-color:var(--ambar);
+  color:var(--azul-noche);
+  font-weight:600;
+}
+.periodo-tab.is-active .periodo-tab__n{
+  background:var(--azul-noche);color:var(--ambar);
+}
+.periodo-tab.is-active:hover{transform:none}
+.periodo-tab:focus-visible{outline:3px solid var(--ambar);outline-offset:3px}
+.periodo-tab.is-active:focus-visible{outline-color:#fff}
+
+.periodo-sub{
+  font-size:var(--fs-sm);
+  color:#cfe4ee;
+  margin-bottom:clamp(26px,3.4vw,42px);
+}
+.periodo-sub b{color:var(--ambar);font-weight:700}
+.periodo-sub__f{color:var(--azul-cielo)}
+
+/* Nota de cierre del período */
+.nota-cierre{
+  margin-top:clamp(28px,4vw,48px);
+  padding:clamp(16px,2vw,22px) clamp(18px,2.4vw,28px);
+  background:var(--cielo-soft);
+  border-left:4px solid var(--azul-medio);
+  border-radius:12px;
+  font-size:var(--fs-sm);
+  color:var(--gris);
+  line-height:1.55;
+}
+.nota-cierre strong{color:var(--azul-noche)}
+
+@media (max-width:560px){
+  .periodo-tab__t{display:none}
+  .periodo-tab{padding:9px 14px}
+}
 </style>
 </head>
+
 <body>
+
+<a class="skip-link" href="#contenido">Saltar al contenido</a>
 
 <header class="hero">
   <div class="hero__glyphs" aria-hidden="true">
-    <span>3x + 2y</span>
-    <span>(a+b)&sup2;</span>
+    <span id="glifo-1">3x + 2y</span>
+    <span id="glifo-2">(a+b)&sup2;</span>
   </div>
   <div class="hero__inner">
     <p class="hero__kicker">I.E. Merceditas Gómez Martínez · Medellín</p>
     <h1 class="hero__title">Álgebra <em>8°</em></h1>
     <p class="hero__sub">Serie de clases interactivas para proyección en aula, semana a semana.</p>
-    <span class="periodo-badge">Período <b>2</b> · Construcción del Lenguaje Algebraico</span>
+
+    <nav class="periodos" id="periodos" role="tablist" aria-label="Seleccionar período académico"></nav>
+    <p class="periodo-sub" id="periodo-sub"></p>
+
     <div class="hero__meta">
       <div class="meta-item"><span class="k">Docente</span><span class="v">Carlos A. Mena Romaña</span></div>
       <div class="meta-item"><span class="k">Metodología</span><span class="v">GRR · Pedagogía activa</span></div>
       <div class="meta-item"><span class="k">Ritmo</span><span class="v">3 sesiones/semana · 55 min</span></div>
-      <div class="meta-item"><span class="k">Enfoque</span><span class="v">Social-crítico · DUA</span></div>
+      <div class="meta-item"><span class="k">Enfoque</span><span class="v" id="meta-enfoque">Social-crítico · DUA</span></div>
     </div>
   </div>
 </header>
 
-<main>
-  <section class="progreso" aria-label="Progreso de la serie">
+<main id="contenido">
+  <section class="progreso" aria-label="Progreso del período">
     <span class="progreso__txt"><b id="pub-count">0</b> de <span id="tot-count">13</span> semanas publicadas</span>
     <div class="progreso__bar"><div class="progreso__fill" id="prog-fill"></div></div>
     <span class="progreso__pct" id="prog-pct">0%</span>
@@ -300,7 +388,7 @@ footer{
 
   <div id="bloques"></div>
 
-  <section class="recursos" aria-label="Recursos interactivos">
+  <section class="recursos" id="recursos-sec" aria-label="Recursos interactivos">
     <div class="bloque__head">
       <span class="bloque__tag" style="background:#FFB703;color:#023047">Recursos</span>
       <h2 class="bloque__title">Juegos y manipulativos</h2>
@@ -309,148 +397,288 @@ footer{
     <div class="grid" id="recursos-grid"></div>
   </section>
 
-  <p style="margin-top:clamp(28px,4vw,48px);padding:clamp(16px,2vw,22px) clamp(18px,2.4vw,28px);
-            background:var(--cielo-soft);border-left:4px solid var(--azul-medio);border-radius:12px;
-            font-size:var(--fs-sm);color:var(--gris);line-height:1.55;">
-    <strong style="color:var(--azul-noche);">Continúa en el Período 3.</strong>
-    La factorización, la división de polinomios y el proyecto «Arquitectos Algebraicos»
-    se retoman al iniciar el tercer período.
-  </p>
+  <p class="nota-cierre" id="nota-cierre"></p>
 </main>
 
 <footer>
   <div class="footer__inner">
     <span class="brand">Álgebra 8°</span>
-    <span>Meta del período: <strong>perder el miedo a la «X»</strong> y entender el álgebra como un idioma para generalizar patrones.</span>
+    <span id="footer-meta"></span>
     <span><strong>2026</strong> · Área de Matemáticas</span>
   </div>
 </footer>
 
 <script>
 /* ==========================================================================
-   PANEL DE CONTROL — Índice de la serie Álgebra 8° (Período 2)
+   PANEL DE CONTROL — Portada de la serie Álgebra 8° · Los tres períodos
    --------------------------------------------------------------------------
-   PARA ENCENDER UNA SEMANA:  escribe la ruta del archivo en "archivo".
+   PARA ENCENDER UNA SEMANA:  escribe la ruta del archivo en  archivo:'...'
    PARA DEJARLA PENDIENTE:    deja  archivo:''
    "nota" es opcional (aparece pequeña bajo la estrategia).
-   El progreso, el % y las tarjetas se actualizan solos.
+   Si el archivo vive en OTRO repositorio, usa la URL absoluta completa
+   y agrega  nota:'Repositorio X'  para saber dónde está.
+   El progreso, el porcentaje y las tarjetas se actualizan solos.
+
+   OJO: GitHub Pages distingue mayúsculas de minúsculas. El nombre escrito
+   aquí debe coincidir EXACTAMENTE con el del archivo subido.
    ========================================================================== */
-const BLOQUES = [
-  {
-    tag:'Bloque 1', color:'#219EBC',
-    titulo:'Variables y Expresiones', rango:'Semanas 1 – 4',
-    semanas:[
-      { n:1, tema:'Traducción verbal ↔ simbólica', estrategia:'Teléfono Roto Algebraico',
-        archivo:'TraduccionAlgebraica.html' },
-      { n:2, tema:'Valor numérico de expresiones', estrategia:'La Máquina de Valores',
-        archivo:'ValorNumerico.html' },
-      { n:3, tema:'Términos semejantes', estrategia:'Mercado de Frutas',
-        archivo:'TerminosSemejantes.html' },
-      { n:4, tema:'Suma y resta de polinomios', estrategia:'Algeblocks físicos y virtuales',
-        archivo:'SumaRestaPolinomios.html' },
-    ]
-  },
-  {
-    tag:'Bloque 2', color:'#FB8500',
-    titulo:'Operaciones Multiplicativas y Productos Notables', rango:'Semanas 5 – 7',
-    semanas:[
-      { n:5, tema:'Monomio × polinomio · La Gran Distribución', estrategia:'Áreas Rectangulares',
-        archivo:'MonomioPorPolinomio/' },
-      { n:6, tema:'Polinomio × polinomio · La Doble Distribución', estrategia:'Modelo de áreas · doble reparto',
-        archivo:'Sem6_PolinomioPorPolinomio_8.html' },
-      { n:7, tema:'Productos notables', estrategia:'Descubrimiento de patrones',
-        archivo:'Sem7_ProductosNotables_8.html' },
-    ]
-  }
-];
 
-/* Recursos interactivos (juegos / manipulativos) */
-const RECURSOS = [
-  { icono:'＋', tema:'Sumando con Fichas Algebraicas',
-    desc:'Pares cero y combinación de términos · suma y resta',
-    archivo:'sumando_fichas.html' },
-  { icono:'▦', tema:'Multiplicando con Fichas Algebraicas',
-    desc:'Modelo de áreas · monomio y polinomio',
-    archivo:'multiplicacion_fichas.html' },
-];
+const PERIODOS = {
 
-/* ---- Renderizado de semanas ---- */
+/* ═══════════════ PERÍODO 1 ═══════════════════════════════════════════ */
+p1:{
+  num:1,
+  titulo:'El Universo Numérico y la Potenciación',
+  rango:'Feb 2 – May 1',
+  enfoque:'Concreto → abstracto',
+  glifos:['2⁵','√2'],
+  meta:'Meta del período: sentir la diferencia entre <strong>sumar y potenciar</strong>, y descubrir los «huecos» de la recta numérica.',
+  cierre:'<strong>Se construye en enero.</strong> Los decks del Período 1 se producirán antes del inicio del año escolar. El índice ya está listo para irlos encendiendo uno a uno.',
+  bloques:[
+    { tag:'Bloque 1', color:'#219EBC', titulo:'Enteros y Racionales', rango:'Semanas 1 – 4', semanas:[
+      { n:1, tema:'Diagnóstico + Enteros Z: suma, resta y ley de signos', estrategia:'Banqueros vs. Deudores', archivo:'' },
+      { n:2, tema:'Operaciones multiplicativas en Z', estrategia:'La Recta Numérica Humana', archivo:'' },
+      { n:3, tema:'Racionales Q: fracciones y decimales', estrategia:'Recetas Desastrosas', archivo:'' },
+      { n:4, tema:'Racionales en contextos financieros y de temperatura', estrategia:'El Descenso', archivo:'' },
+    ]},
+    { tag:'Bloque 2', color:'#FB8500', titulo:'Potenciación y Notación Científica', rango:'Semanas 5 – 9', semanas:[
+      { n:5, tema:'Propiedades de la potenciación', estrategia:'Doblado de Papel', archivo:'' },
+      { n:6, tema:'Proyecto «La Invasión Exponencial»', estrategia:'Simulación física + gráfica comparativa', archivo:'', nota:'Proyecto central del período' },
+      { n:7, tema:'Notación científica: potencias positivas', estrategia:'Viaje al Sol', archivo:'' },
+      { n:8, tema:'Notación científica: potencias negativas', estrategia:'Cazadores de Virus', archivo:'' },
+      { n:9, tema:'Evaluación y nivelación', estrategia:'Escape Room Matemático', archivo:'' },
+    ]},
+    { tag:'Bloque 3', color:'#FFB703', tagText:'#023047', titulo:'Radicación e Irracionales', rango:'Semanas 10 – 13', semanas:[
+      { n:10, tema:'Radicación como operación inversa', estrategia:'Cuadrados Perfectos', archivo:'' },
+      { n:11, tema:'Números irracionales: descubrimiento y ubicación', estrategia:'Midiendo la Diagonal', archivo:'' },
+      { n:12, tema:'La Espiral de Teodoro', estrategia:'Construcción plástica en cartulina', archivo:'' },
+      { n:13, tema:'Cierre Período 1 — Socialización y evaluación', estrategia:'Feria de la Espiral', archivo:'' },
+    ]},
+  ],
+  recursos:[]
+},
+
+/* ═══════════════ PERÍODO 2 ═══════════════════════════════════════════ */
+p2:{
+  num:2,
+  titulo:'Construcción del Lenguaje Algebraico',
+  rango:'May 4 – Ago 14',
+  enfoque:'Social-crítico · DUA',
+  glifos:['3x + 2y','(a+b)²'],
+  meta:'Meta del período: <strong>perder el miedo a la «X»</strong> y entender el álgebra como un idioma para generalizar patrones.',
+  cierre:'<strong>Período completo.</strong> Las siete semanas están publicadas. La factorización y el proyecto «Arquitectos Algebraicos» continúan en el Período 3.',
+  bloques:[
+    { tag:'Bloque 1', color:'#219EBC', titulo:'Variables y Expresiones', rango:'Semanas 1 – 4', semanas:[
+      { n:1, tema:'Traducción verbal ↔ simbólica', estrategia:'Teléfono Roto Algebraico', archivo:'TraduccionAlgebraica.html' },
+      { n:2, tema:'Valor numérico de expresiones', estrategia:'La Máquina de Valores', archivo:'ValorNumerico.html' },
+      { n:3, tema:'Términos semejantes', estrategia:'Mercado de Frutas', archivo:'TerminosSemejantes.html' },
+      { n:4, tema:'Suma y resta de polinomios', estrategia:'Algeblocks físicos y virtuales', archivo:'SumaRestaPolinomios.html' },
+    ]},
+    { tag:'Bloque 2', color:'#FB8500', titulo:'Operaciones Multiplicativas y Productos Notables', rango:'Semanas 5 – 7', semanas:[
+      { n:5, tema:'Monomio × polinomio · La Gran Distribución', estrategia:'Áreas Rectangulares', archivo:'MonomioPorPolinomio/' },
+      { n:6, tema:'Polinomio × polinomio · La Doble Distribución', estrategia:'Modelo de áreas · doble reparto', archivo:'Sem6_PolinomioPorPolinomio_8.html' },
+      { n:7, tema:'Productos notables', estrategia:'Descubrimiento de patrones', archivo:'Sem7_ProductosNotables_8.html' },
+    ]},
+  ],
+  recursos:[
+    { icono:'＋', tema:'Sumando con Fichas Algebraicas', desc:'Pares cero y combinación de términos · suma y resta', archivo:'sumando_fichas.html' },
+    { icono:'▦', tema:'Multiplicando con Fichas Algebraicas', desc:'Modelo de áreas · monomio y polinomio', archivo:'multiplicacion_fichas.html' },
+  ]
+},
+
+/* ═══════════════ PERÍODO 3 ═══════════════════════════════════════════ */
+p3:{
+  num:3,
+  titulo:'Modelación, Ecuaciones y Funciones',
+  rango:'Ago 17 – Nov 13',
+  enfoque:'Covariacional · CoRP',
+  glifos:['x² − 49','y = mx + b'],
+  meta:'Meta del período: pasar de <strong>describir el cambio a predecirlo</strong>, con la factorización y la función lineal como instrumentos.',
+  cierre:'<strong>En construcción.</strong> La planeación completa de las 13 semanas ya está lista. Los decks se publican semana a semana; el hilo covariacional articula los tres bloques y cierra en la Feria de Modelación.',
+  bloques:[
+    { tag:'Bloque 1', color:'#219EBC', titulo:'Bisagra Algebraica', rango:'Semanas 1 – 2', semanas:[
+      { n:1, tema:'Producto de dos binomios con término común y variación estructural', estrategia:'El rectángulo que cambia · deslizador de doble registro', archivo:'', nota:'Semana de 2 sesiones · lunes festivo' },
+      { n:2, tema:'Cubo de un binomio, cuadrado de un trinomio y cálculo mental', estrategia:'Cubos de cartulina y el atajo de la Minorista', archivo:'' },
+    ]},
+    { tag:'Bloque 2', color:'#FB8500', titulo:'Factorización', rango:'Semanas 3 – 7', semanas:[
+      { n:3, tema:'Factor común: monomio y agrupación de términos', estrategia:'La máquina de cambio', archivo:'' },
+      { n:4, tema:'Diferencia de cuadrados y trinomio cuadrado perfecto', estrategia:'Recorte y reacomodo de papel', archivo:'' },
+      { n:5, tema:'Trinomio de la forma x² + bx + c', estrategia:'Rectángulos de área fija · memofichas', archivo:'' },
+      { n:6, tema:'Trinomio ax² + bx + c y tabla de diferencias sucesivas', estrategia:'La pendiente escondida en lo cuadrático', archivo:'', nota:'Semana bisagra del período' },
+      { n:7, tema:'División de polinomios y proyecto «Arquitectos Algebraicos»', estrategia:'Del área a la dimensión faltante', archivo:'', nota:'Proyecto · punto de reciclaje del colegio' },
+    ]},
+    { tag:'Bloque 3', color:'#023047', titulo:'Función Lineal', rango:'Semanas 8 – 13', semanas:[
+      { n:8, tema:'Ecuaciones lineales y principio de equivalencia', estrategia:'La Balanza Humana', archivo:'' },
+      { n:9, tema:'Dependencia entre variables y plano cartesiano', estrategia:'Causa y Efecto + Batalla Naval Cartesiana', archivo:'', nota:'Semana de 2 sesiones · lunes festivo' },
+      { n:10, tema:'Pendiente como razón de cambio', estrategia:'Rampas y Escaleras · escaleras del colegio', archivo:'' },
+      { n:11, tema:'Ecuación de la recta: y = mx + b', estrategia:'Constructores de rectas', archivo:'' },
+      { n:12, tema:'Proyecto «La Carrera de las Tarifas»', estrategia:'Datos reales + graficación e igualación', archivo:'', nota:'Semana de 2 sesiones · lunes festivo' },
+      { n:13, tema:'Cierre de año — Feria de Modelación', estrategia:'Socialización pública + evaluación tipo Saber', archivo:'' },
+    ]},
+  ],
+  recursos:[
+    { icono:'◧', tema:'Deslizador de doble registro', desc:'Figura y tabla cambian a la vez · widget base de las 13 semanas', archivo:'' },
+  ]
+}
+
+};
+
+/* ══════════════ RENDERIZADO ══════════════════════════════════════════ */
 const dos = n => String(n).padStart(2,'0');
-const cont = document.getElementById('bloques');
-let total = 0, publicadas = 0;
+const ORDEN = ['p1','p2','p3'];
+const LS_KEY = 'algebra8_portada_periodo_v1';
 
-BLOQUES.forEach(b=>{
-  const sec = document.createElement('section');
-  sec.className = 'bloque';
+const $ = id => document.getElementById(id);
 
-  const head = document.createElement('div');
-  head.className = 'bloque__head';
-  head.innerHTML = `
-    <span class="bloque__tag" style="background:${b.color}">${b.tag}</span>
-    <h2 class="bloque__title">${b.titulo}</h2>
-    <span class="bloque__range">${b.rango}</span>`;
-  sec.appendChild(head);
+/* --- Pestañas de período --- */
+const navEl = $('periodos');
+ORDEN.forEach(k=>{
+  const p = PERIODOS[k];
+  const b = document.createElement('button');
+  b.type = 'button';
+  b.className = 'periodo-tab';
+  b.id = 'tab-' + k;
+  b.dataset.k = k;
+  b.setAttribute('role','tab');
+  b.innerHTML = `<span class="periodo-tab__n">P${p.num}</span><span class="periodo-tab__t">${p.titulo}</span>`;
+  b.addEventListener('click', ()=> activar(k, true));
+  navEl.appendChild(b);
+});
 
-  const grid = document.createElement('div');
-  grid.className = 'grid';
+function activar(k, guardar){
+  const p = PERIODOS[k];
+  if(!p) return;
 
-  b.semanas.forEach(s=>{
-    total++;
-    const viva = s.archivo && s.archivo.trim() !== '';
-    if(viva) publicadas++;
-
-    const notaHtml = s.nota ? `<span class="card__nota">${s.nota}</span>` : '';
-    const inner = `
-      <div class="card__num" style="${viva?`background:${b.color}`:''}">${dos(s.n)}</div>
-      <div class="card__body">
-        <span class="card__tema">${s.tema}</span>
-        <span class="card__estrategia">«${s.estrategia}»</span>
-        ${notaHtml}
-        <span class="card__pill">${viva ? 'Abrir clase →' : 'En construcción'}</span>
-      </div>`;
-
-    let el;
-    if(viva){
-      el = document.createElement('a');
-      el.className = 'card card--live';
-      el.href = s.archivo;
-      el.setAttribute('aria-label', `Semana ${s.n}: ${s.tema}. Abrir presentación.`);
-    }else{
-      el = document.createElement('div');
-      el.className = 'card card--soon';
-      el.setAttribute('aria-label', `Semana ${s.n}: ${s.tema}. En construcción.`);
-    }
-    el.innerHTML = inner;
-    grid.appendChild(el);
+  /* pestañas */
+  ORDEN.forEach(x=>{
+    const t = $('tab-'+x);
+    const on = (x === k);
+    t.classList.toggle('is-active', on);
+    t.setAttribute('aria-selected', on ? 'true' : 'false');
+    t.tabIndex = on ? 0 : -1;
   });
 
-  sec.appendChild(grid);
-  cont.appendChild(sec);
+  /* hero */
+  $('glifo-1').textContent = p.glifos[0];
+  $('glifo-2').textContent = p.glifos[1];
+  $('periodo-sub').innerHTML = `Período <b>${p.num}</b> · ${p.titulo} &nbsp;·&nbsp; <span class="periodo-sub__f">${p.rango} de 2026</span>`;
+  $('meta-enfoque').textContent = p.enfoque;
+  $('footer-meta').innerHTML = p.meta;
+  $('nota-cierre').innerHTML = p.cierre;
+
+  /* bloques */
+  const cont = $('bloques');
+  cont.innerHTML = '';
+  let total = 0, publicadas = 0;
+
+  p.bloques.forEach(b=>{
+    const sec = document.createElement('section');
+    sec.className = 'bloque';
+
+    const head = document.createElement('div');
+    head.className = 'bloque__head';
+    head.innerHTML = `
+      <span class="bloque__tag" style="background:${b.color};color:${b.tagText||'#fff'}">${b.tag}</span>
+      <h2 class="bloque__title">${b.titulo}</h2>
+      <span class="bloque__range">${b.rango}</span>`;
+    sec.appendChild(head);
+
+    const grid = document.createElement('div');
+    grid.className = 'grid';
+
+    b.semanas.forEach(s=>{
+      total++;
+      const viva = s.archivo && s.archivo.trim() !== '';
+      if(viva) publicadas++;
+
+      const notaHtml = s.nota ? `<span class="card__nota">${s.nota}</span>` : '';
+      const inner = `
+        <div class="card__num" style="${viva?`background:${b.color};color:${b.tagText||'#fff'}`:''}">${dos(s.n)}</div>
+        <div class="card__body">
+          <span class="card__tema">${s.tema}</span>
+          <span class="card__estrategia">«${s.estrategia}»</span>
+          ${notaHtml}
+          <span class="card__pill">${viva ? 'Abrir clase →' : 'En construcción'}</span>
+        </div>`;
+
+      let el;
+      if(viva){
+        el = document.createElement('a');
+        el.className = 'card card--live';
+        el.href = s.archivo;
+        el.setAttribute('aria-label', `Semana ${s.n}: ${s.tema}. Abrir presentación.`);
+      }else{
+        el = document.createElement('div');
+        el.className = 'card card--soon';
+        el.setAttribute('aria-label', `Semana ${s.n}: ${s.tema}. En construcción.`);
+      }
+      el.innerHTML = inner;
+      grid.appendChild(el);
+    });
+
+    sec.appendChild(grid);
+    cont.appendChild(sec);
+  });
+
+  /* recursos */
+  const rSec = $('recursos-sec');
+  const rGrid = $('recursos-grid');
+  rGrid.innerHTML = '';
+  if(!p.recursos || p.recursos.length === 0){
+    rSec.style.display = 'none';
+  }else{
+    rSec.style.display = '';
+    p.recursos.forEach(r=>{
+      const viva = r.archivo && r.archivo.trim() !== '';
+      const el = document.createElement(viva ? 'a' : 'div');
+      el.className = 'card ' + (viva ? 'card--live card--recurso' : 'card--soon');
+      if(viva){ el.href = r.archivo; el.setAttribute('aria-label', `${r.tema}. Abrir recurso.`); }
+      el.innerHTML = `
+        <div class="card__num">${r.icono || '★'}</div>
+        <div class="card__body">
+          <span class="card__tema">${r.tema}</span>
+          <span class="card__estrategia">${r.desc||''}</span>
+          <span class="card__pill">${viva ? 'Abrir recurso →' : 'En construcción'}</span>
+        </div>`;
+      rGrid.appendChild(el);
+    });
+  }
+
+  /* progreso */
+  $('pub-count').textContent = publicadas;
+  $('tot-count').textContent = total;
+  const pct = total ? Math.round(publicadas/total*100) : 0;
+  $('prog-pct').textContent = pct + '%';
+  $('prog-fill').style.width = '0%';
+  requestAnimationFrame(()=>{ requestAnimationFrame(()=>{ $('prog-fill').style.width = pct + '%'; }); });
+
+  /* estado */
+  if(guardar){
+    try{ localStorage.setItem(LS_KEY, k); }catch(e){}
+    if(history.replaceState) history.replaceState(null, '', '#' + k);
+    else location.hash = k;
+  }
+  document.title = `Álgebra 8° · Período ${p.num} — ${p.titulo} · I.E. Merceditas Gómez Martínez`;
+}
+
+/* navegación con flechas entre pestañas */
+navEl.addEventListener('keydown', e=>{
+  if(e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+  const i = ORDEN.indexOf(document.activeElement.dataset.k);
+  if(i < 0) return;
+  const j = e.key === 'ArrowRight' ? (i+1) % ORDEN.length : (i-1+ORDEN.length) % ORDEN.length;
+  $('tab-'+ORDEN[j]).focus();
+  activar(ORDEN[j], true);
+  e.preventDefault();
 });
 
-/* ---- Renderizado de recursos ---- */
-const rGrid = document.getElementById('recursos-grid');
-RECURSOS.forEach(r=>{
-  const viva = r.archivo && r.archivo.trim() !== '';
-  const el = document.createElement(viva ? 'a' : 'div');
-  el.className = 'card ' + (viva ? 'card--live card--recurso' : 'card--soon');
-  if(viva){ el.href = r.archivo; el.setAttribute('aria-label', `${r.tema}. Abrir recurso.`); }
-  el.innerHTML = `
-    <div class="card__num">${r.icono || '★'}</div>
-    <div class="card__body">
-      <span class="card__tema">${r.tema}</span>
-      <span class="card__estrategia">${r.desc||''}</span>
-      <span class="card__pill">${viva ? 'Abrir recurso →' : 'En construcción'}</span>
-    </div>`;
-  rGrid.appendChild(el);
-});
-
-/* ---- Progreso (solo semanas) ---- */
-document.getElementById('pub-count').textContent = publicadas;
-document.getElementById('tot-count').textContent = total;
-const pct = Math.round(publicadas/total*100);
-document.getElementById('prog-pct').textContent = pct + '%';
-requestAnimationFrame(()=>{ document.getElementById('prog-fill').style.width = pct + '%'; });
+/* período inicial: #hash  →  último visitado  →  Período 3 */
+let inicial = (location.hash || '').replace('#','');
+if(!PERIODOS[inicial]){
+  try{ inicial = localStorage.getItem(LS_KEY); }catch(e){ inicial = null; }
+}
+if(!PERIODOS[inicial]) inicial = 'p3';
+activar(inicial, false);
 </script>
 </body>
 </html>
