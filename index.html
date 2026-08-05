@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+<meta name="description" content="Serie de clases interactivas de Álgebra 8° · I.E. Merceditas Gómez Martínez, Medellín. Portada e índice de las presentaciones semana a semana.">
+<meta property="og:title" content="Álgebra 8° · Serie de clases interactivas">
+<meta property="og:description" content="Período 2 — Construcción del Lenguaje Algebraico. Presentaciones semana a semana, I.E. Merceditas Gómez Martínez, Medellín.">
+<meta property="og:type" content="website">
+<title>Álgebra 8° · Portada de la serie · I.E. Merceditas Gómez Martínez</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  /* Paleta coolors — decks HTML Álgebra 8° */
+  --azul-cielo:#8ECAE6;
+  --azul-medio:#219EBC;
+  --azul-noche:#023047;
+  --ambar:#FFB703;
+  --naranja:#FB8500;
+  /* Derivados de apoyo */
+  --azul-noche-2:#023f5c;
+  --cielo-soft:#eaf6fb;
+  --tinta:#0d2733;
+  --gris:#5b6b73;
+  --gris-2:#8a969c;
+  --linea:#d7e3e8;
+  --papel:#f6fafc;
+
+  --fs-hero:clamp(44px, 6vw, 96px);
+  --fs-h2:clamp(24px, 2.4vw, 40px);
+  --fs-card:clamp(18px, 1.35vw, 24px);
+  --fs-sm:clamp(14px, 1vw, 18px);
+  --fs-xs:clamp(12px, 0.85vw, 15px);
+  --pad:clamp(20px, 4vw, 64px);
+  --radius:18px;
+}
+
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{
+    animation-duration:.01ms!important;animation-iteration-count:1!important;
+    transition-duration:.01ms!important;scroll-behavior:auto!important;
+  }
+}
+
+html{scroll-behavior:smooth}
+body{
+  font-family:'DM Sans',system-ui,-apple-system,sans-serif;
+  color:var(--tinta);
+  background:var(--papel);
+  line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+}
+
+a{color:inherit;text-decoration:none}
+
+a:focus-visible, .card:focus-visible{
+  outline:3px solid var(--ambar);
+  outline-offset:3px;
+  border-radius:8px;
+}
+
+.sr-only{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important;}
+
+/* ============ HERO ============ */
+.hero{
+  position:relative;
+  background:
+    radial-gradient(1200px 600px at 82% -10%, rgba(33,158,188,.35), transparent 60%),
+    radial-gradient(900px 500px at 8% 120%, rgba(255,183,3,.18), transparent 55%),
+    linear-gradient(135deg, var(--azul-noche) 0%, var(--azul-noche-2) 100%);
+  color:#fff;
+  padding:clamp(40px,6vw,90px) var(--pad) clamp(48px,6vw,84px);
+  overflow:hidden;
+}
+.hero__glyphs{
+  position:absolute;inset:0;pointer-events:none;
+  font-family:'DM Serif Display',serif;
+  color:rgba(142,202,230,.08);
+  font-size:clamp(80px,14vw,220px);
+  line-height:.9;
+  user-select:none;
+}
+.hero__glyphs span{position:absolute;font-style:italic}
+.hero__glyphs span:nth-child(1){top:8%;right:6%}
+.hero__glyphs span:nth-child(2){bottom:-6%;left:4%;color:rgba(255,183,3,.07)}
+.hero__inner{position:relative;max-width:1400px;margin:0 auto}
+
+.hero__kicker{
+  display:inline-flex;align-items:center;gap:10px;
+  font-size:var(--fs-sm);font-weight:500;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--azul-cielo);
+  margin-bottom:clamp(14px,2vw,22px);
+}
+.hero__kicker::before{
+  content:"";width:34px;height:2px;background:var(--ambar);display:inline-block;
+}
+.hero__title{
+  font-family:'DM Serif Display',serif;
+  font-size:var(--fs-hero);
+  line-height:.98;
+  letter-spacing:-.01em;
+  margin-bottom:clamp(10px,1.6vw,18px);
+}
+.hero__title em{color:var(--ambar);font-style:italic}
+.hero__sub{
+  font-size:clamp(18px,1.7vw,28px);
+  font-weight:300;
+  color:#dbeef6;
+  max-width:44ch;
+  margin-bottom:clamp(26px,3.4vw,40px);
+}
+
+.periodo-badge{
+  display:inline-block;
+  background:rgba(255,255,255,.08);
+  border:1px solid rgba(142,202,230,.4);
+  border-radius:100px;
+  padding:8px 20px;
+  font-size:var(--fs-sm);
+  font-weight:500;
+  color:#fff;
+  margin-bottom:clamp(28px,3.6vw,44px);
+}
+.periodo-badge b{color:var(--ambar)}
+
+.hero__meta{
+  display:flex;flex-wrap:wrap;gap:clamp(20px,3vw,48px);
+  border-top:1px solid rgba(255,255,255,.14);
+  padding-top:clamp(20px,2.6vw,30px);
+}
+.meta-item{min-width:120px}
+.meta-item .k{
+  display:block;font-size:var(--fs-xs);letter-spacing:.1em;text-transform:uppercase;
+  color:var(--azul-cielo);margin-bottom:4px;font-weight:600;
+}
+.meta-item .v{font-size:clamp(15px,1.15vw,20px);font-weight:500;color:#fff}
+
+/* ============ MAIN ============ */
+main{max-width:1400px;margin:0 auto;padding:clamp(28px,4vw,56px) var(--pad) clamp(60px,7vw,100px)}
+
+/* Progreso */
+.progreso{
+  display:flex;align-items:center;gap:clamp(16px,2vw,28px);flex-wrap:wrap;
+  background:#fff;border:1px solid var(--linea);border-radius:var(--radius);
+  padding:clamp(18px,2vw,26px) clamp(20px,2.4vw,32px);
+  margin-bottom:clamp(36px,4.5vw,60px);
+  box-shadow:0 4px 18px rgba(2,48,71,.05);
+}
+.progreso__txt{font-size:var(--fs-card);font-weight:600;color:var(--azul-noche);white-space:nowrap}
+.progreso__txt b{color:var(--naranja)}
+.progreso__bar{
+  flex:1;min-width:180px;height:12px;border-radius:100px;
+  background:var(--cielo-soft);overflow:hidden;position:relative;
+}
+.progreso__fill{
+  height:100%;border-radius:100px;
+  background:linear-gradient(90deg,var(--azul-medio),var(--naranja));
+  width:0;transition:width 1s cubic-bezier(.22,.68,0,1.1);
+}
+.progreso__pct{font-size:var(--fs-sm);font-weight:600;color:var(--gris);white-space:nowrap}
+
+/* Bloque */
+.bloque{margin-bottom:clamp(36px,5vw,64px)}
+.bloque__head{
+  display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;
+  margin-bottom:clamp(16px,2vw,26px);
+  padding-bottom:12px;
+  border-bottom:2px solid var(--linea);
+}
+.bloque__tag{
+  font-size:var(--fs-xs);font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  padding:4px 12px;border-radius:100px;color:#fff;
+}
+.bloque__title{
+  font-family:'DM Serif Display',serif;
+  font-size:var(--fs-h2);color:var(--azul-noche);line-height:1.05;
+}
+.bloque__range{font-size:var(--fs-sm);color:var(--gris-2);font-weight:500;margin-left:auto}
+
+/* Grid de tarjetas */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(clamp(260px,22vw,320px),1fr));
+  gap:clamp(14px,1.6vw,22px);
+}
+
+.card{
+  position:relative;display:flex;gap:16px;
+  background:#fff;border:1px solid var(--linea);
+  border-radius:var(--radius);padding:clamp(16px,1.6vw,22px);
+  transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+  min-height:150px;
+}
+.card__num{
+  flex-shrink:0;
+  font-family:'DM Serif Display',serif;
+  font-size:clamp(30px,2.8vw,46px);
+  line-height:1;
+  width:clamp(54px,5vw,68px);height:clamp(54px,5vw,68px);
+  display:flex;align-items:center;justify-content:center;
+  border-radius:14px;color:#fff;
+}
+.card__body{display:flex;flex-direction:column;gap:6px;flex:1;min-width:0}
+.card__tema{
+  font-size:var(--fs-card);font-weight:600;color:var(--azul-noche);line-height:1.22;
+}
+.card__estrategia{
+  font-size:var(--fs-sm);font-style:italic;color:var(--gris);line-height:1.35;
+}
+.card__nota{font-size:var(--fs-xs);color:var(--gris-2);letter-spacing:.02em}
+.card__pill{
+  margin-top:auto;align-self:flex-start;
+  display:inline-flex;align-items:center;gap:6px;
+  font-size:var(--fs-sm);font-weight:600;
+  padding:6px 14px;border-radius:100px;
+}
+
+/* Tarjeta viva (publicada) */
+.card--live{cursor:pointer}
+.card--live:hover{
+  transform:translateY(-4px);
+  box-shadow:0 14px 30px rgba(2,48,71,.14);
+  border-color:var(--azul-medio);
+}
+.card--live .card__pill{
+  background:var(--azul-medio);color:#fff;
+  transition:background .18s ease, transform .18s ease;
+}
+.card--live:hover .card__pill{background:var(--naranja);transform:translateX(3px)}
+
+/* Tarjeta en construcción */
+.card--soon{
+  border-style:dashed;border-color:#cbd8dd;background:#fbfdfe;
+}
+.card--soon .card__num{background:#e5eef2!important;color:var(--gris-2)!important}
+.card--soon .card__tema{color:var(--gris)}
+.card--soon .card__pill{
+  background:var(--cielo-soft);color:var(--azul-medio);
+  border:1px dashed var(--azul-medio);
+}
+
+/* ============ RECURSOS ============ */
+.recursos{margin-top:clamp(12px,2vw,24px)}
+.recursos .grid{grid-template-columns:repeat(auto-fill,minmax(clamp(260px,26vw,380px),1fr))}
+.card--recurso .card__num{
+  background:var(--ambar);color:var(--azul-noche);
+  font-family:'DM Sans',sans-serif;font-size:clamp(22px,2vw,30px);font-weight:700;
+}
+.card--recurso:hover .card__pill{background:var(--naranja)}
+
+/* ============ FOOTER ============ */
+footer{
+  background:var(--azul-noche);color:#cfe4ee;
+  padding:clamp(30px,4vw,50px) var(--pad);
+}
+.footer__inner{
+  max-width:1400px;margin:0 auto;
+  display:flex;flex-wrap:wrap;gap:16px 40px;align-items:center;justify-content:space-between;
+  font-size:var(--fs-sm);
+}
+.footer__inner strong{color:#fff;font-weight:600}
+.footer__inner .brand{font-family:'DM Serif Display',serif;font-size:clamp(20px,2vw,28px);color:#fff}
+
+@media (max-width:560px){
+  .card{flex-direction:row}
+  .bloque__range{margin-left:0;width:100%}
+}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero__glyphs" aria-hidden="true">
+    <span>3x + 2y</span>
+    <span>(a+b)&sup2;</span>
+  </div>
+  <div class="hero__inner">
+    <p class="hero__kicker">I.E. Merceditas Gómez Martínez · Medellín</p>
+    <h1 class="hero__title">Álgebra <em>8°</em></h1>
+    <p class="hero__sub">Serie de clases interactivas para proyección en aula, semana a semana.</p>
+    <span class="periodo-badge">Período <b>2</b> · Construcción del Lenguaje Algebraico</span>
+    <div class="hero__meta">
+      <div class="meta-item"><span class="k">Docente</span><span class="v">Carlos A. Mena Romaña</span></div>
+      <div class="meta-item"><span class="k">Metodología</span><span class="v">GRR · Pedagogía activa</span></div>
+      <div class="meta-item"><span class="k">Ritmo</span><span class="v">3 sesiones/semana · 55 min</span></div>
+      <div class="meta-item"><span class="k">Enfoque</span><span class="v">Social-crítico · DUA</span></div>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="progreso" aria-label="Progreso de la serie">
+    <span class="progreso__txt"><b id="pub-count">0</b> de <span id="tot-count">13</span> semanas publicadas</span>
+    <div class="progreso__bar"><div class="progreso__fill" id="prog-fill"></div></div>
+    <span class="progreso__pct" id="prog-pct">0%</span>
+  </section>
+
+  <div id="bloques"></div>
+
+  <section class="recursos" aria-label="Recursos interactivos">
+    <div class="bloque__head">
+      <span class="bloque__tag" style="background:#FFB703;color:#023047">Recursos</span>
+      <h2 class="bloque__title">Juegos y manipulativos</h2>
+      <span class="bloque__range">Complementos de práctica</span>
+    </div>
+    <div class="grid" id="recursos-grid"></div>
+  </section>
+
+  <p style="margin-top:clamp(28px,4vw,48px);padding:clamp(16px,2vw,22px) clamp(18px,2.4vw,28px);
+            background:var(--cielo-soft);border-left:4px solid var(--azul-medio);border-radius:12px;
+            font-size:var(--fs-sm);color:var(--gris);line-height:1.55;">
+    <strong style="color:var(--azul-noche);">Continúa en el Período 3.</strong>
+    La factorización, la división de polinomios y el proyecto «Arquitectos Algebraicos»
+    se retoman al iniciar el tercer período.
+  </p>
+</main>
+
+<footer>
+  <div class="footer__inner">
+    <span class="brand">Álgebra 8°</span>
+    <span>Meta del período: <strong>perder el miedo a la «X»</strong> y entender el álgebra como un idioma para generalizar patrones.</span>
+    <span><strong>2026</strong> · Área de Matemáticas</span>
+  </div>
+</footer>
+
+<script>
+/* ==========================================================================
+   PANEL DE CONTROL — Índice de la serie Álgebra 8° (Período 2)
+   --------------------------------------------------------------------------
+   PARA ENCENDER UNA SEMANA:  escribe la ruta del archivo en "archivo".
+   PARA DEJARLA PENDIENTE:    deja  archivo:''
+   "nota" es opcional (aparece pequeña bajo la estrategia).
+   El progreso, el % y las tarjetas se actualizan solos.
+   ========================================================================== */
+const BLOQUES = [
+  {
+    tag:'Bloque 1', color:'#219EBC',
+    titulo:'Variables y Expresiones', rango:'Semanas 1 – 4',
+    semanas:[
+      { n:1, tema:'Traducción verbal ↔ simbólica', estrategia:'Teléfono Roto Algebraico',
+        archivo:'TraduccionAlgebraica.html' },
+      { n:2, tema:'Valor numérico de expresiones', estrategia:'La Máquina de Valores',
+        archivo:'ValorNumerico.html' },
+      { n:3, tema:'Términos semejantes', estrategia:'Mercado de Frutas',
+        archivo:'TerminosSemejantes.html' },
+      { n:4, tema:'Suma y resta de polinomios', estrategia:'Algeblocks físicos y virtuales',
+        archivo:'SumaRestaPolinomios.html' },
+    ]
+  },
+  {
+    tag:'Bloque 2', color:'#FB8500',
+    titulo:'Operaciones Multiplicativas y Productos Notables', rango:'Semanas 5 – 7',
+    semanas:[
+      { n:5, tema:'Monomio × polinomio · La Gran Distribución', estrategia:'Áreas Rectangulares',
+        archivo:'MonomioPorPolinomio/' },
+      { n:6, tema:'Polinomio × polinomio · La Doble Distribución', estrategia:'Modelo de áreas · doble reparto',
+        archivo:'Sem6_PolinomioPorPolinomio_8.html' },
+      { n:7, tema:'Productos notables', estrategia:'Descubrimiento de patrones',
+        archivo:'Sem7_ProductosNotables_8.html' },
+    ]
+  }
+];
+
+/* Recursos interactivos (juegos / manipulativos) */
+const RECURSOS = [
+  { icono:'＋', tema:'Sumando con Fichas Algebraicas',
+    desc:'Pares cero y combinación de términos · suma y resta',
+    archivo:'sumando_fichas.html' },
+  { icono:'▦', tema:'Multiplicando con Fichas Algebraicas',
+    desc:'Modelo de áreas · monomio y polinomio',
+    archivo:'multiplicacion_fichas.html' },
+];
+
+/* ---- Renderizado de semanas ---- */
+const dos = n => String(n).padStart(2,'0');
+const cont = document.getElementById('bloques');
+let total = 0, publicadas = 0;
+
+BLOQUES.forEach(b=>{
+  const sec = document.createElement('section');
+  sec.className = 'bloque';
+
+  const head = document.createElement('div');
+  head.className = 'bloque__head';
+  head.innerHTML = `
+    <span class="bloque__tag" style="background:${b.color}">${b.tag}</span>
+    <h2 class="bloque__title">${b.titulo}</h2>
+    <span class="bloque__range">${b.rango}</span>`;
+  sec.appendChild(head);
+
+  const grid = document.createElement('div');
+  grid.className = 'grid';
+
+  b.semanas.forEach(s=>{
+    total++;
+    const viva = s.archivo && s.archivo.trim() !== '';
+    if(viva) publicadas++;
+
+    const notaHtml = s.nota ? `<span class="card__nota">${s.nota}</span>` : '';
+    const inner = `
+      <div class="card__num" style="${viva?`background:${b.color}`:''}">${dos(s.n)}</div>
+      <div class="card__body">
+        <span class="card__tema">${s.tema}</span>
+        <span class="card__estrategia">«${s.estrategia}»</span>
+        ${notaHtml}
+        <span class="card__pill">${viva ? 'Abrir clase →' : 'En construcción'}</span>
+      </div>`;
+
+    let el;
+    if(viva){
+      el = document.createElement('a');
+      el.className = 'card card--live';
+      el.href = s.archivo;
+      el.setAttribute('aria-label', `Semana ${s.n}: ${s.tema}. Abrir presentación.`);
+    }else{
+      el = document.createElement('div');
+      el.className = 'card card--soon';
+      el.setAttribute('aria-label', `Semana ${s.n}: ${s.tema}. En construcción.`);
+    }
+    el.innerHTML = inner;
+    grid.appendChild(el);
+  });
+
+  sec.appendChild(grid);
+  cont.appendChild(sec);
+});
+
+/* ---- Renderizado de recursos ---- */
+const rGrid = document.getElementById('recursos-grid');
+RECURSOS.forEach(r=>{
+  const viva = r.archivo && r.archivo.trim() !== '';
+  const el = document.createElement(viva ? 'a' : 'div');
+  el.className = 'card ' + (viva ? 'card--live card--recurso' : 'card--soon');
+  if(viva){ el.href = r.archivo; el.setAttribute('aria-label', `${r.tema}. Abrir recurso.`); }
+  el.innerHTML = `
+    <div class="card__num">${r.icono || '★'}</div>
+    <div class="card__body">
+      <span class="card__tema">${r.tema}</span>
+      <span class="card__estrategia">${r.desc||''}</span>
+      <span class="card__pill">${viva ? 'Abrir recurso →' : 'En construcción'}</span>
+    </div>`;
+  rGrid.appendChild(el);
+});
+
+/* ---- Progreso (solo semanas) ---- */
+document.getElementById('pub-count').textContent = publicadas;
+document.getElementById('tot-count').textContent = total;
+const pct = Math.round(publicadas/total*100);
+document.getElementById('prog-pct').textContent = pct + '%';
+requestAnimationFrame(()=>{ document.getElementById('prog-fill').style.width = pct + '%'; });
+</script>
+</body>
+</html>
