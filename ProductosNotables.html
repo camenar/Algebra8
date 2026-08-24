@@ -1,0 +1,1061 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+<meta name="description" content="Recurso educativo interactivo: Productos Notables — Álgebra 8° — I.E. Merceditas Gómez Martínez, Medellín">
+<meta property="og:title" content="Álgebra 8° · Productos Notables · P3 Sem. 2">
+<title>Álgebra 8° · P3 Sem. 2 · Productos Notables · I.E. Merceditas Gómez Martínez</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+  onload="window._katexReady=true;document.dispatchEvent(new Event('katex-ready'))"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/dm-sans@5.0.21/index.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/dm-serif-display@5.0.19/index.css">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#0F2040;--blue:#1C3A6E;--blue-mid:#2E75B6;
+  --green:#2E7D32;--teal:#00695C;--amber:#C47C1A;--red:#7B1818;
+  --green-b:#27AE60;--amber-b:#E08C20;--red-b:#9B2020;
+  --acc:#219EBC;--acc-b:#1A7FA0;--acc-soft:#E0F4F8;
+  --cream:#F7F6F2;--warm:#EDECEA;--border:#C0BDB4;
+  --text:#1C1C1E;--text2:#3A3A3C;--text3:#6B6B6E;
+  --fs-xs:clamp(18px,1.25vw,26px);
+  --fs-sm:clamp(22px,1.6vw,32px);
+  --fs-md:clamp(26px,2vw,40px);
+  --fs-lg:clamp(32px,2.6vw,50px);
+  --fs-xl:clamp(38px,3.2vw,62px);
+  --fs-2xl:clamp(48px,4.2vw,80px);
+  --fs-3xl:clamp(60px,5.8vw,105px);
+  --gap:clamp(14px,1.6vw,22px);
+  --pad:clamp(20px,2.8vw,40px);
+  --line-h:1.55;
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+}
+.nbtn:focus,#fs-btn:focus,.video-link:focus,button:focus{outline:3px solid var(--amber-b);outline-offset:2px;box-shadow:0 0 0 6px rgba(224,140,32,.3)}
+.sr-only{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0}
+
+html,body{width:100%;height:100%;overflow:hidden;background:#0a101e;
+  font-family:'DM Sans',system-ui,sans-serif;font-size:16px;line-height:var(--line-h)}
+#deck{width:100vw;height:100vh;position:relative;overflow:hidden}
+.slide{position:absolute;inset:0;display:flex;flex-direction:column;
+  opacity:0;pointer-events:none;background:var(--cream)}
+.slide.active{opacity:1;pointer-events:all}
+.slide.enter-r{animation:inR .32s cubic-bezier(.22,.68,0,1.1) forwards}
+.slide.enter-l{animation:inL .32s cubic-bezier(.22,.68,0,1.1) forwards}
+@keyframes inR{from{transform:translateX(3.5%);opacity:0}to{transform:none;opacity:1}}
+@keyframes inL{from{transform:translateX(-3.5%);opacity:0}to{transform:none;opacity:1}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes popIn{0%{opacity:0;transform:scale(.92) translateY(6px)}100%{opacity:1;transform:none}}
+
+header.hdr{background:var(--navy);height:clamp(44px,5.2vh,60px);display:flex;align-items:center;
+  padding:0 var(--pad);justify-content:space-between;flex-shrink:0}
+.hdr-b{font-size:var(--fs-xs);font-weight:500;color:#A8C4E8;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hdr-badge{background:var(--blue);color:#fff;font-size:var(--fs-xs);font-weight:800;
+  padding:6px clamp(12px,1.8vw,22px);border-radius:6px;letter-spacing:.08em;
+  text-transform:uppercase;white-space:nowrap;flex-shrink:0;margin-left:14px}
+
+footer.ftr{background:var(--warm);border-top:2px solid var(--border);height:clamp(36px,4vh,48px);
+  display:flex;align-items:center;padding:0 var(--pad);justify-content:space-between;flex-shrink:0}
+.ftr span{font-size:var(--fs-xs);color:var(--text3);font-weight:500}
+
+main.body{flex:1;overflow-y:auto;overflow-x:hidden;min-height:0;scroll-behavior:smooth;
+  padding:clamp(16px,2.2vh,28px) var(--pad) clamp(12px,1.5vh,20px);
+  display:flex;flex-direction:column;gap:var(--gap)}
+main.body::-webkit-scrollbar{width:6px}
+main.body::-webkit-scrollbar-track{background:transparent}
+main.body::-webkit-scrollbar-thumb{background:rgba(0,0,0,.15);border-radius:3px}
+main.body::-webkit-scrollbar-thumb:hover{background:rgba(0,0,0,.3)}
+
+/* ── PORTADA ─────────────────────────────────────── */
+.s-portada{background:var(--acc)}
+.portada-inner{width:100%;max-width:1400px;margin:0 auto;
+  padding:clamp(36px,6vh,80px) clamp(48px,7vw,100px);
+  display:flex;flex-direction:column;gap:clamp(16px,2.8vh,32px)}
+.p-ie{font-size:var(--fs-sm);color:rgba(255,255,255,.8);text-align:center;letter-spacing:.05em}
+.p-area{font-size:var(--fs-md);font-weight:700;color:rgba(255,255,255,.92);
+  text-align:center;letter-spacing:.16em;text-transform:uppercase}
+.p-title{font-family:'DM Serif Display',serif;font-size:var(--fs-3xl);
+  color:#fff;text-align:center;line-height:1.05;animation:fadeUp .9s .1s both}
+.p-sub{font-size:var(--fs-xl);color:rgba(255,255,255,.88);text-align:center;
+  font-style:italic;animation:fadeUp .9s .25s both}
+.p-divider{height:3px;background:rgba(255,255,255,.25);border-radius:2px;margin:clamp(8px,1.5vh,14px) 0}
+.p-card-grid{display:grid;grid-template-columns:repeat(3,1fr);
+  gap:clamp(12px,1.4vw,20px);animation:fadeUp .9s .4s both}
+.p-card{background:rgba(255,255,255,.09);border:2px solid rgba(255,255,255,.18);
+  border-radius:14px;padding:clamp(18px,2.2vh,30px) clamp(14px,1.8vw,24px);
+  display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center;
+  transition:transform .25s,background .25s}
+.p-card:hover{background:rgba(255,255,255,.15);transform:translateY(-3px)}
+.p-card-num{width:clamp(48px,5vw,64px);height:clamp(48px,5vw,64px);border-radius:50%;
+  background:rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;
+  font-size:var(--fs-lg);font-weight:700;color:#fff}
+.p-card-title{font-size:var(--fs-lg);font-weight:700;color:#fff;line-height:1.15}
+.p-card-sub{font-size:var(--fs-sm);color:rgba(255,255,255,.78);font-style:italic;line-height:1.4}
+.p-docente{font-size:var(--fs-sm);color:rgba(255,255,255,.7);text-align:right;font-style:italic}
+
+/* ── ELEMENTOS DE SLIDES ─────────────────────────── */
+.title-row{display:flex;align-items:flex-start;gap:16px}
+.accent-bar{width:clamp(10px,1vw,14px);border-radius:6px;flex-shrink:0;align-self:stretch;min-height:48px}
+.slide-title{font-family:'DM Serif Display',serif;font-size:var(--fs-xl);color:var(--navy);line-height:1.08}
+.slide-instr{font-size:var(--fs-md);color:var(--text2);font-style:italic;margin-top:6px;line-height:1.4}
+
+/* ── TARJETAS EJERCICIOS ─────────────────────────── */
+.ex-card{background:#fff;border-radius:14px;border:2.5px solid var(--border);
+  border-top:6px solid transparent;
+  padding:clamp(14px,1.8vh,22px) clamp(14px,1.8vw,22px);
+  display:flex;flex-direction:column;gap:clamp(10px,1.2vh,14px);
+  opacity:0;transform:translateY(16px);transition:opacity .45s,transform .45s}
+.ex-card.vis{opacity:1;transform:none}
+.ex-head{display:flex;align-items:center;gap:14px}
+.ex-num{width:clamp(32px,3.4vw,48px);height:clamp(32px,3.4vw,48px);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-weight:800;font-size:var(--fs-md);color:#fff;flex-shrink:0}
+.ex-title{font-size:var(--fs-md);font-weight:800;color:var(--text)}
+.ex-ctx{font-size:var(--fs-sm);color:var(--text2);font-style:italic;line-height:1.4}
+.ex-sol{background:var(--acc-soft);border:2px solid var(--acc);border-radius:10px;
+  padding:clamp(10px,1.2vh,16px) clamp(12px,1.6vw,18px);
+  font-size:var(--fs-sm);color:var(--text);line-height:1.5}
+.ex-sol strong{color:var(--acc)}
+
+/* ── PASOS DENTRO DE EJERCICIO (reveal progresivo) ── */
+.ex-step{
+  opacity:0;
+  transform:translateY(10px);
+  transition:opacity .45s ease, transform .45s ease;
+  padding:clamp(10px,1.2vh,14px) clamp(12px,1.4vw,18px);
+  border-radius:10px;
+  background:var(--warm);
+  border-left:5px solid var(--acc);
+  font-size:var(--fs-sm);
+  color:var(--text);
+  line-height:1.55;
+  position:relative;
+}
+.ex-step.vis{opacity:1;transform:none;animation:popIn .45s ease both}
+.ex-step .step-lbl{
+  display:inline-block;
+  font-size:var(--fs-xs);
+  font-weight:800;
+  color:var(--acc);
+  text-transform:uppercase;
+  letter-spacing:.08em;
+  margin-bottom:4px;
+}
+.ex-step.final{
+  background:var(--navy);
+  color:#fff;
+  border-left-color:var(--amber-b);
+  font-size:var(--fs-md);
+  font-weight:800;
+  text-align:center;
+}
+.ex-step.final .step-lbl{color:var(--amber-b)}
+.ex-step.final .katex{color:#fff}
+.ex-step.warn{
+  background:#FFF0F0;
+  border-left-color:var(--red-b);
+}
+.ex-step.warn .step-lbl{color:var(--red-b)}
+.ex-step.warn strong{color:var(--red-b)}
+
+/* ── INDICADOR DE PASOS ──────────────────────────── */
+.click-dots{display:flex;gap:8px;justify-content:center;margin:6px 0}
+.click-dot{width:10px;height:10px;border-radius:50%;background:var(--border);transition:background .25s,transform .25s}
+.click-dot.active{background:var(--acc);transform:scale(1.25)}
+
+/* ── TABLA COMPARATIVA ───────────────────────────── */
+.comp-table{width:100%;border-collapse:collapse;font-size:var(--fs-sm)}
+.comp-table th{background:var(--acc);color:#fff;
+  padding:clamp(10px,1.2vh,16px) clamp(12px,1.5vw,20px);text-align:left}
+.comp-table td{padding:clamp(10px,1.2vh,15px) clamp(12px,1.5vw,20px);
+  border-bottom:2px solid var(--border);color:var(--text);
+  vertical-align:top;line-height:1.4}
+.comp-table tr:nth-child(even) td{background:#fff}
+.comp-table tr:nth-child(odd) td{background:var(--warm)}
+.comp-table td:first-child{font-weight:800;color:var(--acc);background:var(--acc-soft)!important}
+.comp-table tr.tabla-row{opacity:0;transition:opacity .4s}
+.comp-table tr.tabla-row.vis{opacity:1}
+
+/* ── METACOGNICIÓN ───────────────────────────────── */
+.meta-q{background:#E0F2F1;border:3px solid var(--teal);border-radius:14px;
+  padding:clamp(14px,1.8vh,24px) clamp(16px,2vw,28px)}
+.meta-qlbl{font-size:var(--fs-sm);font-weight:800;color:var(--teal);
+  text-transform:uppercase;letter-spacing:.12em;margin-bottom:10px}
+.meta-qtxt{font-family:'DM Serif Display',serif;font-size:var(--fs-lg);
+  color:var(--text);font-style:italic;line-height:1.5}
+
+.semaforo{display:flex;flex-direction:column;gap:clamp(10px,1.2vh,16px);margin-top:var(--gap)}
+.sema-item{display:flex;align-items:flex-start;gap:clamp(14px,1.6vw,22px);
+  background:#fff;border:2px solid var(--border);border-radius:12px;
+  padding:clamp(12px,1.4vh,18px) clamp(14px,1.8vw,22px);
+  opacity:0;transform:translateY(10px);transition:opacity .4s,transform .4s}
+.sema-item.vis{opacity:1;transform:none}
+.sema-circle{width:clamp(36px,4vw,54px);height:clamp(36px,4vw,54px);border-radius:50%;flex-shrink:0}
+.sema-txt{font-size:var(--fs-md);color:var(--text);font-weight:600;line-height:1.4}
+.sema-sub{display:block;font-size:var(--fs-xs);color:var(--text3);font-weight:400;
+  font-style:italic;margin-top:6px}
+
+/* ── RECURSOS AUDIOVISUALES ──────────────────────── */
+.video-row{display:grid;grid-template-columns:1fr 1fr;gap:var(--gap)}
+.video-card{background:#fff;border:2.5px solid var(--border);border-radius:14px;
+  padding:clamp(14px,1.8vh,22px) clamp(16px,2vw,26px);
+  display:flex;flex-direction:column;gap:12px;border-top:5px solid var(--acc);
+  transition:transform .25s,box-shadow .25s}
+.video-card:hover{transform:translateY(-3px);box-shadow:0 8px 20px rgba(0,0,0,.08)}
+.video-lbl{font-size:var(--fs-xs);font-weight:800;color:var(--acc);
+  text-transform:uppercase;letter-spacing:.1em}
+.video-title{font-size:var(--fs-md);font-weight:700;color:var(--navy);line-height:1.35}
+.video-desc{font-size:var(--fs-sm);color:var(--text2);line-height:1.5;font-style:italic}
+.video-link{display:inline-flex;align-items:center;gap:8px;
+  background:var(--acc);color:#fff;text-decoration:none;
+  padding:8px 18px;border-radius:8px;font-size:var(--fs-sm);font-weight:700;
+  align-self:flex-start;transition:background .2s}
+.video-link:hover{background:var(--acc-b)}
+
+/* ── SOC FML ─────────────────────────────────────── */
+.soc-fml{background:var(--warm);border:3px solid var(--acc);border-radius:14px;
+  padding:clamp(16px,2vh,28px) clamp(18px,2.2vw,32px);
+  text-align:center;font-size:var(--fs-xl);color:var(--navy);
+  opacity:0;transition:opacity .4s}
+.soc-fml.vis{opacity:1}
+.var-row{opacity:0;transition:opacity .4s}
+.var-row.vis{opacity:1}
+
+/* ── DIVISOR DE SESIÓN ───────────────────────────── */
+.s-sesion{background:var(--navy)}
+.ses-inner{display:flex;flex:1;align-items:stretch;min-height:0}
+.ses-num-panel{flex:0 0 30%;background:var(--acc);display:flex;flex-direction:column;
+  justify-content:center;align-items:center;gap:clamp(6px,1vh,12px)}
+.ses-lbl{color:rgba(255,255,255,.8);font-size:var(--fs-md);letter-spacing:.3em;
+  text-transform:uppercase;font-weight:800}
+.ses-num{font-family:'DM Serif Display',serif;font-size:clamp(110px,16vw,240px);
+  color:#fff;line-height:1;animation:fadeUp .7s .1s both}
+.ses-content{flex:1;display:flex;flex-direction:column;justify-content:center;
+  gap:clamp(14px,2vh,26px);padding:clamp(28px,4.5vw,64px);overflow-y:auto}
+.ses-title{font-family:'DM Serif Display',serif;font-size:var(--fs-2xl);color:#fff;line-height:1.12}
+.ses-sub{font-size:var(--fs-md);color:#A8C4E8;font-style:italic;line-height:1.4}
+.ses-agenda{display:flex;flex-direction:column;gap:clamp(8px,1.2vh,14px)}
+.ses-agenda-lbl{font-size:var(--fs-xs);font-weight:800;color:rgba(255,255,255,.55);
+  text-transform:uppercase;letter-spacing:.18em}
+.ses-item{display:flex;align-items:center;gap:clamp(10px,1.4vw,18px);
+  background:rgba(255,255,255,.07);border:2px solid rgba(255,255,255,.16);
+  border-radius:12px;padding:clamp(9px,1.3vh,15px) clamp(14px,1.8vw,24px)}
+.ses-item-time{background:var(--acc);color:#fff;font-weight:800;font-size:var(--fs-xs);
+  border-radius:8px;padding:4px 12px;flex-shrink:0;min-width:clamp(78px,8vw,110px);text-align:center}
+.ses-item-txt{color:#fff;font-size:var(--fs-sm);font-weight:600;line-height:1.35}
+
+/* ── NAVEGACIÓN ──────────────────────────────────── */
+#nav{position:fixed;bottom:clamp(14px,1.8vh,22px);left:50%;transform:translateX(-50%);
+  display:flex;align-items:center;gap:clamp(10px,1.2vw,18px);z-index:200}
+.nbtn{background:rgba(15,32,64,.88);color:#fff;border:none;cursor:pointer;
+  font-size:clamp(20px,2.2vw,28px);width:clamp(44px,4.8vw,58px);height:clamp(44px,4.8vw,58px);
+  border-radius:50%;display:flex;align-items:center;justify-content:center;
+  transition:background .15s,transform .15s}
+.nbtn:hover{background:rgba(28,58,110,.95);transform:scale(1.08)}
+.nbtn:active{transform:scale(.95)}
+#ncnt{font-size:clamp(15px,1.6vw,20px);color:rgba(255,255,255,.9);
+  background:rgba(15,32,64,.85);padding:clamp(6px,.8vh,10px) clamp(14px,1.8vw,22px);
+  border-radius:24px;font-family:monospace;font-weight:700}
+#fs-btn{position:fixed;top:clamp(8px,1vh,14px);right:clamp(12px,1.4vw,20px);
+  background:rgba(15,32,64,.8);color:#fff;border:none;cursor:pointer;
+  font-size:clamp(18px,1.8vw,24px);width:clamp(36px,3.8vw,46px);height:clamp(36px,3.8vw,46px);
+  border-radius:8px;display:flex;align-items:center;justify-content:center;z-index:200;
+  transition:background .15s}
+#fs-btn:hover{background:rgba(28,58,110,.95)}
+#pbar{position:fixed;bottom:0;left:0;height:5px;background:var(--acc);
+  transition:width .32s ease;z-index:100}
+#hint{position:fixed;bottom:clamp(16px,2.2vh,26px);left:clamp(20px,2.8vw,34px);
+  font-size:14px;color:rgba(255,255,255,.55);background:rgba(15,32,64,.75);
+  padding:8px 16px;border-radius:24px;font-family:monospace;
+  transition:opacity .3s;z-index:100}
+.feedback-msg{position:fixed;top:clamp(70px,9vh,90px);left:50%;transform:translateX(-50%);
+  background:var(--green);color:#fff;padding:12px 24px;border-radius:10px;
+  font-size:var(--fs-sm);font-weight:600;box-shadow:0 6px 16px rgba(0,0,0,.25);
+  z-index:300;opacity:0;transition:opacity .3s;pointer-events:none;max-width:90vw;text-align:center}
+.feedback-msg.error{background:var(--red-b)}
+.feedback-msg.show{opacity:1}
+
+.katex{font-size:1.2em!important}
+.katex-display{margin:0!important}
+.kbig .katex{font-size:1.4em!important}
+
+@media(max-width:1100px) and (orientation:landscape){
+  :root{--fs-xs:clamp(16px,1.6vw,24px);--fs-sm:clamp(19px,2vw,28px);
+    --fs-md:clamp(22px,2.4vw,34px);--fs-lg:clamp(26px,2.8vw,42px);
+    --fs-xl:clamp(30px,3.4vw,50px);--fs-2xl:clamp(38px,4.4vw,64px)}
+  .video-row{grid-template-columns:1fr}
+}
+@media(min-width:1920px){
+  :root{--fs-xs:26px;--fs-sm:32px;--fs-md:40px;--fs-lg:50px;
+    --fs-xl:62px;--fs-2xl:80px;--fs-3xl:105px;--gap:22px;--pad:40px}
+}
+@media print{
+  #deck,#nav,#fs-btn,#pbar,#hint,.feedback-msg,.click-dots{display:none!important}
+  .slide{position:static!important;opacity:1!important;page-break-after:always;background:#fff!important}
+  .slide.active{pointer-events:auto}
+  body{background:#fff;height:auto;overflow:visible}
+  main.body{padding:24px;overflow:visible}
+  .ex-step{opacity:1!important;transform:none!important}
+}
+</style>
+</head>
+<body>
+<div id="deck"></div>
+<nav id="nav" role="navigation" aria-label="Navegación de diapositivas">
+  <button class="nbtn" id="bp" aria-label="Diapositiva anterior">◂</button>
+  <span id="ncnt" role="status" aria-live="polite">1 / 18</span>
+  <button class="nbtn" id="bn" aria-label="Siguiente diapositiva o paso">▸</button>
+</nav>
+<button id="fs-btn" aria-label="Pantalla completa">⛶</button>
+<div id="pbar" role="progressbar" aria-valuemin="1" aria-valuemax="18" aria-valuenow="1" style="width:0%"></div>
+<div id="hint">← → o toca los bordes · F = pantalla completa</div>
+<script>
+const LS_KEY='algebra8_p3s2_progress_v3';
+function saveProgress(slide,clicks){try{localStorage.setItem(LS_KEY,JSON.stringify({slide,clicks,timestamp:Date.now()}))}catch(e){}}
+function loadProgress(){try{const d=JSON.parse(localStorage.getItem(LS_KEY));if(d&&Date.now()-d.timestamp<604800000)return d}catch(e){}return null}
+function showFeedback(msg,isError){const el=document.createElement('div');el.className='feedback-msg'+(isError?' error':'');el.textContent=msg;document.body.appendChild(el);requestAnimationFrame(()=>el.classList.add('show'));setTimeout(()=>{el.classList.remove('show');setTimeout(()=>el.remove(),300)},3000)}
+function announceToScreenReader(msg){const el=document.createElement('div');el.setAttribute('role','status');el.setAttribute('aria-live','polite');el.className='sr-only';el.textContent=msg;document.body.appendChild(el);setTimeout(()=>el.remove(),1000)}
+function updateClickDots(container,cur,max){
+  if(!container) return;
+  const dots=container.querySelectorAll('.click-dot');
+  dots.forEach((d,i)=>d.classList.toggle('active',i<cur));
+}
+
+const SLIDES=[
+
+{cls:'s-portada',noH:true,noF:true,clicks:0,html:`
+<div class="portada-inner">
+  <div class="p-ie">I.E. Merceditas Gómez Martínez · Medellín</div>
+  <div class="p-area">Á L G E B R A &ensp; 8 °</div>
+  <div class="p-title">Productos Notables</div>
+  <div class="p-sub">Cuadrado de binomio · Cuadrado de diferencia · Suma por diferencia · Producto de la forma</div>
+  <div class="p-divider"></div>
+  <div class="p-card-grid">
+    <div class="p-card"><div class="p-card-num">1</div><div class="p-card-title">(a+b)²</div><div class="p-card-sub">Widget SVG interactivo + práctica guiada</div></div>
+    <div class="p-card"><div class="p-card-num">2</div><div class="p-card-title">(a−b)²</div><div class="p-card-sub">Contraste visual + práctica mixta</div></div>
+    <div class="p-card"><div class="p-card-num">3</div><div class="p-card-title">(a+b)(a−b) + (x+a)(x+b)</div><div class="p-card-sub">Cálculo mental + tabla unificada</div></div>
+  </div>
+  <div class="p-docente">Período 3 · Semana 2 · Carlos Alberto Mena Romaña</div>
+</div>`},
+
+{cls:'s-sesion',noH:true,noF:true,clicks:0,html:`
+<div class="ses-inner">
+  <div class="ses-num-panel"><div class="ses-lbl">Sesión</div><div class="ses-num">1</div></div>
+  <div class="ses-content">
+    <div class="ses-title">Cuadrado de un binomio</div>
+    <div class="ses-sub">Widget SVG interactivo + formalización + práctica guiada</div>
+    <div class="ses-agenda">
+      <div class="ses-agenda-lbl">Momentos HTML (25 min)</div>
+      <div class="ses-item"><div class="ses-item-time">10 min</div><div class="ses-item-txt">Widget SVG: modelo de área dinámico</div></div>
+      <div class="ses-item"><div class="ses-item-time">10 min</div><div class="ses-item-txt">Yo hago + Hacemos: ejercicios con revelado</div></div>
+      <div class="ses-item"><div class="ses-item-time">5 min</div><div class="ses-item-txt">Metacognición y semáforo</div></div>
+    </div>
+  </div>
+</div>`},
+
+{bread:'Sem. 2 · Sesión 1 · (a+b)²',badge:'FORMALIZACIÓN',badgeColor:'#219EBC',clicks:2,fL:'Sem. 2 · Widget interactivo',html:`
+<div class="title-row">
+  <div class="accent-bar" style="background:#219EBC"></div>
+  <div style="flex:1">
+    <div class="slide-title">Modelo de área interactivo: (a+b)²</div>
+    <div class="slide-instr">Mueve los valores de a y b y observa cómo cambian las 4 regiones.</div>
+  </div>
+</div>
+<div style="display:flex;gap:var(--gap);flex-wrap:wrap;align-items:flex-start">
+  <div id="svgContainer" style="flex:1.3;min-width:min(100%,420px);background:#fff;border:2.5px solid var(--border);border-radius:14px;padding:clamp(14px,1.8vh,20px)">
+    <svg id="areaModel" viewBox="0 0 420 420" style="width:100%;max-height:55vh"></svg>
+    <div style="display:flex;gap:24px;margin-top:16px;align-items:center;flex-wrap:wrap">
+      <label style="font-size:var(--fs-sm);font-weight:700;color:var(--navy)">a = <span id="aVal">5</span>
+        <input type="range" id="sliderA" min="2" max="8" value="5" style="width:140px;vertical-align:middle"></label>
+      <label style="font-size:var(--fs-sm);font-weight:700;color:var(--navy)">b = <span id="bVal">3</span>
+        <input type="range" id="sliderB" min="1" max="5" value="3" style="width:140px;vertical-align:middle"></label>
+    </div>
+  </div>
+  <div style="flex:1;min-width:min(100%,280px);display:flex;flex-direction:column;gap:var(--gap)">
+    <div class="ex-card vis" style="border-top-color:#219EBC">
+      <div style="font-size:var(--fs-md);font-weight:800;color:var(--navy)">Fórmula</div>
+      <div class="kbig" style="text-align:center;padding:12px 0">\\((a+b)^2 = a^2 + 2ab + b^2\\)</div>
+    </div>
+    <div class="ex-card" style="border-top-color:var(--green)" data-c="1">
+      <div style="font-size:var(--fs-sm);font-weight:800;color:var(--green)">Verificación numérica</div>
+      <div id="verifyBox" style="font-size:var(--fs-sm);color:var(--text);line-height:1.7;padding:8px 0"></div>
+    </div>
+    <div class="ex-card" style="border-top-color:var(--amber)" data-c="2">
+      <div style="font-size:var(--fs-sm);font-weight:800;color:var(--amber)">¿Qué pasaría sin el 2ab?</div>
+      <div style="font-size:var(--fs-sm);color:var(--text);line-height:1.6">Sin los dos rectángulos, el área sería solo \\(a^2+b^2\\), que es <strong style="color:var(--red)">MENOR</strong> que \\((a+b)^2\\). La diferencia es exactamente \\(2ab\\).</div>
+    </div>
+  </div>
+</div>`,
+onEnter:function(){
+  const svg=document.getElementById('areaModel');
+  const sA=document.getElementById('sliderA');
+  const sB=document.getElementById('sliderB');
+  if(!svg||!sA||!sB) return;
+  function draw(){
+    const a=+sA.value,b=+sB.value;
+    document.getElementById('aVal').textContent=a;
+    document.getElementById('bVal').textContent=b;
+    const S=380,total=a+b,sc=S/total,ax=a*sc,bx=b*sc,ox=20,oy=20;
+    svg.innerHTML='';
+    const ns='http://www.w3.org/2000/svg';
+    function rect(x,y,w,h,fill,stroke){const r=document.createElementNS(ns,'rect');r.setAttribute('x',x);r.setAttribute('y',y);r.setAttribute('width',w);r.setAttribute('height',h);r.setAttribute('fill',fill);r.setAttribute('stroke',stroke||'#023047');r.setAttribute('stroke-width','2');svg.appendChild(r)}
+    function txt(x,y,text,size,color,bold){const t=document.createElementNS(ns,'text');t.setAttribute('x',x);t.setAttribute('y',y);t.setAttribute('text-anchor','middle');t.setAttribute('dominant-baseline','central');t.setAttribute('font-size',size||'18');t.setAttribute('fill',color||'#023047');if(bold)t.setAttribute('font-weight','bold');t.setAttribute('font-family','DM Sans,sans-serif');t.textContent=text;svg.appendChild(t)}
+    rect(ox,oy,ax,ax,'#8ECAE6');
+    rect(ox+ax,oy,bx,ax,'#FFB703');
+    rect(ox,oy+ax,ax,bx,'#FFB703');
+    rect(ox+ax,oy+ax,bx,bx,'#FB8500');
+    txt(ox+ax/2,oy+ax/2,'a²='+a*a,Math.min(24,ax/3),'#023047',true);
+    txt(ox+ax+bx/2,oy+ax/2,'ab='+a*b,Math.min(20,bx/2.5),'#023047');
+    txt(ox+ax/2,oy+ax+bx/2,'ab='+a*b,Math.min(20,bx/2.5),'#023047');
+    txt(ox+ax+bx/2,oy+ax+bx/2,'b²='+b*b,Math.min(18,bx/3),'#fff',true);
+    txt(ox+ax/2,oy-8,'a='+a,16,'#1C3A6E',true);
+    txt(ox+ax+bx/2,oy-8,'b='+b,16,'#1C3A6E',true);
+    txt(ox-12,oy+ax/2,'a',16,'#1C3A6E',true);
+    txt(ox-12,oy+ax+bx/2,'b',16,'#1C3A6E',true);
+    const vb=document.getElementById('verifyBox');
+    if(vb){const tot=(a+b)*(a+b);vb.innerHTML='('+a+'+'+b+')² = '+(a+b)+'² = <strong>'+tot+'</strong><br>'+a+'² + 2·'+a+'·'+b+' + '+b+'² = '+(a*a)+' + '+(2*a*b)+' + '+(b*b)+' = <strong>'+(a*a+2*a*b+b*b)+'</strong> ✓';}
+  }
+  sA.addEventListener('input',draw);
+  sB.addEventListener('input',draw);
+  draw();
+},
+onReveal:function(n){document.querySelectorAll('[data-c="'+n+'"]').forEach(function(e){e.classList.add('vis')})}},
+
+/* ═══════════════════════════════════════════════════════
+   SLIDE 4 — YO HAGO (a+b)²  ·  6 clicks (3 por ejercicio)
+═══════════════════════════════════════════════════════ */
+{bread:'Sem. 2 · Sesión 1 · (a+b)²',badge:'YO HAGO',badgeColor:'#219EBC',clicks:6,fL:'Sem. 2 · Sesión 1 · Ejemplo resuelto paso a paso',html:`
+<div class="title-row">
+  <div class="accent-bar" style="background:#219EBC"></div>
+  <div style="flex:1">
+    <div class="slide-title">Expandir paso a paso</div>
+    <div class="slide-instr">Cada clic revela un paso. Observa cómo se aplica la fórmula.</div>
+  </div>
+</div>
+<div class="click-dots" aria-hidden="true">
+  <div class="click-dot"></div><div class="click-dot"></div><div class="click-dot"></div>
+  <div class="click-dot"></div><div class="click-dot"></div><div class="click-dot"></div>
+</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--gap)">
+
+  <!-- EJERCICIO 1 -->
+  <div class="ex-card vis" style="border-top-color:#219EBC">
+    <div class="ex-head"><div class="ex-num" style="background:#219EBC">1</div><div class="ex-title">Expandir \\((m+3)^2\\)</div></div>
+
+    <div class="ex-step" data-c="1">
+      <div class="step-lbl">Paso 1 · Identificar</div>
+      \\(a = m\\), &ensp; \\(b = 3\\)
+    </div>
+
+    <div class="ex-step" data-c="2">
+      <div class="step-lbl">Paso 2 · Aplicar fórmula</div>
+      \\(a^2 + 2ab + b^2\\)<br>
+      \\(= m^2 + 2(m)(3) + 3^2\\)
+    </div>
+
+    <div class="ex-step final" data-c="3">
+      <div class="step-lbl">Paso 3 · Resultado</div>
+      \\(= m^2 + 6m + 9\\) ✓
+    </div>
+  </div>
+
+  <!-- EJERCICIO 2 -->
+  <div class="ex-card vis" style="border-top-color:var(--amber)">
+    <div class="ex-head"><div class="ex-num" style="background:var(--amber)">2</div><div class="ex-title">Expandir \\((2x+5)^2\\)</div></div>
+
+    <div class="ex-step" data-c="4">
+      <div class="step-lbl">Paso 1 · Identificar</div>
+      \\(a = 2x\\), &ensp; \\(b = 5\\)
+    </div>
+
+    <div class="ex-step" data-c="5">
+      <div class="step-lbl">Paso 2 · Aplicar fórmula</div>
+      \\((2x)^2 + 2(2x)(5) + 5^2\\)
+    </div>
+
+    <div class="ex-step final" data-c="6">
+      <div class="step-lbl">Paso 3 · Resultado</div>
+      \\(= 4x^2 + 20x + 25\\) ✓
+    </div>
+
+    <div class="ex-step warn" data-c="6">
+      <div class="step-lbl">⚠ Error frecuente</div>
+      \\((2x)^2 = 4x^2\\), <strong>NO</strong> \\(2x^2\\). Hay que elevar <em>todo</em> el término \\(2x\\).
+    </div>
+  </div>
+
+</div>`,
+onReveal:function(n){
+  document.querySelectorAll('.slide.active [data-c="'+n+'"]').forEach(function(e){e.classList.add('vis')});
+  updateClickDots(document.querySelector('.slide.active'),n,6);
+}},
+
+{bread:'Sem. 2 · Sesión 1 · (a+b)²',badge:'HACEMOS',badgeColor:'var(--green)',clicks:0,fL:'Sem. 2 · Sesión 1 · Consigna',html:`
+<div class="title-row">
+  <div class="accent-bar" style="background:var(--green)"></div>
+  <div style="flex:1">
+    <div class="slide-title">Tu turno — Expande en el cuaderno</div>
+    <div class="slide-instr">Aplica la fórmula (a+b)² = a² + 2ab + b². Verifica con sustitución numérica al menos uno.</div>
+  </div>
+</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--gap)">
+  <div class="ex-card vis" style="border-top-color:var(--green)">
+    <div class="ex-head"><div class="ex-num" style="background:var(--green)">1</div><div class="ex-title">\\((n+6)^2\\)</div></div>
+    <div class="ex-ctx">Identifica a y b, luego aplica la fórmula.</div>
+  </div>
+  <div class="ex-card vis" style="border-top-color:var(--green)">
+    <div class="ex-head"><div class="ex-num" style="background:var(--green)">2</div><div class="ex-title">\\((3a+4)^2\\)</div></div>
+    <div class="ex-ctx">¡Cuidado! ¿Cuánto es (3a)²?</div>
+  </div>
+  <div class="ex-card vis" style="border-top-color:var(--green)">
+    <div class="ex-head"><div class="ex-num" style="background:var(--green)">3</div><div class="ex-title">\\((x+y)^2\\)</div></div>
+    <div class="ex-ctx">Dos letras diferentes. Verifica con x=2, y=3.</div>
+  </div>
+  <div class="ex-card vis" style="border-top-color:var(--green)">
+    <div class="ex-head"><div class="ex-num" style="background:var(--green)">4</div><div class="ex-title">\\((5p+2q)^2\\)</div></div>
+    <div class="ex-ctx">Coeficientes en ambos términos. Paso previo obligatorio: elevar cada factor al cuadrado.</div>
+  </div>
+</div>`},
+
+{bread:'Sem. 2 · Sesión 1 · (a+b)²',badge:'SOCIALIZACIÓN',badgeColor:'var(--green)',clicks:4,fL:'Sem. 2 · Sesión 1 · Respuestas',html:`
+<div class="title-row">
+  <div class="accent-bar" style="background:var(--green)"></div>
+  <div style="flex:1">
+    <div class="slide-title">Verificamos juntos</div>
+    <div class="slide-instr">Contrasta tu resultado con cada clic. ¿Coincide? Si no, busca el error.</div>
+  </div>
+</div>
+<div class="click-dots" aria-hidden="true"><div class="click-dot"></div><div class="click-dot"></div><div class="click-dot"></div><div class="click-dot"></div></div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--gap)">
+  <div class="ex-card" style="border-top-color:var(--green)" data-c="1">
+    <div class="ex-head"><div class="ex-num" style="background:var(--green)">1</div><div class="ex-title">\\((n+6)^2\\)</div></div>
+    <div class="ex-sol"><strong>= n² + 12n + 36</strong></div>
+  </div>
+  <div class="ex-card" style="border-top-color:var(--green)" data-c="2">
+    <div class="ex-head"><div class="ex-num" style="background:var(--green)">2</div><div class="ex-title">\\((3a+4)^2\\)</div></div>
+    <div class="ex-sol"><strong>= 9a² + 24a + 16</strong><br><em style="color:var(--red)">⚠ (3a)² = 9a², no 3a²</em></div>
+  </div>
+  <div class="ex-card" style="border-top-color:var(--green)" data-c="3">
+    <div class="ex-head"><div class="ex-num" style="background:var(--green)">3</div><div class="ex-title">\\((x+y)^2\\)</div></div>
+    <div class="ex-sol"><strong>= x² + 2xy + y²</strong><br>Verif: (2+3)² = 25 = 4+12+9 ✓</div>
+  </div>
+  <div class="ex-card" style="border-top-color:var(--green)" data-c="4">
+    <div class="ex-head"><div class="ex-num" style="background:var(--green)">4</div><div class="ex-title">\\((5p+2q)^2\\)</div></div>
+    <div class="ex-sol"><strong>= 25p² + 20pq + 4q²</strong></div>
+  </div>
+</div>`,
+onReveal:function(n){
+  document.querySelectorAll('.slide.active [data-c="'+n+'"]').forEach(function(e){e.classList.add('vis')});
+  updateClickDots(document.querySelector('.slide.active'),n,4);
+}},
+
+{cls:'s-sesion',noH:true,noF:true,clicks:0,html:`
+<div class="ses-inner">
+  <div class="ses-num-panel" style="background:var(--amber)"><div class="ses-lbl">Sesión</div><div class="ses-num">2</div></div>
+  <div class="ses-content">
+    <div class="ses-title">Cuadrado de una diferencia</div>
+    <div class="ses-sub">Contraste visual (a+b)² vs (a−b)² + práctica mixta obligada</div>
+    <div class="ses-agenda">
+      <div class="ses-agenda-lbl">Momentos HTML (25 min)</div>
+      <div class="ses-item"><div class="ses-item-time" style="background:var(--amber)">8 min</div><div class="ses-item-txt">Comparación animada: ¿qué cambia?</div></div>
+      <div class="ses-item"><div class="ses-item-time" style="background:var(--amber)">12 min</div><div class="ses-item-txt">Práctica mixta: sumas y diferencias intercaladas</div></div>
+      <div class="ses-item"><div class="ses-item-time" style="background:var(--amber)">5 min</div><div class="ses-item-txt">Metacognición: ¿por qué b² queda positivo?</div></div>
+    </div>
+  </div>
+</div>`},
+
+{bread:'Sem. 2 · Sesión 2 · (a−b)²',badge:'FORMALIZACIÓN',badgeColor:'var(--amber)',clicks:2,fL:'Sem. 2 · Sesión 2 · Comparación',html:`
+<div class="title-row">
+  <div class="accent-bar" style="background:var(--amber)"></div>
+  <div style="flex:1">
+    <div class="slide-title">¿Qué cambia entre (a+b)² y (a−b)²?</div>
+    <div class="slide-instr">Solo UN signo cambia. ¿Cuál? ¿Por qué b² queda positivo en ambos?</div>
+  </div>
+</div>
+<div class="click-dots" aria-hidden="true"><div class="click-dot"></div><div class="click-dot"></div></div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--gap)">
+  <div class="ex-card vis" style="border-top-color:#219EBC;text-align:center">
+    <div style="font-size:var(--fs-md);font-weight:800;color:var(--navy)">Cuadrado de una SUMA</div>
+    <div class="kbig" style="padding:16px 0">\\((a+b)^2 = a^2 \\color{#219EBC}{+ 2ab} + b^2\\)</div>
+    <div style="font-size:var(--fs-sm);color:var(--text2)">El término central es <strong style="color:#219EBC">positivo</strong></div>
+  </div>
+  <div class="ex-card" style="border-top-color:var(--amber);text-align:center" data-c="1">
+    <div style="font-size:var(--fs-md);font-weight:800;color:var(--navy)">Cuadrado de una DIFERENCIA</div>
+    <div class="kbig" style="padding:16px 0">\\((a-b)^2 = a^2 \\color{#B83232}{- 2ab} + b^2\\)</div>
+    <div style="font-size:var(--fs-sm);color:var(--text2)">El término central es <strong style="color:var(--red)">negativo</strong>, pero b² sigue <strong>positivo</strong></div>
+  </div>
+</div>
+<div class="soc-fml" data-c="2" style="margin-top:var(--gap)">
+  <strong>¿Por qué b² queda positivo?</strong> Porque \\((-b)^2 = (-b)(-b) = +b^2\\).<br>
+  <span style="font-size:var(--fs-sm);color:var(--text2)">Negativo × negativo = positivo. Siempre. En el modelo: la esquina se restó dos veces, así que se <em>suma</em> una vez.</span>
+</div>`,
+onReveal:function(n){
+  document.querySelectorAll('.slide.active [data-c="'+n+'"]').forEach(function(e){e.classList.add('vis')});
+  updateClickDots(document.querySelector('.slide.active'),n,2);
+}},
+
+/* ═══════════════════════════════════════════════════════
+   SLIDE 9 — YO HAGO (a−b)²  ·  6 clicks (3 por ejercicio)
+═══════════════════════════════════════════════════════ */
+{bread:'Sem. 2 · Sesión 2 · (a−b)²',badge:'YO HAGO',badgeColor:'var(--amber)',clicks:6,fL:'Sem. 2 · Sesión 2 · Ejemplo paso a paso',html:`
+<div class="title-row">
+  <div class="accent-bar" style="background:var(--amber)"></div>
+  <div style="flex:1">
+    <div class="slide-title">Expandir paso a paso</div>
+    <div class="slide-instr">Atención al signo del término central y al cuadrado del coeficiente.</div>
+  </div>
+</div>
+<div class="click-dots" aria-hidden="true">
+  <div class="click-dot"></div><div class="click-dot"></div><div class="click-dot"></div>
+  <div class="click-dot"></div><div class="click-dot"></div><div class="click-dot"></div>
+</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--gap)">
+
+  <!-- EJERCICIO 1 -->
+  <div class="ex-card vis" style="border-top-color:var(--amber)">
+    <div class="ex-head"><div class="ex-num" style="background:var(--amber)">1</div><div class="ex-title">Expandir \\((p-7)^2\\)</div></div>
+
+    <div class="ex-step" data-c="1">
+      <div class="step-lbl">Paso 1 · Identificar</div>
+      \\(a = p\\), &ensp; \\(b = 7\\)<br>
+      <span style="font-size:var(--fs-xs);color:var(--text3);font-style:italic">El signo de la resta queda en la fórmula, no en b.</span>
+    </div>
+
+    <div class="ex-step" data-c="2">
+      <div class="step-lbl">Paso 2 · Aplicar fórmula</div>
+      \\(a^2 - 2ab + b^2\\)<br>
+      \\(= p^2 - 2(p)(7) + 7^2\\)
+    </div>
+
+    <div class="ex-step final" data-c="3">
+      <div class="step-lbl">Paso 3 · Resultado</div>
+      \\(= p^2 - 14p + 49\\) ✓
+    </div>
+  </div>
+
+  <!-- EJERCICIO 2 -->
+  <div class="ex-card vis" style="border-top-color:var(--red)">
+    <div class="ex-head"><div class="ex-num" style="background:var(--red)">2</div><div class="ex-title">Expandir \\((3x-2)^2\\)</div></div>
+
+    <div class="ex-step" data-c="4">
+      <div class="step-lbl">Paso 1 · Identificar</div>
+      \\(a = 3x\\), &ensp; \\(b = 2\\)
+    </div>
+
+    <div class="ex-step" data-c="5">
+      <div class="step-lbl">Paso 2 · Aplicar fórmula</div>
+      \\((3x)^2 - 2(3x)(2) + 2^2\\)
+    </div>
+
+    <div class="ex-step final" data-c="6">
+      <div class="step-lbl">Paso 3 · Resultado</div>
+      \\(= 9x^2 - 12x + 4\\) ✓
+    </div>
+
+    <div class="ex-step warn" data-c="6">
+      <div class="step-lbl">⚠ Dos errores frecuentes</div>
+      (1) \\((3x)^2 = 9x^2\\), <strong>NO</strong> \\(3x^2\\).<br>
+      (2) El último término \\(2^2 = +4\\) queda <strong>positivo</strong>, no \\(-4\\).
+    </div>
+  </div>
+
+</div>`,
+onReveal:function(n){
+  document.querySelectorAll('.slide.active [data-c="'+n+'"]').forEach(function(e){e.classList.add('vis')});
+  updateClickDots(document.querySelector('.slide.active'),n,6);
+}},
+
+{bread:'Sem. 2 · Sesión 2 · (a−b)²',badge:'HACEMOS',badgeColor:'var(--green)',clicks:0,fL:'Sem. 2 · Sesión 2 · Consigna',html:`
+<div class="title-row">
+  <div class="accent-bar" style="background:var(--green)"></div>
+  <div style="flex:1">
+    <div class="slide-title">Práctica mixta — ¿suma o diferencia?</div>
+    <div class="slide-instr">Primero decide el signo del término central. Luego expande. ¡No te confundas!</div>
+  </div>
+</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--gap)">
+  <div class="ex-card vis" style="border-top-color:var(--amber)">
+    <div class="ex-head"><div class="ex-num" style="background:var(--amber)">1</div><div class="ex-title">\\((n+6)^2\\)</div></div>
+    <div class="ex-ctx">¿Suma o diferencia?</div>
+  </div>
+  <div class="ex-card vis" style="border-top-color:var(--red)">
+    <div class="ex-head"><div class="ex-num" style="background:var(--red)">2</div><div class="ex-title">\\((x-9)^2\\)</div></div>
+    <div class="ex-ctx">Cuidado con el signo de b².</div>
+  </div>
+  <div class="ex-card vis" style="border-top-color:var(--amber)">
+    <div class="ex-head"><div class="ex-num" style="background:var(--amber)">3</div><div class="ex-title">\\((4m-3)^2\\)</div></div>
+    <div class="ex-ctx">Doble dificultad: coeficiente + diferencia.</div>
+  </div>
+  <div class="ex-card vis" style="border-top-color:var(--red)">
+    <div class="ex-head"><div class="ex-num" style="background:var(--red)">4</div><div class="ex-title">\\((2a-5b)^2\\)</div></div>
+    <div class="ex-ctx">Coeficientes en ambos. Paso previo: (2a)² y (5b)².</div>
+  </div>
+</div>`},
+
+{bread:'Sem. 2 · Sesión 2 · (a−b)²',badge:'SOCIALIZACIÓN',badgeColor:'var(--green)',clicks:4,fL:'Sem. 2 · Sesión 2 · Respuestas',html:`
+<div class="title-row">
+  <div class="accent-bar" style="background:var(--green)"></div>
+  <div style="flex:1">
+    <div class="slide-title">Verificamos juntos</div>
+    <div class="slide-instr">¿Acertaste el signo del medio en cada caso?</div>
+  </div>
+</div>
+<div class="click-dots" aria-hidden="true"><div class="click-dot"></div><div class="click-dot"></div><div class="click-dot"></div><div class="click-dot"></div></div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--gap)">
+  <div class="ex-card" style="border-top-color:var(--amber)" data-c="1"><div class="ex-head"><div class="ex-num" style="background:var(--amber)">1</div><div class="ex-title">\\((n+6)^2\\)</div></div><div class="ex-sol"><strong>= n² + 12n + 36</strong> (suma → + en el medio)</div></div>
+  <div class="ex-card" style="border-top-color:var(--red)" data-c="2"><div class="ex-head"><div class="ex-num" style="background:var(--red)">2</div><div class="ex-title">\\((x-9)^2\\)</div></div><div class="ex-sol"><strong>= x² − 18x + 81</strong> (diferencia → − en el medio, +81)</div></div>
+  <div class="ex-card" style="border-top-color:var(--amber)" data-c="3"><div class="ex-head"><div class="ex-num" style="background:var(--amber)">3</div><div class="ex-title">\\((4m-3)^2\\)</div></div><div class="ex-sol"><strong>= 16m² − 24m + 9</strong><br>(4m)² = 16m², 2·4m·3 = 24m, 3² = 9</div></div>
+  <div class="ex-card" style="border-top-color:var(--red)" data-c="4"><div class="ex-head"><div class="ex-num" style="background:var(--red)">4</div><div class="ex-title">\\((2a-5b)^2\\)</div></div><div class="ex-sol"><strong>= 4a² − 20ab + 25b²</strong></div></div>
+</div>`,
+onReveal:function(n){
+  document.querySelectorAll('.slide.active [data-c="'+n+'"]').forEach(function(e){e.classList.add('vis')});
+  updateClickDots(document.querySelector('.slide.active'),n,4);
+}},
+
+{cls:'s-sesion',noH:true,noF:true,clicks:0,html:`
+<div class="ses-inner">
+  <div class="ses-num-panel" style="background:#FB8500"><div class="ses-lbl">Sesión</div><div class="ses-num">3</div></div>
+  <div class="ses-content">
+    <div class="ses-title">Suma por diferencia + Producto de la forma</div>
+    <div class="ses-sub">(a+b)(a−b) = a²−b² y (x+a)(x+b) = x²+(a+b)x+ab</div>
+    <div class="ses-agenda">
+      <div class="ses-agenda-lbl">Momentos HTML (25 min)</div>
+      <div class="ses-item"><div class="ses-item-time" style="background:#FB8500">8 min</div><div class="ses-item-txt">Formalización: las dos fórmulas nuevas</div></div>
+      <div class="ses-item"><div class="ses-item-time" style="background:#FB8500">10 min</div><div class="ses-item-txt">Tabla unificada: los 4 productos notables</div></div>
+      <div class="ses-item"><div class="ses-item-time" style="background:#FB8500">7 min</div><div class="ses-item-txt">Tú haces + Metacognición global</div></div>
+    </div>
+  </div>
+</div>`},
+
+{bread:'Sem. 2 · Sesión 3 · (a+b)(a−b)',badge:'FORMALIZACIÓN',badgeColor:'#FB8500',clicks:2,fL:'Sem. 2 · Sesión 3',html:`
+<div class="title-row">
+  <div class="accent-bar" style="background:#FB8500"></div>
+  <div style="flex:1">
+    <div class="slide-title">Dos fórmulas nuevas</div>
+    <div class="slide-instr">El término central se CANCELA en la primera. La segunda GENERALIZA los otros tres.</div>
+  </div>
+</div>
+<div class="click-dots" aria-hidden="true"><div class="click-dot"></div><div class="click-dot"></div></div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--gap)">
+  <div class="ex-card vis" style="border-top-color:#FB8500;text-align:center">
+    <div style="font-size:var(--fs-md);font-weight:800;color:var(--navy)">Suma por diferencia</div>
+    <div class="kbig" style="padding:16px 0">\\((a+b)(a-b) = a^2 - b^2\\)</div>
+    <div style="font-size:var(--fs-sm);color:var(--text2);line-height:1.6">El medio se cancela: \\(+ab - ab = 0\\)<br>Solo quedan los cuadrados, restados.</div>
+    <div class="ex-sol" data-c="1" style="margin-top:12px">
+      <strong>Cálculo mental:</strong><br>
+      \\(52 \\times 48 = (50+2)(50-2) = 2500 - 4 = 2496\\)<br>
+      \\(99 \\times 101 = 10000 - 1 = 9999\\)
+    </div>
+  </div>
+  <div class="ex-card vis" style="border-top-color:var(--teal);text-align:center">
+    <div style="font-size:var(--fs-md);font-weight:800;color:var(--navy)">Producto de la forma</div>
+    <div class="kbig" style="padding:16px 0">\\((x+a)(x+b) = x^2 + (a+b)x + ab\\)</div>
+    <div style="font-size:var(--fs-sm);color:var(--text2);line-height:1.6">El coeficiente de x es la <strong>suma</strong>.<br>El término independiente es el <strong>producto</strong>.</div>
+    <div class="ex-sol" data-c="2" style="margin-top:12px">
+      <strong>Ejemplo:</strong><br>
+      \\((x+3)(x+5) = x^2 + 8x + 15\\)<br>
+      porque 3+5 = 8 y 3·5 = 15
+    </div>
+  </div>
+</div>`,
+onReveal:function(n){
+  document.querySelectorAll('.slide.active [data-c="'+n+'"]').forEach(function(e){e.classList.add('vis')});
+  updateClickDots(document.querySelector('.slide.active'),n,2);
+}},
+
+{bread:'Sem. 2 · Sesión 3 · Tabla unificada',badge:'SÍNTESIS',badgeColor:'var(--navy)',clicks:4,fL:'Sem. 2 · Tabla comparativa de los 4 productos',html:`
+<div class="title-row">
+  <div class="accent-bar" style="background:var(--navy)"></div>
+  <div style="flex:1">
+    <div class="slide-title">Los 4 productos notables</div>
+    <div class="slide-instr">Copia esta tabla en tu cuaderno. Es tu referencia para la evaluación digital.</div>
+  </div>
+</div>
+<div class="click-dots" aria-hidden="true"><div class="click-dot"></div><div class="click-dot"></div><div class="click-dot"></div><div class="click-dot"></div></div>
+<table class="comp-table">
+  <tr><th>Nombre</th><th>Fórmula</th><th>Ejemplo</th><th>Clave</th></tr>
+  <tr class="tabla-row" data-c="1"><td>Cuadrado de una suma</td><td>\\((a+b)^2 = a^2+2ab+b^2\\)</td><td>\\((x+3)^2 = x^2+6x+9\\)</td><td>El medio es <strong>+2ab</strong></td></tr>
+  <tr class="tabla-row" data-c="2"><td>Cuadrado de una diferencia</td><td>\\((a-b)^2 = a^2-2ab+b^2\\)</td><td>\\((x-4)^2 = x^2-8x+16\\)</td><td>El medio es <strong>−2ab</strong>, pero b² queda +</td></tr>
+  <tr class="tabla-row" data-c="3"><td>Suma por diferencia</td><td>\\((a+b)(a-b) = a^2-b^2\\)</td><td>\\((x+5)(x-5) = x^2-25\\)</td><td>NO hay término central</td></tr>
+  <tr class="tabla-row" data-c="4"><td>Producto de la forma</td><td>\\((x+a)(x+b) = x^2+(a+b)x+ab\\)</td><td>\\((x+3)(x+5) = x^2+8x+15\\)</td><td>Suma → coef. de x. Producto → indep.</td></tr>
+</table>
+<div style="margin-top:var(--gap);font-size:var(--fs-sm);color:var(--text2);text-align:center;font-style:italic">
+  Los tres primeros son <strong>casos particulares</strong> del cuarto: cuando a = b, cuando a = −b, y el caso general.
+</div>`,
+onReveal:function(n){
+  document.querySelectorAll('.slide.active [data-c="'+n+'"]').forEach(function(e){e.classList.add('vis')});
+  updateClickDots(document.querySelector('.slide.active'),n,4);
+}},
+
+{bread:'Sem. 2 · Sesión 3 · Producto de la forma',badge:'TÚ HACES',badgeColor:'var(--teal)',clicks:0,fL:'Sem. 2 · Sesión 3 · Consigna',html:`
+<div class="title-row">
+  <div class="accent-bar" style="background:var(--teal)"></div>
+  <div style="flex:1">
+    <div class="slide-title">Práctica independiente — los 4 patrones</div>
+    <div class="slide-instr">Primero identifica QUÉ producto notable es. Luego expande.</div>
+  </div>
+</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--gap)">
+  <div class="ex-card vis" style="border-top-color:#FB8500"><div class="ex-head"><div class="ex-num" style="background:#FB8500">1</div><div class="ex-title">\\((x+4)(x+2)\\)</div></div><div class="ex-ctx">¿Qué patrón aplica? Recuerda: suma → coeficiente, producto → independiente.</div></div>
+  <div class="ex-card vis" style="border-top-color:#FB8500"><div class="ex-head"><div class="ex-num" style="background:#FB8500">2</div><div class="ex-title">\\((x+6)(x-3)\\)</div></div><div class="ex-ctx">Uno positivo, uno negativo. ¿Es suma por diferencia o producto de la forma?</div></div>
+  <div class="ex-card vis" style="border-top-color:#FB8500"><div class="ex-head"><div class="ex-num" style="background:#FB8500">3</div><div class="ex-title">\\((x-5)(x-1)\\)</div></div><div class="ex-ctx">Ambos negativos. ¿Qué signo tiene (a+b)x? ¿Y ab?</div></div>
+  <div class="ex-card vis" style="border-top-color:#FB8500"><div class="ex-head"><div class="ex-num" style="background:#FB8500">4</div><div class="ex-title">\\((m+7)(m-7)\\)</div></div><div class="ex-ctx">¡Trampa! ¿Es producto de la forma o suma por diferencia?</div></div>
+</div>`},
+
+{bread:'Sem. 2 · Sesión 3 · Producto de la forma',badge:'SOCIALIZACIÓN',badgeColor:'var(--teal)',clicks:4,fL:'Sem. 2 · Sesión 3 · Respuestas',html:`
+<div class="title-row">
+  <div class="accent-bar" style="background:var(--teal)"></div>
+  <div style="flex:1">
+    <div class="slide-title">Verificamos</div>
+    <div class="slide-instr">¿Identificaste correctamente el patrón en cada caso?</div>
+  </div>
+</div>
+<div class="click-dots" aria-hidden="true"><div class="click-dot"></div><div class="click-dot"></div><div class="click-dot"></div><div class="click-dot"></div></div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--gap)">
+  <div class="ex-card" style="border-top-color:#FB8500" data-c="1"><div class="ex-head"><div class="ex-num" style="background:#FB8500">1</div><div class="ex-title">\\((x+4)(x+2)\\)</div></div><div class="ex-sol"><strong style="color:var(--teal)">Producto de la forma</strong><br>\\(= x^2 + 6x + 8\\)<br>4+2=6, 4·2=8</div></div>
+  <div class="ex-card" style="border-top-color:#FB8500" data-c="2"><div class="ex-head"><div class="ex-num" style="background:#FB8500">2</div><div class="ex-title">\\((x+6)(x-3)\\)</div></div><div class="ex-sol"><strong style="color:var(--teal)">Producto de la forma</strong> (NO es suma por diferencia: 6 ≠ 3)<br>\\(= x^2 + 3x - 18\\)<br>6+(−3)=3, 6·(−3)=−18</div></div>
+  <div class="ex-card" style="border-top-color:#FB8500" data-c="3"><div class="ex-head"><div class="ex-num" style="background:#FB8500">3</div><div class="ex-title">\\((x-5)(x-1)\\)</div></div><div class="ex-sol"><strong style="color:var(--teal)">Producto de la forma</strong><br>\\(= x^2 - 6x + 5\\)<br>(−5)+(−1)=−6, (−5)·(−1)=+5</div></div>
+  <div class="ex-card" style="border-top-color:var(--red)" data-c="4"><div class="ex-head"><div class="ex-num" style="background:var(--red)">4</div><div class="ex-title">\\((m+7)(m-7)\\)</div></div><div class="ex-sol"><strong style="color:var(--red)">¡Suma por diferencia!</strong> (7 y −7 son opuestos)<br>\\(= m^2 - 49\\)<br>No se aplica producto de la forma aquí.</div></div>
+</div>`,
+onReveal:function(n){
+  document.querySelectorAll('.slide.active [data-c="'+n+'"]').forEach(function(e){e.classList.add('vis')});
+  updateClickDots(document.querySelector('.slide.active'),n,4);
+}},
+
+{bread:'Sem. 2 · Cierre global',badge:'METACOGNICIÓN',badgeColor:'var(--teal)',clicks:4,fL:'Sem. 2 · Cierre global de la semana',html:`
+<div class="title-row">
+  <div class="accent-bar" style="background:var(--teal)"></div>
+  <div style="flex:1">
+    <div class="slide-title">Cierre — pienso sobre lo que pensé</div>
+    <div class="slide-instr">Responde en el cuaderno y marca tu semáforo.</div>
+  </div>
+</div>
+<div class="meta-q">
+  <div class="meta-qlbl">Pregunta metacognitiva de la semana</div>
+  <div class="meta-qtxt">«Si alguien te dice que todos los productos notables son casos particulares de la propiedad distributiva, ¿puedes demostrarlo con un ejemplo de cada uno? ¿Qué ganas al memorizar la fórmula directa en vez de distribuir siempre?»</div>
+</div>
+<div style="background:#fff;border:2px solid var(--border);border-radius:12px;padding:clamp(12px,1.4vh,18px) clamp(14px,1.8vw,22px);font-size:var(--fs-sm);color:var(--text2);line-height:1.7" class="var-row" data-c="1">
+  <strong style="color:var(--navy)">En el cuaderno:</strong>
+  (1) ¿Cuál de los 4 patrones te parece más útil y por qué?
+  (2) Si te dicen \\(x^2 + 10x + 25\\), ¿de qué producto salió sin hacer cuentas?
+  (3) ¿Cuál patrón te costó más y qué estrategia te ayudó?
+</div>
+<div class="semaforo">
+  <div class="sema-item" data-c="2"><div class="sema-circle" style="background:#27AE60"></div><div class="sema-txt">Reconozco y aplico los 4 productos notables.<span class="sema-sub">Distingo cuándo usar cada uno y puedo verificar con sustitución numérica.</span></div></div>
+  <div class="sema-item" data-c="3"><div class="sema-circle" style="background:#E08C20"></div><div class="sema-txt">Aplico las fórmulas, pero a veces confundo signos.<span class="sema-sub">Me equivoco en el término central o no distingo suma por diferencia del producto de la forma.</span></div></div>
+  <div class="sema-item" data-c="4"><div class="sema-circle" style="background:#C0392B"></div><div class="sema-txt">Necesito más práctica antes de la evaluación.<span class="sema-sub">Repasaré con los videos y practicaré con la tabla comparativa antes de entrar al sistema digital.</span></div></div>
+</div>`,
+onReveal:function(n){
+  document.querySelectorAll('.slide.active [data-c="'+n+'"]').forEach(function(e){e.classList.add('vis')});
+  updateClickDots(document.querySelector('.slide.active'),n,4);
+}},
+
+{bread:'Sem. 2 · Recursos',badge:'RECURSOS',badgeColor:'#219EBC',clicks:0,fL:'Sem. 2 · Recursos y evaluación',html:`
+<div class="title-row">
+  <div class="accent-bar" style="background:#219EBC"></div>
+  <div style="flex:1">
+    <div class="slide-title">Para repasar y lo que viene</div>
+    <div class="slide-instr">Si marcaste amarillo o rojo, empieza por el primer video antes de la evaluación digital.</div>
+  </div>
+</div>
+<div class="video-row">
+  <div class="video-card">
+    <div class="video-lbl">Refuerzo · Cuadrado de binomio</div>
+    <div class="video-title">Productos notables explicados con el modelo de área</div>
+    <div class="video-desc">Los 4 patrones con muchos ejemplos y verificación numérica.</div>
+    <a class="video-link" href="https://www.youtube.com/results?search_query=productos+notables+cuadrado+binomio+modelo+area" target="_blank" rel="noopener">▶ Ver en YouTube</a>
+  </div>
+  <div class="video-card" style="border-top-color:var(--blue)">
+    <div class="video-lbl" style="color:var(--blue)">Refuerzo · Suma por diferencia</div>
+    <div class="video-title">Suma por diferencia y producto de la forma (x+a)(x+b)</div>
+    <div class="video-desc">Cálculo mental con productos notables y el caso general.</div>
+    <a class="video-link" href="https://www.youtube.com/results?search_query=suma+por+diferencia+producto+de+la+forma+algebra" target="_blank" rel="noopener" style="background:var(--blue)">▶ Ver en YouTube</a>
+  </div>
+</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--gap);margin-top:var(--gap)">
+  <div style="background:#fff;border:2.5px solid var(--border);border-radius:14px;padding:clamp(14px,1.8vh,20px) clamp(14px,1.8vw,22px)">
+    <div style="font-size:var(--fs-sm);font-weight:800;color:var(--navy);margin-bottom:10px">📋 Práctica adicional</div>
+    <div style="font-size:var(--fs-xs);color:var(--text2);line-height:1.7">
+      Nombra el patrón y expande:<br>
+      (1)&nbsp;\\((x+8)^2\\)<br>
+      (2)&nbsp;\\((2y-3)^2\\)<br>
+      (3)&nbsp;\\((x+11)(x-11)\\)<br>
+      (4)&nbsp;\\((x+4)(x-7)\\)<br>
+      (5)&nbsp;Cálculo mental: \\(97^2\\)
+    </div>
+  </div>
+  <div style="background:#fff;border:2.5px solid var(--border);border-radius:14px;border-top:5px solid var(--blue);padding:clamp(14px,1.8vh,20px) clamp(14px,1.8vw,22px)">
+    <div style="font-size:var(--fs-sm);font-weight:800;color:var(--blue);text-transform:uppercase;letter-spacing:.1em;margin-bottom:10px">Evaluación digital — Sistema de niveles</div>
+    <div style="font-size:var(--fs-xs);color:var(--text2);line-height:1.7;font-style:italic">
+      4 niveles progresivos, uno por cada producto notable. Cada nivel tiene video introductorio + 5 ejercicios tipo Saber + subida de procedimiento.<br><br>
+      <strong style="font-style:normal;color:var(--navy)">Acceso:</strong> desde el sistema digital en clase.
+    </div>
+  </div>
+</div>`}
+
+];
+
+/* ═══════════════════════════════════════════════════════════
+   MOTOR DE PRESENTACIÓN
+═══════════════════════════════════════════════════════════ */
+let cur=0,clicks=0;
+const deck=document.getElementById('deck');
+const savedProgress=loadProgress();
+if(savedProgress){cur=savedProgress.slide;clicks=savedProgress.clicks;}
+
+function buildSlide(idx){
+  const s=SLIDES[idx];
+  const d=document.createElement('div');
+  d.className='slide'+(s.cls?' '+s.cls:'');
+  d.setAttribute('role','region');
+  d.setAttribute('aria-label','Diapositiva '+(idx+1)+' de '+SLIDES.length);
+  let h='';
+  if(!s.noH){
+    const bc=s.badgeColor||'var(--blue)';
+    h+='<header class="hdr"><span class="hdr-b">'+(s.bread||'')+'</span>'+(s.badge?'<span class="hdr-badge" style="background:'+bc+'">'+s.badge+'</span>':'')+'</header>';
+  }
+  h+='<main class="body">'+s.html+'</main>';
+  if(!s.noF) h+='<footer class="ftr"><span>'+(s.fL||'')+'</span><span>I.E. Merceditas Gómez Martínez · Álgebra 8°</span></footer>';
+  d.innerHTML=h;return d;
+}
+
+function show(idx,dir){
+  const prev=deck.querySelector('.slide.active');
+  if(prev){prev.classList.remove('active','enter-r','enter-l');}
+  const el=buildSlide(idx);deck.appendChild(el);
+  const all=deck.querySelectorAll('.slide');if(all.length>3)all[0].remove();
+  clicks=0;
+  requestAnimationFrame(()=>{
+    el.classList.add('active',dir>=0?'enter-r':'enter-l');
+    setTimeout(()=>el.classList.remove('enter-r','enter-l'),360);
+    doKatex(el);
+    if(SLIDES[idx].onEnter)SLIDES[idx].onEnter();
+    const title=el.querySelector('.slide-title');
+    if(title)announceToScreenReader('Diapositiva '+(idx+1)+': '+title.textContent);
+    else announceToScreenReader('Diapositiva '+(idx+1)+' de '+SLIDES.length);
+    const main=el.querySelector('main.body');
+    if(main)main.scrollTop=0;
+    // Restaurar clicks guardados
+    const s=SLIDES[idx];
+    if(savedProgress&&savedProgress.slide===idx&&savedProgress.clicks>0){
+      for(let i=1;i<=savedProgress.clicks;i++){
+        if(s.onReveal)s.onReveal(i);
+      }
+      clicks=savedProgress.clicks;
+    }
+  });
+  document.getElementById('ncnt').textContent=(idx+1)+' / '+SLIDES.length;
+  document.getElementById('pbar').style.width=(((idx+1)/SLIDES.length)*100)+'%';
+  document.getElementById('pbar').setAttribute('aria-valuenow',idx+1);
+  saveProgress(idx,clicks);
+}
+
+function doKatex(el){
+  if(window.renderMathInElement){
+    try{
+      renderMathInElement(el,{
+        delimiters:[
+          {left:'\\(',right:'\\)',display:false},
+          {left:'\\[',right:'\\]',display:true},
+          {left:'$$',right:'$$',display:true},
+          {left:'$',right:'$',display:false}
+        ],
+        throwOnError:false
+      });
+    }catch(e){console.warn('KaTeX error:',e);}
+  }else{
+    document.addEventListener('katex-ready',function onKR(){
+      document.removeEventListener('katex-ready',onKR);
+      if(window.renderMathInElement){
+        try{
+          renderMathInElement(el,{
+            delimiters:[
+              {left:'\\(',right:'\\)',display:false},
+              {left:'\\[',right:'\\]',display:true},
+              {left:'$$',right:'$$',display:true},
+              {left:'$',right:'$',display:false}
+            ],
+            throwOnError:false
+          });
+        }catch(e){console.warn('KaTeX error:',e);}
+      }
+    });
+  }
+}
+
+function advance(){
+  const s=SLIDES[cur];
+  const maxClicks=s.clicks||0;
+  if(clicks<maxClicks){
+    clicks++;
+    if(s.onReveal)s.onReveal(clicks);
+    announceToScreenReader('Paso '+clicks+' de '+maxClicks);
+    saveProgress(cur,clicks);
+    return;
+  }
+  if(cur<SLIDES.length-1){cur++;show(cur,1);}
+  else{showFeedback('¡Semana 2 completada! 🎉 Los 4 productos notables están listos. Ahora: evaluación en el sistema digital.');}
+}
+function retreat(){if(cur>0){cur--;show(cur,-1);}}
+
+document.addEventListener('keydown',e=>{
+  const t=e.target;
+  if(t&&(t.tagName==='INPUT'||t.tagName==='TEXTAREA'||t.isContentEditable))return;
+  if(['Space','ArrowRight','ArrowLeft'].includes(e.code))e.preventDefault();
+  if(e.code==='Space'||e.code==='ArrowRight')advance();
+  if(e.code==='ArrowLeft')retreat();
+  if(e.code==='KeyF')document.getElementById('fs-btn')?.click();
+});
+
+const btnNext=document.getElementById('bn');
+const btnPrev=document.getElementById('bp');
+if(btnNext)btnNext.addEventListener('click',advance);
+if(btnPrev)btnPrev.addEventListener('click',retreat);
+
+let tx=0;
+document.addEventListener('touchstart',e=>{if(e.touches?.[0])tx=e.touches[0].clientX;},{passive:true});
+document.addEventListener('touchend',e=>{
+  const touch=e.changedTouches?.[0];if(!touch)return;
+  const dx=touch.clientX-tx;
+  if(Math.abs(dx)>50){dx<0?advance():retreat();}
+});
+
+const fsBtn=document.getElementById('fs-btn');
+if(fsBtn){
+  fsBtn.addEventListener('click',async()=>{
+    try{
+      if(!document.fullscreenElement)await document.documentElement.requestFullscreen();
+      else await document.exitFullscreen();
+    }catch(err){showFeedback('Pantalla completa no disponible en este dispositivo',true);}
+  });
+  document.addEventListener('fullscreenchange',()=>{
+    if(fsBtn)fsBtn.textContent=document.fullscreenElement?'✕':'⛶';
+    fsBtn?.setAttribute('aria-label',document.fullscreenElement?'Salir de pantalla completa':'Entrar en pantalla completa');
+  });
+}
+
+function iniciar(){
+  try{
+    const idx=(savedProgress&&savedProgress.slide<SLIDES.length)?savedProgress.slide:0;
+    show(idx,1);
+  }catch(e){
+    console.error('Error al iniciar presentación:',e);
+    try{show(0,1);}catch(e2){console.error('Error crítico:',e2);}
+  }
+}
+
+setTimeout(()=>{const hint=document.getElementById('hint');if(hint)hint.style.opacity='0';},5000);
+if(document.readyState==='loading'){
+  document.addEventListener('DOMContentLoaded',iniciar);
+}else{
+  iniciar();
+}
+window.addEventListener('beforeunload',()=>{const saved=loadProgress();if(saved&&Date.now()-saved.timestamp>86400000)localStorage.removeItem(LS_KEY);});
+</script>
+</body>
+</html>
