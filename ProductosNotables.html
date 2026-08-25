@@ -158,6 +158,8 @@ main.body::-webkit-scrollbar-thumb:hover{background:rgba(0,0,0,.3)}
   margin-top:2px;
 }
 .ex-step .step-math .katex{font-size:1.1em!important}
+.ex-step .step-math .katex-display{text-align:left!important;margin:0!important}
+.ex-step .step-math .katex-display>.katex{font-size:1.1em!important}
 .ex-step.final{
   background:var(--navy);
   color:#fff;
@@ -327,7 +329,7 @@ main.body::-webkit-scrollbar-thumb:hover{background:rgba(0,0,0,.3)}
 <div id="pbar" role="progressbar" aria-valuemin="1" aria-valuemax="18" aria-valuenow="1" style="width:0%"></div>
 <div id="hint">← → o toca los bordes · F = pantalla completa</div>
 <script>
-const LS_KEY='algebra8_p3s2_progress_v5';
+const LS_KEY='algebra8_p3s2_progress_v6';
 function saveProgress(slide,clicks){try{localStorage.setItem(LS_KEY,JSON.stringify({slide,clicks,timestamp:Date.now()}))}catch(e){}}
 function loadProgress(){try{const d=JSON.parse(localStorage.getItem(LS_KEY));if(d&&Date.now()-d.timestamp<604800000)return d}catch(e){}return null}
 function showFeedback(msg,isError){const el=document.createElement('div');el.className='feedback-msg'+(isError?' error':'');el.textContent=msg;document.body.appendChild(el);requestAnimationFrame(()=>el.classList.add('show'));setTimeout(()=>{el.classList.remove('show');setTimeout(()=>el.remove(),300)},3000)}
@@ -466,7 +468,7 @@ onReveal:function(n){document.querySelectorAll('[data-c="'+n+'"]').forEach(funct
 
     <div class="ex-step" data-c="2">
       <span class="step-lbl">Paso 2 · Aplicar la fórmula</span>
-      <span class="step-math">\\(a^2 + 2ab + b^2 \\;=\\; m^2 + 2(m)(3) + 3^2\\)</span>
+      <span class="step-math">\\[\\begin{aligned} &a^2 + 2ab + b^2 \\\\ &= m^2 + 2(m)(3) + 3^2 \\end{aligned}\\]</span>
     </div>
 
     <div class="ex-step final" data-c="3">
@@ -486,7 +488,7 @@ onReveal:function(n){document.querySelectorAll('[data-c="'+n+'"]').forEach(funct
 
     <div class="ex-step" data-c="5">
       <span class="step-lbl">Paso 2 · Aplicar la fórmula</span>
-      <span class="step-math">\\(a^2 + 2ab + b^2 \\;=\\; (2x)^2 + 2(2x)(5) + 5^2\\)</span>
+      <span class="step-math">\\[\\begin{aligned} &a^2 + 2ab + b^2 \\\\ &= (2x)^2 + 2(2x)(5) + 5^2 \\end{aligned}\\]</span>
     </div>
 
     <div class="ex-step final" data-c="6">
@@ -638,7 +640,7 @@ onReveal:function(n){
 
     <div class="ex-step" data-c="2">
       <span class="step-lbl">Paso 2 · Aplicar la fórmula</span>
-      <span class="step-math">\\(a^2 - 2ab + b^2 \\;=\\; p^2 - 2(p)(7) + 7^2\\)</span>
+      <span class="step-math">\\[\\begin{aligned} &a^2 - 2ab + b^2 \\\\ &= p^2 - 2(p)(7) + 7^2 \\end{aligned}\\]</span>
     </div>
 
     <div class="ex-step final" data-c="3">
@@ -658,7 +660,7 @@ onReveal:function(n){
 
     <div class="ex-step" data-c="5">
       <span class="step-lbl">Paso 2 · Aplicar la fórmula</span>
-      <span class="step-math">\\(a^2 - 2ab + b^2 \\;=\\; (3x)^2 - 2(3x)(2) + 2^2\\)</span>
+      <span class="step-math">\\[\\begin{aligned} &a^2 - 2ab + b^2 \\\\ &= (3x)^2 - 2(3x)(2) + 2^2 \\end{aligned}\\]</span>
     </div>
 
     <div class="ex-step final" data-c="6">
@@ -948,7 +950,6 @@ function show(idx,dir){
     else announceToScreenReader('Diapositiva '+(idx+1)+' de '+SLIDES.length);
     const main=el.querySelector('main.body');
     if(main)main.scrollTop=0;
-    // Restaurar clicks guardados
     const s=SLIDES[idx];
     if(savedProgress&&savedProgress.slide===idx&&savedProgress.clicks>0){
       for(let i=1;i<=savedProgress.clicks;i++){
