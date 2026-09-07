@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Actividad interactiva: Cubo de un binomio — Álgebra 8° — I.E. Merceditas Gómez Martínez, Medellín">
+<title>El tanque que crece un metro · Semana 3 · Álgebra 8°</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#023047;
+    --navy-2:#219EBC;
+    --naranja:#FB8500;
+    --naranja-claro:#FFB703;
+    --papel:#F7F6F2;
+    --tinta:#1C1C1E;
+    --gris:#6B6B6E;
+    --linea:#C0BDB4;
+    --ok:#27AE60;
+    --alerta:#9B2020;
+    --radio:14px;
+    --acc:#219EBC;
+    --acc-soft:#E0F4F8;
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html,body{margin:0;padding:0}
+  body{
+    font-family:'DM Sans',system-ui,sans-serif;
+    background:var(--papel);
+    color:var(--tinta);
+    font-size:16px;
+    line-height:1.45;
+    padding:0 0 96px;
+  }
+  .wrap{max-width:520px;margin:0 auto;padding:0 14px}
+
+  header{
+    background:var(--navy);
+    color:#fff;
+    padding:14px 0 10px;
+    position:sticky;top:0;z-index:40;
+    box-shadow:0 2px 10px rgba(2,48,71,.25);
+  }
+  header .wrap{display:flex;align-items:center;gap:10px}
+  .marca{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#8ECAE6;margin:0}
+  .titulo{font-size:16px;font-weight:bold;margin:2px 0 0}
+  .paso-num{
+    margin-left:auto;background:var(--naranja);color:#fff;font-weight:bold;
+    border-radius:999px;padding:4px 11px;font-size:13px;white-space:nowrap;
+  }
+  .barra{height:4px;background:rgba(255,255,255,.22);margin-top:10px;border-radius:2px;overflow:hidden}
+  .barra i{display:block;height:100%;background:var(--naranja);width:0;transition:width .45s ease}
+
+  main{padding-top:18px}
+  .pantalla{display:none;animation:entra .35s ease both}
+  .pantalla.activa{display:block}
+  @keyframes entra{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+  h2{font-family:'DM Serif Display',serif;font-size:20px;color:var(--navy);margin:0 0 4px}
+  .bajada{color:var(--gris);font-size:14px;margin:0 0 16px}
+  p{margin:0 0 12px}
+
+  .tarjeta{
+    background:#fff;border:1px solid var(--linea);border-radius:var(--radio);
+    padding:14px;margin-bottom:14px;
+  }
+  .tarjeta.dato{border-left:4px solid var(--naranja)}
+  .tarjeta h3{margin:0 0 8px;font-size:15px;color:var(--navy)}
+
+  .escena{
+    background:#fff;border:1px solid var(--linea);border-radius:var(--radio);
+    padding:6px;margin-bottom:12px;overflow:hidden;
+  }
+  svg{display:block;width:100%;height:auto;touch-action:manipulation}
+  .pieza{transition:transform .6s cubic-bezier(.2,.8,.25,1)}
+  .cara{stroke:#023047;stroke-width:.8;stroke-linejoin:round}
+  .hueco{fill:none;stroke:#B83232;stroke-width:1.6;stroke-dasharray:4 3}
+  @media (prefers-reduced-motion: reduce){
+    .pieza{transition:none}
+    .pantalla{animation:none}
+    .barra i{transition:none}
+  }
+
+  label{display:block;font-size:13px;font-weight:bold;color:var(--navy);margin:10px 0 4px}
+  input[type=text],input[type=number],textarea,select{
+    width:100%;font-family:inherit;font-size:16px;padding:11px 12px;
+    border:1.5px solid var(--linea);border-radius:10px;background:#fff;color:var(--tinta);
+  }
+  input:focus,textarea:focus,select:focus,button:focus-visible{
+    outline:3px solid var(--acc);outline-offset:1px;border-color:var(--navy)
+  }
+  textarea{min-height:82px;resize:vertical}
+
+  button{font-family:inherit;font-size:16px;cursor:pointer;border:none;border-radius:10px}
+  .btn{
+    background:var(--navy);color:#fff;padding:14px 18px;width:100%;font-weight:bold;
+    min-height:48px;
+  }
+  .btn:disabled{background:#8AACB8;cursor:not-allowed}
+  .btn.naranja{background:var(--naranja)}
+  .btn.linea{background:#fff;color:var(--navy);border:1.5px solid var(--navy)}
+  .btn-fila{display:flex;gap:8px;margin-top:6px}
+  .btn-fila .btn{width:auto;flex:1}
+
+  .pie{
+    position:fixed;left:0;right:0;bottom:0;background:rgba(247,247,251,.96);
+    border-top:1px solid var(--linea);padding:10px 0 max(10px, env(safe-area-inset-bottom));z-index:30;
+    backdrop-filter:saturate(160%) blur(6px);
+  }
+
+  .aviso{border-radius:10px;padding:11px 12px;font-size:14px;margin:10px 0 0;display:none}
+  .aviso.ver{display:block}
+  .aviso.mal{background:#FFF0F0;color:var(--alerta);border:1px solid #E8B4B4}
+  .aviso.bien{background:var(--acc-soft);color:var(--ok);border:1px solid #B4DDD0}
+  .aviso.pista{background:#FFF8ED;color:#6B4A0A;border:1px solid var(--naranja-claro)}
+
+  .rejilla{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+  .miniatura{
+    background:#fff;border:2px solid var(--linea);border-radius:12px;padding:4px 2px 6px;
+    text-align:center;position:relative;
+  }
+  .miniatura.sel{border-color:var(--acc);box-shadow:0 0 0 3px rgba(33,158,188,.2)}
+  .miniatura .etq{font-size:11px;color:var(--gris);display:block}
+  .miniatura .grupo{
+    position:absolute;top:-8px;right:-6px;background:var(--navy);color:#fff;
+    font-size:11px;font-weight:bold;border-radius:999px;width:20px;height:20px;line-height:20px;
+  }
+  .miniatura .medida{font-size:10px;color:var(--navy);font-weight:bold;display:block;min-height:12px}
+
+  .cajones{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:12px}
+  .cajon{
+    background:#fff;border:1.5px dashed var(--linea);border-radius:12px;
+    padding:12px 4px;font-size:13px;font-weight:bold;color:var(--navy);text-align:center;
+  }
+  .cajon b{display:block;font-size:19px;color:var(--naranja)}
+
+  table{width:100%;border-collapse:collapse;font-size:13px}
+  th,td{border:1px solid var(--linea);padding:6px 4px;text-align:center}
+  th{background:var(--acc-soft);color:var(--navy);font-size:12px}
+  td.fila{background:#F7F6F2;font-weight:bold;text-align:left;padding-left:8px;font-size:12px}
+  table input{padding:8px 4px;text-align:center;font-size:15px;border-radius:7px}
+
+  .cintillo{
+    display:inline-block;background:var(--acc-soft);color:var(--navy);border-radius:999px;
+    padding:3px 10px;font-size:12px;font-weight:bold;margin-bottom:8px
+  }
+  .conteo-grupo{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+  .conteo-grupo span{flex:1;font-size:14px}
+  .conteo-grupo input{width:76px}
+
+  .frase{font-size:17px;line-height:2.1;text-align:center}
+  .frase input{width:52px;display:inline-block;text-align:center;padding:6px 2px;font-weight:bold}
+  .codigo{
+    font-family:"Courier New",monospace;font-size:13px;background:var(--acc-soft);color:var(--navy);
+    padding:10px;border-radius:10px;word-break:break-all;border:1px dashed var(--acc)
+  }
+  .listo{text-align:center;padding:22px 0}
+  .listo .marca-ok{font-size:44px;color:var(--ok)}
+  ul.limpia{margin:0;padding-left:18px;font-size:14px;color:var(--gris)}
+  ul.limpia li{margin-bottom:5px}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div>
+      <p class="marca">I.E. Merceditas Gómez Martínez · Álgebra 8°</p>
+      <p class="titulo" id="tituloPaso">El tanque que crece un metro</p>
+    </div>
+    <span class="paso-num" id="numPaso">1/8</span>
+  </div>
+  <div class="wrap"><div class="barra"><i id="barra"></i></div></div>
+</header>
+
+<main class="wrap">
+
+<!-- 1 · TRÍO -->
+<section class="pantalla activa" id="p1">
+  <h2>¿Quiénes forman el trío?</h2>
+  <p class="bajada">Escriban los nombres tal como aparecen en la lista. Al final la tabla se envía con estos datos.</p>
+  <div class="tarjeta">
+    <label for="grupo">Grupo</label>
+    <select id="grupo">
+      <option value="">Selecciona…</option>
+      <option>8°1</option><option>8°2</option><option>8°3</option><option>8°4</option>
+    </select>
+    <label for="n1">Integrante 1</label><input type="text" id="n1" autocomplete="off">
+    <label for="n2">Integrante 2</label><input type="text" id="n2" autocomplete="off">
+    <label for="n3">Integrante 3 (si son tres)</label><input type="text" id="n3" autocomplete="off">
+  </div>
+  <div class="tarjeta dato">
+    <h3>La situación</h3>
+    <p style="margin:0;font-size:14px">El tanque cúbico del colegio tiene <b>2 m de arista</b> y almacena <b>8 m³</b>. Se le aumenta <b>1 m a cada arista</b>. Un compañero dice que el volumen nuevo será 9 m³, «porque 8 más 1». Al medirlo aparecen <b>27 m³</b>.</p>
+  </div>
+</section>
+
+<!-- 2 · PREDICCIÓN -->
+<section class="pantalla" id="p2">
+  <h2>Antes de cortar, predigan</h2>
+  <p class="bajada">Al tanque de 3 m le harán tres cortes rectos: uno a lo ancho, uno a lo largo y uno a lo alto. Cada corte pasa a 2 m del mismo vértice.</p>
+  <div class="escena"><svg id="svgPred" viewBox="-98 -112 196 224" aria-label="Cubo de 3 metros de arista sin cortar"></svg></div>
+  <div class="tarjeta">
+    <label for="pred1">Con <b>1 corte</b> quedarán… piezas</label><input type="number" id="pred1" min="1" max="30" inputmode="numeric">
+    <label for="pred2">Con <b>2 cortes</b> quedarán… piezas</label><input type="number" id="pred2" min="1" max="30" inputmode="numeric">
+    <label for="pred3">Con <b>3 cortes</b> quedarán… piezas</label><input type="number" id="pred3" min="1" max="30" inputmode="numeric">
+  </div>
+  <div class="aviso pista ver">Escriban lo que piensan, aunque no estén seguros. <b>No borren</b> esta predicción después: la van a comparar con lo que ocurra.</div>
+</section>
+
+<!-- 3 · CORTES -->
+<section class="pantalla" id="p3">
+  <h2>Corten el tanque</h2>
+  <p class="bajada">Toquen cada corte y observen cuántas piezas quedan. Comparen con su predicción.</p>
+  <div class="escena"><svg id="svgCorte" viewBox="-117 -133 234 266" aria-label="Cubo que se separa en piezas al aplicar cada corte"></svg></div>
+  <div class="btn-fila">
+    <button class="btn linea" id="btnC1">Corte 1</button>
+    <button class="btn linea" id="btnC2" disabled>Corte 2</button>
+    <button class="btn linea" id="btnC3" disabled>Corte 3</button>
+  </div>
+  <div class="tarjeta" style="margin-top:12px;text-align:center">
+    <span class="cintillo">Piezas a la vista</span>
+    <div style="font-size:40px;font-weight:bold;color:var(--naranja)" id="contadorPiezas">1</div>
+    <p style="margin:0;font-size:13px;color:var(--gris)" id="notaCorte">Ningún corte aplicado todavía.</p>
+  </div>
+  <div class="aviso pista" id="avisoPred"></div>
+</section>
+
+<!-- 4 · CLASIFICAR -->
+<section class="pantalla" id="p4">
+  <h2>Agrupen las piezas iguales</h2>
+  <p class="bajada">Toquen una pieza y luego el grupo donde va. Dos piezas van juntas solo si son <b>idénticas</b>. Usen los grupos que necesiten.</p>
+  <div class="rejilla" id="rejillaPiezas"></div>
+  <div class="cajones" id="cajones"></div>
+  <div class="btn-fila" style="margin-top:12px">
+    <button class="btn linea" id="btnMedir">Medir la pieza</button>
+    <button class="btn linea" id="btnLimpiar">Vaciar grupos</button>
+  </div>
+  <div class="aviso" id="avisoClas"></div>
+</section>
+
+<!-- 5 · CONTAR -->
+<section class="pantalla" id="p5">
+  <h2>Cuenten y comprueben</h2>
+  <p class="bajada">Escriban cuántas piezas quedaron en cada grupo y cuánto mide cada una en metros cúbicos.</p>
+  <div class="tarjeta" id="tarjetaConteo"></div>
+  <div class="tarjeta dato">
+    <h3>Comprobación</h3>
+    <label for="sumaTotal">Volumen total sumando las ocho piezas (m³)</label>
+    <input type="number" id="sumaTotal" inputmode="numeric">
+  </div>
+  <div class="aviso" id="avisoConteo"></div>
+</section>
+
+<!-- 6 · RETO DEL ERROR -->
+<section class="pantalla" id="p6">
+  <h2>Ármenlo con solo dos piezas</h2>
+  <p class="bajada">Un compañero afirma que el tanque de 3 m se arma con el cubo de 2 m más el cubo de 1 m. Aquí están esas dos piezas puestas en su lugar. Lo demás está vacío.</p>
+  <div class="escena"><svg id="svgError" viewBox="-117 -133 234 266" aria-label="Cubo incompleto con seis huecos marcados"></svg></div>
+  <div class="tarjeta">
+    <label for="huecos">¿Cuántos huecos quedaron?</label>
+    <input type="number" id="huecos" inputmode="numeric">
+    <label for="faltante">¿Cuántos metros cúbicos faltan para llegar a 27?</label>
+    <input type="number" id="faltante" inputmode="numeric">
+    <label for="expError">¿Por qué (a+b)³ no puede ser a³ + b³?</label>
+    <textarea id="expError" placeholder="Escriban su explicación en una o dos frases."></textarea>
+  </div>
+  <div class="aviso" id="avisoError"></div>
+</section>
+
+<!-- 7 · TABLA DE CONTRASTE -->
+<section class="pantalla" id="p7">
+  <h2>Tabla de contraste</h2>
+  <p class="bajada">El mismo aumento de 1 m, tres magnitudes distintas. Completen y comparen la última columna.</p>
+  <div class="tarjeta">
+    <table>
+      <tr><th>Magnitud</th><th>Arista 2</th><th>Arista 3</th><th>Cantidad<br>de cambio</th></tr>
+      <tr><td class="fila">Perímetro de la base (m)</td>
+        <td><input type="number" id="t11" inputmode="numeric"></td>
+        <td><input type="number" id="t12" inputmode="numeric"></td>
+        <td><input type="number" id="t13" inputmode="numeric"></td></tr>
+      <tr><td class="fila">Área de una cara (m²)</td>
+        <td><input type="number" id="t21" inputmode="numeric"></td>
+        <td><input type="number" id="t22" inputmode="numeric"></td>
+        <td><input type="number" id="t23" inputmode="numeric"></td></tr>
+      <tr><td class="fila">Volumen (m³)</td>
+        <td><input type="number" id="t31" inputmode="numeric"></td>
+        <td><input type="number" id="t32" inputmode="numeric"></td>
+        <td><input type="number" id="t33" inputmode="numeric"></td></tr>
+    </table>
+  </div>
+  <div class="tarjeta dato">
+    <h3>Pregunta covariacional de la semana</h3>
+    <label for="covar">¿Cómo cambia el volumen cuando la arista pasa de 2 a 3, comparado con cómo cambia el área de una cara en ese mismo paso?</label>
+    <textarea id="covar" placeholder="Respondan comparando las dos cantidades de cambio."></textarea>
+  </div>
+  <div class="aviso" id="avisoTabla"></div>
+</section>
+
+<!-- 8 · CONJETURA -->
+<section class="pantalla" id="p8">
+  <h2>Su conjetura</h2>
+  <p class="bajada">Escríbanla <b>antes</b> de que el profesor proyecte la formalización. Si resulta equivocada, no la borren.</p>
+  <div class="tarjeta">
+    <p class="frase">(a+b)³ = a³ + <input type="number" id="c1" inputmode="numeric">a²b + <input type="number" id="c2" inputmode="numeric">ab² + b³</p>
+  </div>
+  <div class="tarjeta">
+    <label for="justif">¿De dónde salieron esos dos números? Expliquen sin usar la palabra «fórmula».</label>
+    <textarea id="justif" placeholder="Salieron de contar…"></textarea>
+  </div>
+  <div class="aviso" id="avisoConj"></div>
+</section>
+
+<!-- 9 · ENVÍO -->
+<section class="pantalla" id="p9">
+  <div class="listo">
+    <div class="marca-ok">✓</div>
+    <h2 style="margin-top:6px">Trabajo enviado</h2>
+    <p class="bajada" id="msgEnvio">El registro del trío quedó guardado.</p>
+  </div>
+  <div class="tarjeta" id="tarjetaResumen"></div>
+  <div class="tarjeta" id="tarjetaRespaldo" style="display:none">
+    <h3>Código de respaldo</h3>
+    <p style="font-size:13px;color:var(--gris);margin-bottom:8px">No hubo conexión. Muestren este código al profesor o cópienlo en el cuaderno antes de cerrar.</p>
+    <div class="codigo" id="codigoRespaldo"></div>
+  </div>
+</section>
+
+</main>
+
+<div class="pie"><div class="wrap">
+  <div class="btn-fila">
+    <button class="btn linea" id="btnAtras" style="flex:0 0 34%">Atrás</button>
+    <button class="btn" id="btnSiguiente">Continuar</button>
+  </div>
+</div></div>
+
+<script>
+"use strict";
+
+/* ====== CONFIGURACIÓN DEL DOCENTE ============================================
+   Pega aquí la URL de tu Google Apps Script publicado como aplicación web.
+   Si la dejas vacía, la actividad funciona igual y muestra un código de
+   respaldo al final para registro manual.
+   ========================================================================== */
+const URL_APPS_SCRIPT = "";
+
+/* ====== MODELO GEOMÉTRICO ================================================= */
+const A = 2, B = 1;               // arista original y aumento
+const PIEZAS = [
+  {id:1, x:0, y:0, z:0, w:A, d:A, h:A},
+  {id:2, x:A, y:0, z:0, w:B, d:A, h:A},
+  {id:3, x:0, y:A, z:0, w:A, d:B, h:A},
+  {id:4, x:0, y:0, z:A, w:A, d:A, h:B},
+  {id:5, x:A, y:A, z:0, w:B, d:B, h:A},
+  {id:6, x:A, y:0, z:A, w:B, d:A, h:B},
+  {id:7, x:0, y:A, z:A, w:A, d:B, h:B},
+  {id:8, x:A, y:A, z:A, w:B, d:B, h:B}
+];
+PIEZAS.forEach(p => p.vol = p.w * p.d * p.h);
+
+const U = 34, COS30 = 0.8660254, SEP = 0.62;
+const COLOR = {
+  8:{t:"#1C3A6E", i:"#142A50", d:"#183260"},
+  4:{t:"#1A6B5A", i:"#125040", d:"#165E4E"},
+  2:{t:"#C47C1A", i:"#9A6014", d:"#B06E17"},
+  1:{t:"#6C3483", i:"#522668", d:"#5F2D76"}
+};
+
+function iso(x, y, z, u){
+  return [ (x - y) * COS30 * u, (x + y) * 0.5 * u - z * u ];
+}
+function pts(arr){ return arr.map(p => p[0].toFixed(1) + "," + p[1].toFixed(1)).join(" "); }
+
+function caraCubo(p, u, col){
+  const {x,y,z,w,d,h} = p;
+  const P = (a,b,c) => iso(a,b,c,u);
+  const top   = [P(x,y,z+h), P(x+w,y,z+h), P(x+w,y+d,z+h), P(x,y+d,z+h)];
+  const der   = [P(x+w,y,z), P(x+w,y+d,z), P(x+w,y+d,z+h), P(x+w,y,z+h)];
+  const izq   = [P(x,y+d,z), P(x+w,y+d,z), P(x+w,y+d,z+h), P(x,y+d,z+h)];
+  return '<polygon class="cara" points="' + pts(izq) + '" fill="' + col.i + '"/>' +
+         '<polygon class="cara" points="' + pts(der) + '" fill="' + col.d + '"/>' +
+         '<polygon class="cara" points="' + pts(top) + '" fill="' + col.t + '"/>';
+}
+function aristasCubo(p, u){
+  const {x,y,z,w,d,h} = p;
+  const P = (a,b,c) => iso(a,b,c,u);
+  const top = [P(x,y,z+h), P(x+w,y,z+h), P(x+w,y+d,z+h), P(x,y+d,z+h)];
+  const der = [P(x+w,y,z), P(x+w,y+d,z), P(x+w,y+d,z+h), P(x+w,y,z+h)];
+  const izq = [P(x,y+d,z), P(x+w,y+d,z), P(x+w,y+d,z+h), P(x,y+d,z+h)];
+  return '<polygon class="hueco" points="' + pts(top) + '"/>' +
+         '<polygon class="hueco" points="' + pts(der) + '"/>' +
+         '<polygon class="hueco" points="' + pts(izq) + '"/>';
+}
+const orden = a => (a.x + a.y + a.z);
+
+/* dibuja el cubo; cortes = {c1,c2,c3}; solo = lista de ids a rellenar */
+function dibujarCubo(svg, cortes, solo){
+  const lista = PIEZAS.slice().sort((a,b) => orden(a) - orden(b));
+  let html = "";
+  lista.forEach(p => {
+    let dx = 0, dy = 0, dz = 0;
+    if (cortes.c1 && p.x > 0) dx = SEP;
+    if (cortes.c2 && p.y > 0) dy = SEP;
+    if (cortes.c3 && p.z > 0) dz = SEP;
+    const t = iso(dx, dy, dz, U);
+    const lleno = !solo || solo.indexOf(p.id) >= 0;
+    const cuerpo = lleno ? caraCubo(p, U, COLOR[p.vol]) : aristasCubo(p, U);
+    html += '<g class="pieza" transform="translate(' + t[0].toFixed(1) + ',' + t[1].toFixed(1) + ')">' + cuerpo + '</g>';
+  });
+  svg.innerHTML = html;
+}
+function miniatura(p){
+  const u = 15;
+  const cx = ((p.w - p.d) * COS30 * u) / 2;
+  const cy = (((p.w + p.d) * 0.5 * u) - p.h * u) / 2;
+  return '<svg viewBox="' + (cx - 37) + ' ' + (cy - 34) + ' 74 68" style="height:52px">' +
+         caraCubo({x:0,y:0,z:0,w:p.w,d:p.d,h:p.h}, u, COLOR[p.vol]) + '</svg>';
+}
+
+/* ====== ESTADO =========================================================== */
+const S = { paso:1, cortes:{c1:false,c2:false,c3:false}, grupos:{}, sel:null, medidas:{} };
+const TITULOS = ["El trío","Antes de cortar","Los tres cortes","Agrupar las piezas",
+                 "Contar y comprobar","El reto del error","Tabla de contraste",
+                 "La conjetura","Enviado"];
+const TOTAL = 9;
+const $ = id => document.getElementById(id);
+
+function pintarPaso(){
+  document.querySelectorAll(".pantalla").forEach(s => s.classList.remove("activa"));
+  $("p" + S.paso).classList.add("activa");
+  $("numPaso").textContent = S.paso + "/" + TOTAL;
+  $("tituloPaso").textContent = TITULOS[S.paso - 1];
+  $("barra").style.width = ((S.paso - 1) / (TOTAL - 1) * 100) + "%";
+  $("btnAtras").style.visibility = (S.paso === 1 || S.paso === TOTAL) ? "hidden" : "visible";
+  $("btnSiguiente").style.display = (S.paso === TOTAL) ? "none" : "block";
+  $("btnSiguiente").textContent = (S.paso === 8) ? "Enviar el trabajo" : "Continuar";
+  window.scrollTo(0, 0);
+}
+function aviso(id, texto, tipo){
+  const a = $(id);
+  a.textContent = texto;
+  a.className = "aviso ver " + tipo;
+}
+function limpiarAviso(id){ $(id).className = "aviso"; }
+function num(id){ const v = $(id).value.trim(); return v === "" ? null : Number(v); }
+
+/* ====== VALIDACIONES POR PASO ============================================ */
+const validar = {
+  1(){
+    if (!$("grupo").value) { alert("Selecciona el grupo."); return false; }
+    if (!$("n1").value.trim() || !$("n2").value.trim()) { alert("Escriban al menos dos integrantes."); return false; }
+    return true;
+  },
+  2(){
+    if (num("pred1") === null || num("pred2") === null || num("pred3") === null) {
+      alert("Completen las tres predicciones antes de cortar."); return false;
+    }
+    return true;
+  },
+  3(){
+    if (!(S.cortes.c1 && S.cortes.c2 && S.cortes.c3)) {
+      aviso("avisoPred", "Falta aplicar los tres cortes.", "mal"); return false;
+    }
+    return true;
+  },
+  4(){
+    const usados = {};
+    for (const id in S.grupos) {
+      const g = S.grupos[id];
+      (usados[g] = usados[g] || []).push(PIEZAS.find(p => p.id === Number(id)));
+    }
+    if (Object.keys(S.grupos).length < 8) {
+      aviso("avisoClas", "Todavía hay piezas sin agrupar.", "mal"); return false;
+    }
+    let ok = true;
+    for (const g in usados) {
+      const v = usados[g][0].vol;
+      if (usados[g].some(p => p.vol !== v)) ok = false;
+    }
+    const vistos = {};
+    for (const g in usados) {
+      const v = usados[g][0].vol;
+      if (vistos[v]) ok = false;
+      vistos[v] = true;
+    }
+    if (!ok) {
+      aviso("avisoClas", "Hay piezas distintas juntas, o piezas iguales separadas. Usen «Medir la pieza» y revísenlo.", "mal");
+      return false;
+    }
+    aviso("avisoClas", "Agrupación correcta. Sigan al conteo.", "bien");
+    construirConteo(usados);
+    return true;
+  },
+  5(){
+    const filas = document.querySelectorAll("[data-conteo]");
+    let bien = true;
+    filas.forEach(inp => {
+      const esperado = Number(inp.getAttribute("data-conteo"));
+      if (Number(inp.value) !== esperado) bien = false;
+    });
+    if (!bien) { aviso("avisoConteo", "Alguna cantidad no coincide con las piezas del grupo. Cuéntenlas otra vez en la pantalla anterior.", "mal"); return false; }
+    if (num("sumaTotal") !== 27) { aviso("avisoConteo", "La suma de los ocho volúmenes no da lo que midieron en el tanque. Revisen.", "mal"); return false; }
+    return true;
+  },
+  6(){
+    if (num("huecos") !== 6 || num("faltante") !== 18) {
+      aviso("avisoError", "Cuenten de nuevo sobre la figura: los huecos marcados y los metros cúbicos que representan.", "mal"); return false;
+    }
+    if ($("expError").value.trim().length < 15) {
+      aviso("avisoError", "Escriban la explicación con sus palabras.", "mal"); return false;
+    }
+    return true;
+  },
+  7(){
+    const esp = {t11:8,t12:12,t13:4,t21:4,t22:9,t23:5,t31:8,t32:27,t33:19};
+    const malas = Object.keys(esp).filter(k => num(k) !== esp[k]);
+    if (malas.length) {
+      malas.forEach(k => $(k).style.borderColor = "#B3261E");
+      aviso("avisoTabla", "Hay " + malas.length + " casilla(s) por revisar, marcadas en rojo. La cantidad de cambio es la resta entre las dos columnas anteriores.", "mal");
+      return false;
+    }
+    if ($("covar").value.trim().length < 15) { aviso("avisoTabla", "Falta responder la pregunta covariacional.", "mal"); return false; }
+    return true;
+  },
+  8(){
+    if (num("c1") === null || num("c2") === null) { aviso("avisoConj", "Completen los dos números.", "mal"); return false; }
+    if ($("justif").value.trim().length < 15) { aviso("avisoConj", "Expliquen de dónde salieron.", "mal"); return false; }
+    return true;
+  }
+};
+
+/* ====== PASO 3 · CORTES ================================================== */
+function actualizarCorte(){
+  dibujarCubo($("svgCorte"), S.cortes, null);
+  const n = (S.cortes.c1 ? 2 : 1) * (S.cortes.c2 ? 2 : 1) * (S.cortes.c3 ? 2 : 1);
+  $("contadorPiezas").textContent = n;
+  const hechos = [S.cortes.c1, S.cortes.c2, S.cortes.c3].filter(Boolean).length;
+  $("notaCorte").textContent = hechos === 0 ? "Ningún corte aplicado todavía." :
+    "Cortes aplicados: " + hechos + " de 3.";
+  if (hechos > 0) {
+    const pred = [num("pred1"), num("pred2"), num("pred3")][hechos - 1];
+    const txt = (pred === n)
+      ? "Su predicción para " + hechos + " corte(s) era " + pred + ": coincide."
+      : "Su predicción para " + hechos + " corte(s) era " + pred + " y quedaron " + n + ". No la borren: anoten la diferencia.";
+    aviso("avisoPred", txt, pred === n ? "bien" : "pista");
+  }
+}
+
+/* ====== PASO 4 · CLASIFICAR ============================================== */
+function pintarRejilla(){
+  const r = $("rejillaPiezas");
+  r.innerHTML = PIEZAS.map(p => {
+    const g = S.grupos[p.id];
+    const med = S.medidas[p.id] ? (p.w + "×" + p.d + "×" + p.h) : "";
+    return '<div class="miniatura' + (S.sel === p.id ? " sel" : "") + '" data-p="' + p.id + '" role="button" tabindex="0">' +
+      (g ? '<span class="grupo">' + g + '</span>' : '') +
+      miniatura(p) +
+      '<span class="etq">Pieza ' + p.id + '</span>' +
+      '<span class="medida">' + med + '</span></div>';
+  }).join("");
+  r.querySelectorAll(".miniatura").forEach(el => {
+    const f = () => { S.sel = Number(el.getAttribute("data-p")); pintarRejilla(); };
+    el.addEventListener("click", f);
+    el.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); f(); } });
+  });
+  const c = $("cajones");
+  c.innerHTML = [1,2,3,4].map(g => {
+    const n = Object.keys(S.grupos).filter(k => S.grupos[k] === g).length;
+    return '<div class="cajon" data-g="' + g + '" role="button" tabindex="0">Grupo ' + g + '<b>' + n + '</b></div>';
+  }).join("");
+  c.querySelectorAll(".cajon").forEach(el => {
+    const f = () => {
+      if (!S.sel) { aviso("avisoClas", "Primero toquen una pieza.", "pista"); return; }
+      S.grupos[S.sel] = Number(el.getAttribute("data-g"));
+      S.sel = null; limpiarAviso("avisoClas"); pintarRejilla();
+    };
+    el.addEventListener("click", f);
+    el.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); f(); } });
+  });
+}
+
+/* ====== PASO 5 · CONTEO ================================================== */
+function construirConteo(usados){
+  const cont = $("tarjetaConteo");
+  cont.innerHTML = Object.keys(usados).sort().map(g => {
+    const piezas = usados[g];
+    return '<div class="conteo-grupo"><span>Piezas en el <b>grupo ' + g + '</b></span>' +
+      '<input type="number" inputmode="numeric" data-conteo="' + piezas.length + '"></div>' +
+      '<div class="conteo-grupo"><span style="color:var(--gris);font-size:13px">Volumen de <b>cada una</b> (m³)</span>' +
+      '<input type="number" inputmode="numeric" data-conteo="' + piezas[0].vol + '"></div>';
+  }).join("");
+}
+
+/* ====== ENVÍO ============================================================ */
+function recolectar(){
+  return {
+    marca: new Date().toISOString(),
+    actividad: "S3-CuboBinomio",
+    grupo: $("grupo").value,
+    integrantes: [$("n1").value, $("n2").value, $("n3").value].filter(s => s.trim()).join(" / "),
+    prediccion: num("pred1") + "-" + num("pred2") + "-" + num("pred3"),
+    huecos: num("huecos"),
+    faltante: num("faltante"),
+    explicacionError: $("expError").value.trim(),
+    perimetro: num("t11") + "/" + num("t12") + "/" + num("t13"),
+    area: num("t21") + "/" + num("t22") + "/" + num("t23"),
+    volumen: num("t31") + "/" + num("t32") + "/" + num("t33"),
+    covariacion: $("covar").value.trim(),
+    conjetura: "a3 + " + num("c1") + "a2b + " + num("c2") + "ab2 + b3",
+    justificacion: $("justif").value.trim()
+  };
+}
+function resumen(d){
+  $("tarjetaResumen").innerHTML =
+    '<h3>Lo que registraron</h3><ul class="limpia">' +
+    '<li><b>Trío:</b> ' + d.integrantes + ' · ' + d.grupo + '</li>' +
+    '<li><b>Predicción de piezas:</b> ' + d.prediccion + ' (real: 2-4-8)</li>' +
+    '<li><b>Conjetura:</b> ' + d.conjetura + '</li>' +
+    '<li><b>Cantidades de cambio:</b> perímetro 4 · área 5 · volumen 19</li></ul>' +
+    '<p style="font-size:13px;color:var(--gris);margin:10px 0 0">Copien la conjetura en el cuaderno con la fecha antes de la formalización.</p>';
+}
+async function enviar(){
+  const d = recolectar();
+  resumen(d);
+  S.paso = 9; pintarPaso();
+  if (!URL_APPS_SCRIPT) {
+    $("msgEnvio").textContent = "Sin envío automático configurado.";
+    $("tarjetaRespaldo").style.display = "block";
+    $("codigoRespaldo").textContent = d.grupo + "|" + d.integrantes + "|" + d.prediccion + "|" + d.conjetura;
+    return;
+  }
+  try {
+    await fetch(URL_APPS_SCRIPT, {
+      method: "POST", mode: "no-cors",
+      headers: {"Content-Type": "text/plain;charset=utf-8"},
+      body: JSON.stringify(d)
+    });
+    $("msgEnvio").textContent = "El registro del trío quedó guardado.";
+  } catch (e) {
+    $("msgEnvio").textContent = "No se pudo enviar por la red del colegio.";
+    $("tarjetaRespaldo").style.display = "block";
+    $("codigoRespaldo").textContent = d.grupo + "|" + d.integrantes + "|" + d.prediccion + "|" + d.conjetura;
+  }
+}
+
+/* ====== NAVEGACIÓN ======================================================= */
+$("btnSiguiente").addEventListener("click", () => {
+  if (validar[S.paso] && !validar[S.paso]()) return;
+  if (S.paso === 8) { enviar(); return; }
+  S.paso++;
+  if (S.paso === 3) actualizarCorte();
+  if (S.paso === 4) pintarRejilla();
+  if (S.paso === 6) dibujarCubo($("svgError"), {c1:false,c2:false,c3:false}, [1, 8]);
+  pintarPaso();
+});
+$("btnAtras").addEventListener("click", () => { if (S.paso > 1) { S.paso--; pintarPaso(); } });
+
+$("btnC1").addEventListener("click", () => { S.cortes.c1 = true; $("btnC1").disabled = true; $("btnC2").disabled = false; actualizarCorte(); });
+$("btnC2").addEventListener("click", () => { S.cortes.c2 = true; $("btnC2").disabled = true; $("btnC3").disabled = false; actualizarCorte(); });
+$("btnC3").addEventListener("click", () => { S.cortes.c3 = true; $("btnC3").disabled = true; actualizarCorte(); });
+
+$("btnMedir").addEventListener("click", () => {
+  if (!S.sel) { aviso("avisoClas", "Toquen primero la pieza que quieren medir.", "pista"); return; }
+  S.medidas[S.sel] = true; pintarRejilla();
+});
+$("btnLimpiar").addEventListener("click", () => { S.grupos = {}; S.sel = null; limpiarAviso("avisoClas"); pintarRejilla(); });
+
+document.querySelectorAll("#p7 input").forEach(i =>
+  i.addEventListener("input", () => { i.style.borderColor = ""; limpiarAviso("avisoTabla"); }));
+
+dibujarCubo($("svgPred"), {c1:false,c2:false,c3:false}, null);
+pintarPaso();
+</script>
+</body>
+</html>
