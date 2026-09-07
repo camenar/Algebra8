@@ -574,7 +574,7 @@ onReveal:function(n){document.querySelectorAll('[data-c="'+n+'"]').forEach(funct
 onReveal:function(n){document.querySelectorAll('[data-c="'+n+'"]').forEach(function(e){e.classList.add('vis')})}},
 
 /* ═══ 9 · CUADRADO DE UN TRINOMIO ══════════════════════ */
-{bread:'Sem. 3 · Sesión 2 · (a+b+c)²',badge:'FORMALIZACIÓN',badgeColor:'var(--amber)',clicks:2,fL:'Sem. 3 · Sesión 2 · Cuadrado de trinomio',html:`
+{bread:'Sem. 3 · Sesión 2 · (a+b+c)²',badge:'FORMALIZACIÓN',badgeColor:'var(--amber)',clicks:6,fL:'Sem. 3 · Sesión 2 · Cuadrado de trinomio',html:`
 <div class="title-row">
   <div class="accent-bar" style="background:var(--amber)"></div>
   <div style="flex:1">
@@ -591,18 +591,15 @@ onReveal:function(n){document.querySelectorAll('[data-c="'+n+'"]').forEach(funct
       + <strong>3 dobles productos</strong> (una pareja por cada par de términos)
     </div>
   </div>
-  <div class="ex-card" style="border-top-color:var(--green)" data-c="1">
+  <div class="ex-card vis" style="border-top-color:var(--green)">
     <div class="ex-head"><div class="ex-num" style="background:var(--green)">Ej</div><div class="ex-title">\\((x+2y+3)^2\\)</div></div>
-    <div class="ex-sol">
-      <strong>a = x, b = 2y, c = 3</strong><br>
-      \\(= x^2 + 4y^2 + 9\\)<br>
-      \\(\\quad + 2(x)(2y) + 2(x)(3) + 2(2y)(3)\\)<br>
-      \\(= x^2 + 4y^2 + 9 + 4xy + 6x + 12y\\) ✓
-    </div>
+    <div class="paso-row" data-c="1" style="border-left-color:var(--green)"><div class="paso-num" style="background:var(--green)">①</div><div class="paso-body"><strong>Identificar:</strong> \\(a = x,\\quad b = 2y,\\quad c = 3\\)</div></div>
+    <div class="paso-row" data-c="2" style="border-left-color:var(--green)"><div class="paso-num" style="background:var(--green)">②</div><div class="paso-body"><strong>Cuadrados:</strong> \\(x^2 + (2y)^2 + 3^2 = x^2 + 4y^2 + 9\\)</div></div>
+    <div class="paso-row" data-c="3" style="border-left-color:var(--green)"><div class="paso-num" style="background:var(--green)">③</div><div class="paso-body"><strong>Doble (a,b):</strong> \\(2(x)(2y) = 4xy\\)</div></div>
+    <div class="paso-row" data-c="4" style="border-left-color:var(--green)"><div class="paso-num" style="background:var(--green)">④</div><div class="paso-body"><strong>Doble (a,c):</strong> \\(2(x)(3) = 6x\\)</div></div>
+    <div class="paso-row" data-c="5" style="border-left-color:var(--green)"><div class="paso-num" style="background:var(--green)">⑤</div><div class="paso-body"><strong>Doble (b,c):</strong> \\(2(2y)(3) = 12y\\)</div></div>
+    <div class="result-bar" data-c="6" style="font-size:var(--fs-lg)">\\(= x^2 + 4y^2 + 9 + 4xy + 6x + 12y\\)</div>
   </div>
-</div>
-<div style="background:var(--warm);border:2px solid var(--border);border-radius:12px;padding:clamp(10px,1.4vh,16px) clamp(14px,1.8vw,22px);font-size:var(--fs-sm);color:var(--text2);line-height:1.6;opacity:0;transition:opacity .4s" data-c="2">
-  <strong style="color:var(--navy)">Truco para no olvidar ningún doble producto:</strong> enumera todas las parejas posibles de los 3 términos → (a,b), (a,c), (b,c) → son 3 parejas = 3 dobles productos. Si hay 4 términos, serían 6 parejas. ¡Es combinatoria!
 </div>`,
 onReveal:function(n){document.querySelectorAll('[data-c="'+n+'"]').forEach(function(e){e.classList.add('vis')})}},
 
