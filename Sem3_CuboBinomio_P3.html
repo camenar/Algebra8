@@ -295,6 +295,8 @@ main.body::-webkit-scrollbar-thumb:hover { background: rgba(0,0,0,0.3); }
 .cov-table .delta{font-weight:800;color:var(--acc)}
 .cov-table tr.tabla-row{opacity:0;transition:opacity .4s}
 .cov-table tr.tabla-row.vis{opacity:1}
+.concl-box{opacity:0;transform:translateY(12px);transition:opacity .45s,transform .45s}
+.concl-box.vis{opacity:1;transform:none}
 
 /* ── NAVEGACIÓN ──────────────────────────────────────── */
 #nav{position:fixed;bottom:clamp(14px,1.8vh,22px);left:50%;transform:translateX(-50%);
@@ -327,7 +329,7 @@ main.body::-webkit-scrollbar-thumb:hover { background: rgba(0,0,0,0.3); }
 
 .katex{font-size:1.2em !important}
 .katex-display{margin:0 !important}
-.kbig .katex{font-size:1.4em !important}
+.kbig .katex{font-size:1.8em !important}
 
 @media(max-width:1100px) and (orientation:landscape){
   :root{
@@ -687,7 +689,7 @@ onReveal:function(n){document.querySelectorAll('[data-c="'+n+'"]').forEach(funct
 </div>`},
 
 /* ═══ 13 · TABLA DE CONTRASTE COVARIACIONAL ════════════ */
-{bread:'Sem. 3 · Sesión 3 · Covariación',badge:'SÍNTESIS',badgeColor:'var(--navy)',clicks:3,fL:'Sem. 3 · Tabla de contraste covariacional',html:`
+{bread:'Sem. 3 · Sesión 3 · Covariación',badge:'SÍNTESIS',badgeColor:'var(--navy)',clicks:6,fL:'Sem. 3 · Tabla de contraste covariacional',html:`
 <div class="title-row">
   <div class="accent-bar" style="background:var(--navy)"></div>
   <div style="flex:1">
@@ -703,9 +705,9 @@ onReveal:function(n){document.querySelectorAll('[data-c="'+n+'"]').forEach(funct
   <tr class="tabla-row" data-c="3"><td>5</td><td>20</td><td class="delta">+4</td><td>25</td><td class="delta">+9</td><td>125</td><td class="delta">+61</td></tr>
 </table>
 <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:var(--gap);margin-top:var(--gap)">
-  <div style="background:#219EBC;color:#fff;border-radius:12px;padding:clamp(10px,1.2vh,16px) clamp(10px,1.2vw,16px);text-align:center;font-size:var(--fs-sm);font-weight:700;line-height:1.5">Perímetro<br><span style="font-weight:400;font-size:.9em">Crece <strong>siempre +4</strong><br>(cambio constante)</span></div>
-  <div style="background:var(--amber);color:#fff;border-radius:12px;padding:clamp(10px,1.2vh,16px) clamp(10px,1.2vw,16px);text-align:center;font-size:var(--fs-sm);font-weight:700;line-height:1.5">Área<br><span style="font-weight:400;font-size:.9em">Crece <strong>+5, +7, +9…</strong><br>(cambio creciente)</span></div>
-  <div style="background:var(--red-b);color:#fff;border-radius:12px;padding:clamp(10px,1.2vh,16px) clamp(10px,1.2vw,16px);text-align:center;font-size:var(--fs-sm);font-weight:700;line-height:1.5">Volumen<br><span style="font-weight:400;font-size:.9em">Crece <strong>+19, +37, +61…</strong><br>(cambio acelerado)</span></div>
+  <div class="concl-box" data-c="4" style="background:#219EBC;color:#fff;border-radius:12px;padding:clamp(10px,1.2vh,16px) clamp(10px,1.2vw,16px);text-align:center;font-size:var(--fs-sm);font-weight:700;line-height:1.5">Perímetro<br><span style="font-weight:400;font-size:.9em">Crece <strong>siempre +4</strong><br>(cambio constante)</span></div>
+  <div class="concl-box" data-c="5" style="background:var(--amber);color:#fff;border-radius:12px;padding:clamp(10px,1.2vh,16px) clamp(10px,1.2vw,16px);text-align:center;font-size:var(--fs-sm);font-weight:700;line-height:1.5">Área<br><span style="font-weight:400;font-size:.9em">Crece <strong>+5, +7, +9…</strong><br>(cambio creciente)</span></div>
+  <div class="concl-box" data-c="6" style="background:var(--red-b);color:#fff;border-radius:12px;padding:clamp(10px,1.2vh,16px) clamp(10px,1.2vw,16px);text-align:center;font-size:var(--fs-sm);font-weight:700;line-height:1.5">Volumen<br><span style="font-weight:400;font-size:.9em">Crece <strong>+19, +37, +61…</strong><br>(cambio acelerado)</span></div>
 </div>`,
 onReveal:function(n){document.querySelectorAll('[data-c="'+n+'"]').forEach(function(e){e.classList.add('vis')})}},
 
