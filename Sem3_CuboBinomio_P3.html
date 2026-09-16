@@ -357,6 +357,123 @@ main.body::-webkit-scrollbar-thumb:hover { background: rgba(0,0,0,0.3); }
   main.body{padding:24px;overflow:visible}
 }
 
+/* ── REVELADO POR CLIC ─────────────────────────────────
+   Regla general: todo elemento con data-c empieza oculto y aparece con su clic.
+   Corrige cajas con opacity:0 en línea que nunca aparecían y cajas que se veían antes de tiempo. */
+[data-c]{opacity:0;transform:translateY(12px);transition:opacity .4s,transform .4s}
+[data-c].vis{opacity:1!important;transform:none!important}
+tr[data-c]{transform:none}
+
+/* ── META DE LA SEMANA ─────────────────────────────── */
+.goal-list{display:flex;flex-direction:column;gap:var(--gap)}
+.goal-item{display:flex;gap:clamp(14px,1.6vw,22px);align-items:flex-start;background:#fff;
+  border:2px solid var(--border);border-left:8px solid var(--navy);border-radius:14px;
+  padding:clamp(14px,1.8vh,22px) clamp(16px,2vw,26px)}
+.goal-n{width:clamp(44px,4.4vw,64px);height:clamp(44px,4.4vw,64px);border-radius:50%;background:var(--navy);
+  color:#fff;display:flex;align-items:center;justify-content:center;font-size:var(--fs-lg);font-weight:800;flex-shrink:0}
+.goal-txt{font-size:var(--fs-lg);font-weight:700;color:var(--navy);line-height:1.3}
+.goal-ev{display:block;font-size:var(--fs-sm);font-weight:400;font-style:italic;color:var(--text2);margin-top:8px}
+
+/* ── PREDICCIÓN ────────────────────────────────────── */
+.predict-box{background:#fff;border:3px dashed var(--amber);border-radius:14px;
+  padding:clamp(12px,1.6vh,20px) clamp(16px,2vw,26px);display:flex;flex-direction:column;gap:10px}
+.predict-lbl{font-size:var(--fs-sm);font-weight:800;color:var(--amber);text-transform:uppercase;letter-spacing:.12em}
+.predict-row{display:flex;flex-wrap:wrap;gap:12px 48px;font-size:var(--fs-lg);font-weight:700;color:var(--navy)}
+.predict-note{font-size:var(--fs-sm);color:var(--text2);font-style:italic}
+
+/* ── EJEMPLO RESUELTO TÉRMINO POR TÉRMINO ──────────── */
+.we-problem{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:clamp(14px,2.4vw,40px);
+  background:#fff;border:2.5px solid var(--border);border-radius:16px;padding:clamp(10px,1.4vh,18px) clamp(16px,2vw,28px)}
+.we-expr{font-size:var(--fs-2xl);font-weight:800;color:var(--navy);line-height:1.1}
+.we-ids{display:flex;gap:12px;flex-wrap:wrap}
+.chip{font-size:var(--fs-lg);font-weight:700;padding:4px clamp(12px,1.4vw,20px);border-radius:10px;border:2.5px solid}
+.chip-a{background:#E0F4F8;border-color:#1A7FA0;color:#0F4F66}
+.chip-b{background:#FFF3E0;border-color:#C47C1A;color:#7A4A0C}
+.chip-c{background:#F3E5F5;border-color:var(--purple);color:#4A148C}
+.we-mold{font-size:var(--fs-md);color:var(--text2)}
+.we-terms{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--gap)}
+.we-terms.t3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.we-term{background:#fff;border:2.5px solid var(--border);border-radius:14px;
+  padding:clamp(10px,1.4vh,18px) clamp(10px,1.2vw,16px);display:flex;flex-direction:column;align-items:center;
+  gap:clamp(6px,.9vh,12px);text-align:center;
+  transition:opacity .4s,transform .4s,border-color .3s,box-shadow .3s}
+.we-term.now{border-color:var(--amber-b);box-shadow:0 0 0 5px rgba(224,140,32,.28)}
+.we-origin{font-size:var(--fs-xs);font-weight:800;color:var(--text3);letter-spacing:.03em}
+.we-tpl{font-size:var(--fs-md);color:var(--text3)}
+.we-sub{font-size:var(--fs-md);color:var(--text);line-height:1.5}
+.we-res{font-size:var(--fs-xl);font-weight:800;color:var(--navy);border-top:2px dashed var(--border);
+  padding-top:clamp(6px,.9vh,12px);width:100%;margin-top:auto}
+.we-terms.t3 .we-res{font-size:var(--fs-lg)}
+.we-terms.t3 .we-term{gap:clamp(4px,.6vh,8px)}
+.we-notes{display:flex;flex-wrap:wrap;justify-content:center;gap:6px 36px}
+.we-problem.slim .we-expr{font-size:var(--fs-xl)}
+.we-problem.slim .chip{font-size:var(--fs-md)}
+.result-bar.we-final.row{flex-direction:row;flex-wrap:wrap;gap:6px 36px;font-size:var(--fs-lg);padding-top:clamp(10px,1.2vh,16px);padding-bottom:clamp(10px,1.2vh,16px)}
+.cube-grid.slim .cube-piece{min-height:0;padding:clamp(6px,.8vh,10px);gap:2px}
+.cube-grid.slim .cp-val{font-size:var(--fs-xs)}
+.we-terms.t3 .we-res{padding-top:4px}
+.we-terms.t3 .we-term{padding-top:clamp(6px,.8vh,10px);padding-bottom:clamp(6px,.8vh,10px)}
+.result-bar.we-final{flex-direction:column;gap:8px;font-size:var(--fs-xl)}
+.we-check{font-size:var(--fs-sm);color:#8ECAE6;font-weight:600}
+.we-warn{font-size:var(--fs-sm);color:var(--amber-b);font-weight:700}
+
+/* ── PREGUNTA BISAGRA ──────────────────────────────── */
+.hinge-grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--gap)}
+.hinge-opt{background:#fff;border:3px solid var(--border);border-radius:14px;
+  padding:clamp(12px,1.6vh,20px) clamp(14px,1.8vw,22px);display:flex;flex-direction:column;gap:10px;
+  transition:border-color .3s,background .3s,opacity .3s}
+.hinge-top{display:flex;align-items:center;gap:14px}
+.hinge-n{width:clamp(40px,4vw,56px);height:clamp(40px,4vw,56px);border-radius:50%;background:var(--purple);color:#fff;
+  display:flex;align-items:center;justify-content:center;font-size:var(--fs-lg);font-weight:800;flex-shrink:0}
+.hinge-expr{font-size:var(--fs-lg);font-weight:700;color:var(--navy)}
+.hinge-why{font-size:var(--fs-sm);color:var(--text2);font-style:italic}
+.hinge-grid.done .hinge-opt.ok{border-color:var(--green-b);background:#EAF7EE}
+.hinge-grid.done .hinge-opt.ok .hinge-n{background:var(--green-b)}
+.hinge-grid.done .hinge-opt:not(.ok){opacity:.8}
+
+/* ── TICKET DE SALIDA ──────────────────────────────── */
+.ticket-grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--gap)}
+.ticket-err{background:#FFF0F0;border:2px solid var(--red-b);border-radius:10px;
+  padding:clamp(10px,1.2vh,16px) clamp(12px,1.6vw,18px);font-size:var(--fs-md);color:var(--text)}
+.ticket-crit{align-self:flex-start;font-size:var(--fs-xs);font-weight:800;color:var(--teal);
+  background:#E0F2F1;border-radius:6px;padding:4px 12px;margin-top:auto}
+
+.tri-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--gap)}
+/* ── SIGNOS DE (−b)^n ──────────────────────────────── */
+.sign-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--gap)}
+.sign-card{border-radius:12px;padding:clamp(10px,1.2vh,16px);text-align:center;font-size:var(--fs-md);
+  font-weight:700;display:flex;flex-direction:column;gap:4px;border:2.5px solid}
+.sign-card .sg-lbl{font-size:var(--fs-xs);font-weight:600}
+.sign-card.neg{background:#FFF0F0;border-color:#B83232;color:#7B1818}
+.sign-card.pos{background:#E0F4F8;border-color:#1A7FA0;color:#0F4F66}
+
+/* ── MODELO DE ÁREA 3×3 ────────────────────────────── */
+.area-layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:calc(var(--gap)*1.5);align-items:center}
+.area-model{display:grid;grid-template-columns:auto 3fr 2fr 1.3fr;grid-template-rows:auto 3fr 2fr 1.3fr;
+  gap:5px;width:min(100%,58vh);aspect-ratio:1;margin:0 auto}
+.area-lbl{font-size:var(--fs-md);font-weight:800;color:var(--navy);display:flex;align-items:center;justify-content:center;padding:2px 10px}
+.ar{border:2px dashed var(--border);border-radius:6px;position:relative;overflow:hidden;background:#fff}
+.ar-fill{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:var(--fs-md)}
+.ar-sq{background:#1C3A6E}.ar-ab{background:#1A6B5A}.ar-ac{background:var(--amber)}.ar-bc{background:var(--purple)}
+.area-steps{display:flex;flex-direction:column;gap:var(--gap)}
+
+/* ── TRIÁNGULO DE PASCAL ───────────────────────────── */
+.pas{display:flex;flex-direction:column;gap:clamp(8px,1.2vh,14px)}
+.pas-row{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.6fr);align-items:center;gap:var(--gap);
+  background:#fff;border:2px solid var(--border);border-radius:12px;padding:clamp(8px,1vh,14px) clamp(12px,1.6vw,20px)}
+.pas-nums{display:flex;justify-content:center;gap:clamp(10px,1.4vw,22px)}
+.pas-nums span{width:clamp(40px,4vw,58px);height:clamp(40px,4vw,58px);border-radius:50%;background:var(--teal);color:#fff;
+  font-weight:800;font-size:var(--fs-md);display:flex;align-items:center;justify-content:center}
+.pas-id{font-size:var(--fs-md);color:var(--navy);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.pas-id .num{color:var(--teal);font-weight:800}
+
+@media(max-width:1100px) and (orientation:landscape){
+  .we-terms{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:820px){
+  .tri-grid,.we-terms,.we-terms.t3,.hinge-grid,.ticket-grid,.area-layout,.sign-grid,.pas-row{grid-template-columns:1fr}
+}
+
 </style>
 </head>
 <body>
@@ -371,7 +488,7 @@ main.body::-webkit-scrollbar-thumb:hover { background: rgba(0,0,0,0.3); }
 <div id="hint">← → o toca los bordes · F = pantalla completa</div>
 <script>
 
-const LS_KEY='algebra8_p3s3_cubo_progress_v1';
+const LS_KEY='algebra8_p3s3_cubo_progress_v2';
 function saveProgress(slide,clicks){try{localStorage.setItem(LS_KEY,JSON.stringify({slide,clicks,timestamp:Date.now()}))}catch(e){}}
 function loadProgress(){try{const d=JSON.parse(localStorage.getItem(LS_KEY));if(d&&Date.now()-d.timestamp<604800000)return d}catch(e){}return null}
 function showFeedback(msg,isError){const el=document.createElement('div');el.className='feedback-msg'+(isError?' error':'');el.textContent=msg;document.body.appendChild(el);requestAnimationFrame(()=>el.classList.add('show'));setTimeout(()=>{el.classList.remove('show');setTimeout(()=>el.remove(),300)},3000)}
@@ -391,50 +508,44 @@ const SLIDES=[
   <div class="p-card-grid">
     <div class="p-card"><div class="p-card-num">1</div><div class="p-card-title">(a+b)³</div><div class="p-card-sub">Las 8 piezas del cubo + formalización</div></div>
     <div class="p-card"><div class="p-card-num">2</div><div class="p-card-title">(a−b)³ · (a+b+c)²</div><div class="p-card-sub">Contraste de signos + 9 regiones</div></div>
-    <div class="p-card"><div class="p-card-num">3</div><div class="p-card-title">Cálculo mental</div><div class="p-card-sub">Atajos numéricos + tabla covariacional</div></div>
+    <div class="p-card"><div class="p-card-num">3</div><div class="p-card-title">Cálculo mental</div><div class="p-card-sub">Covariación + atajos con cubos</div></div>
   </div>
   <div class="p-docente">Período 3 · Semana 3 · Carlos Alberto Mena Romaña</div>
 </div>`},
 
-/* ═══ 1 · SESIÓN 1 DIVIDER ══════════════════════════════ */
+/* ═══ META · OBJETIVO Y CRITERIOS DE ÉXITO ══════════════ */
+{bread:'Sem. 3 · Meta de la semana',badge:'OBJETIVO',badgeColor:'var(--navy)',clicks:3,fL:'Sem. 3 · Qué voy a lograr y cómo lo sabré',html:`
+<div class="title-row">
+  <div class="accent-bar" style="background:var(--navy)"></div>
+  <div style="flex:1">
+    <div class="slide-title">Al final de la semana podré…</div>
+    <div class="slide-instr">Copia estos tres criterios en el cuaderno. Al cierre los usarás para marcar tu semáforo.</div>
+  </div>
+</div>
+<div class="goal-list">
+  <div class="goal-item" data-c="1"><div class="goal-n">1</div><div class="goal-txt">Explicar con las piezas del cubo por qué \\((a+b)^3 \\neq a^3+b^3\\).<span class="goal-ev">Lo sabré si nombro las 8 piezas y digo cuánto aporta cada una.</span></div></div>
+  <div class="goal-item" data-c="2"><div class="goal-n">2</div><div class="goal-txt">Expandir cubos de binomio y cuadrados de trinomio, controlando coeficientes y signos.<span class="goal-ev">Lo sabré si resuelvo los tickets de salida sin errores de coeficiente ni de signo.</span></div></div>
+  <div class="goal-item" data-c="3"><div class="goal-n">3</div><div class="goal-txt">Usar productos notables para calcular mentalmente.<span class="goal-ev">Lo sabré si calculo \\(11^3\\) o \\(21^3\\) sin calculadora y explico el atajo.</span></div></div>
+</div>`,
+onReveal:rv},
+
+/* ═══ SESIÓN 1 DIVIDER ══════════════════════════════════ */
 {cls:'s-sesion',noH:true,noF:true,clicks:0,html:`
 <div class="ses-inner">
   <div class="ses-num-panel"><div class="ses-lbl">Sesión</div><div class="ses-num">1</div></div>
   <div class="ses-content">
     <div class="ses-title">Cubo de un binomio: (a+b)³</div>
-    <div class="ses-sub">Las 8 piezas del cubo (SVG interactivo) → formalización + práctica guiada</div>
+    <div class="ses-sub">Predicción → cortar el cubo en el celular → formalización → ejemplos término por término → ticket de salida</div>
     <div class="ses-agenda">
-      <div class="ses-agenda-lbl">Momentos HTML (25 min)</div>
-      <div class="ses-item"><div class="ses-item-time">8 min</div><div class="ses-item-txt">Detonante: el tanque que crece un metro</div></div>
-      <div class="ses-item"><div class="ses-item-time">10 min</div><div class="ses-item-txt">Formalización: las 8 piezas + identidad (a+b)³</div></div>
-      <div class="ses-item"><div class="ses-item-time">7 min</div><div class="ses-item-txt">Yo hago + Hacemos: expansiones paso a paso</div></div>
+      <div class="ses-agenda-lbl">Momentos HTML</div>
+      <div class="ses-item"><div class="ses-item-time">8 min</div><div class="ses-item-txt">Detonante: predicción + actividad del tanque que crece</div></div>
+      <div class="ses-item"><div class="ses-item-time">7 min</div><div class="ses-item-txt">Contraste y formalización: las 8 piezas + identidad</div></div>
+      <div class="ses-item"><div class="ses-item-time">15 min</div><div class="ses-item-txt">Yo hago (2 ejemplos) → Pregunta bisagra → Hacemos → Ticket</div></div>
     </div>
   </div>
 </div>`},
 
-/* ═══ 2·A · ACTIVIDAD EN EL CELULAR / QR ═══════════════ */
-{bread:'Sem. 3 · Sesión 1 · Actividad',badge:'EXPLORACIÓN',badgeColor:'var(--amber)',clicks:0,fL:'Sem. 3 · Actividad · Cortamos el cubo en el celular',html:`
-<div class="title-row">
-  <div class="accent-bar" style="background:var(--amber)"></div>
-  <div style="flex:1">
-    <div class="slide-title">Antes de formalizar: cortemos el cubo</div>
-    <div class="slide-instr">En tríos, abran la actividad en el celular y cuenten cuántas piezas aparecen al aumentar 1 m a cada arista del tanque.</div>
-  </div>
-</div>
-<div style="display:grid;grid-template-columns:1.25fr 1fr;gap:var(--gap);align-items:stretch;margin-top:6px">
-  <div style="background:var(--navy);border-radius:14px;padding:clamp(16px,2vh,26px) clamp(16px,2vw,26px);display:flex;flex-direction:column;gap:14px;color:#fff">
-    <div style="font-size:var(--fs-sm);font-weight:800;color:var(--amber-b)">Actividad interactiva · La Minorista</div>
-    <div style="font-size:var(--fs-xs);color:#E7E5DF;line-height:1.6">Manipulen el cubo, córtenlo y cuenten las <strong>8 piezas</strong>. Anoten en el cuaderno cuántas de cada tipo encontraron antes de volver a la presentación.</div>
-    <a href="S3_Construccion_Cubo_Binomio.html" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;justify-content:center;gap:10px;background:var(--amber);color:var(--navy);font-weight:800;font-size:var(--fs-sm);text-decoration:none;border-radius:12px;padding:clamp(12px,1.5vh,18px) clamp(16px,2vw,24px);box-shadow:0 4px 0 var(--amber-b)">▶ Abrir la actividad</a>
-    <div style="font-size:var(--fs-xs);color:#B9C2D6;font-style:italic">O escaneen el código QR con la cámara del celular. →</div>
-  </div>
-  <div style="background:#fff;border:2.5px solid var(--border);border-radius:14px;padding:clamp(14px,1.6vh,20px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px">
-    <img src="data:image/png;base64,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" alt="Código QR para abrir la actividad del cubo del binomio" style="width:min(44vh,230px);height:auto;image-rendering:pixelated"/>
-    <div style="font-size:var(--fs-xs);color:var(--text3);text-align:center;line-height:1.4">camenar.github.io/Algebra8/<br>S3_Construccion_Cubo_Binomio</div>
-  </div>
-</div>`},
-
-/* ═══ 2 · DETONANTE ═════════════════════════════════════ */
+/* ═══ DETONANTE · PREDICCIÓN ════════════════════════════ */
 {bread:'Sem. 3 · Sesión 1 · (a+b)³',badge:'EXPLORACIÓN',badgeColor:'var(--amber)',clicks:1,fL:'Sem. 3 · El tanque que crece un metro',html:`
 <div class="title-row">
   <div class="accent-bar" style="background:var(--amber)"></div>
@@ -445,15 +556,65 @@ const SLIDES=[
 </div>
 <div class="det-box">
   <div class="det-label">Situación problema</div>
-  <div class="det-text">«Se propone aumentar 1 m a cada arista. Un estudiante calcula que el volumen nuevo será 9 m³, porque "8 más 1". Al cortar el cubo en la actividad digital aparecen 27 m³.»</div>
-  <div class="det-q">¿Dónde estaban escondidos los 18 m³ restantes?</div>
+  <div class="det-text">«Se propone aumentar 1 m a cada arista del tanque. Un estudiante afirma: "Si antes cabían 8 m³, ahora cabrán 9 m³, porque es 8 más 1".»</div>
+  <div class="det-q">¿Estás de acuerdo? Escribe en el cuaderno tu predicción del nuevo volumen.</div>
+</div>
+<div class="predict-box" data-c="1">
+  <div class="predict-lbl">Antes de abrir la actividad</div>
+  <div class="predict-row"><span>Mi predicción: ______ m³</span><span>Porque: ________________</span></div>
+  <div class="predict-note">No borres tu predicción: la vamos a comparar con lo que muestre el cubo.</div>
+</div>`,
+onReveal:rv},
+
+/* ═══ 2·A · ACTIVIDAD EN EL CELULAR / QR ═══════════════ */
+{bread:'Sem. 3 · Sesión 1 · Actividad',badge:'EXPLORACIÓN',badgeColor:'var(--amber)',clicks:0,fL:'Sem. 3 · Actividad · Cortamos el cubo en el celular',html:`
+<div class="title-row">
+  <div class="accent-bar" style="background:var(--amber)"></div>
+  <div style="flex:1">
+    <div class="slide-title">Comprobemos: cortemos el cubo</div>
+    <div class="slide-instr">En tríos, abran la actividad, aumenten 1 m a cada arista del tanque y cuenten las piezas de cada tipo.</div>
+  </div>
+</div>
+<div style="display:grid;grid-template-columns:1.25fr 1fr;gap:var(--gap);align-items:stretch;margin-top:6px">
+  <div style="background:var(--navy);border-radius:14px;padding:clamp(16px,2vh,26px) clamp(16px,2vw,26px);display:flex;flex-direction:column;gap:14px;color:#fff">
+    <div style="font-size:var(--fs-sm);font-weight:800;color:var(--amber-b)">Actividad interactiva · El tanque que crece</div>
+    <div style="font-size:var(--fs-xs);color:#E7E5DF;line-height:1.6">Manipulen el cubo, córtenlo y cuenten las <strong>8 piezas</strong>. Anoten en el cuaderno cuántas de cada tipo encontraron antes de volver a la presentación.</div>
+    <a href="S3_Construccion_Cubo_Binomio.html" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;justify-content:center;gap:10px;background:var(--amber);color:var(--navy);font-weight:800;font-size:var(--fs-sm);text-decoration:none;border-radius:12px;padding:clamp(12px,1.5vh,18px) clamp(16px,2vw,24px);box-shadow:0 4px 0 var(--amber-b)">▶ Abrir la actividad</a>
+    <div style="font-size:var(--fs-xs);color:#B9C2D6;font-style:italic">O escaneen el código QR con la cámara del celular. →</div>
+  </div>
+  <div style="background:#fff;border:2.5px solid var(--border);border-radius:14px;padding:clamp(14px,1.6vh,20px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px">
+    <img src="data:image/png;base64,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" alt="Código QR para abrir la actividad del cubo del binomio" style="width:min(44vh,230px);height:auto;image-rendering:pixelated"/>
+    <div style="font-size:var(--fs-xs);color:var(--text3);text-align:center;line-height:1.4">camenar.github.io/Algebra8/<br>S3_Construccion_Cubo_Binomio</div>
+  </div>
+</div>`},
+
+/* ═══ CONTRASTE · ¿DÓNDE ESTABAN LOS 18 m³? ═════════════ */
+{bread:'Sem. 3 · Sesión 1 · (a+b)³',badge:'EXPLORACIÓN',badgeColor:'var(--amber)',clicks:2,fL:'Sem. 3 · Contraste: predicción vs. cubo',html:`
+<div class="title-row">
+  <div class="accent-bar" style="background:var(--amber)"></div>
+  <div style="flex:1">
+    <div class="slide-title">¿Dónde estaban los 18 m³?</div>
+    <div class="slide-instr">Compara tu predicción con lo que mostró el cubo al cortarlo.</div>
+  </div>
+</div>
+<div class="ticket-grid">
+  <div class="ex-card vis" style="border-top-color:var(--red-b);text-align:center">
+    <div style="font-size:var(--fs-md);font-weight:800;color:var(--navy)">Lo que dijo el estudiante</div>
+    <div class="kbig" style="font-size:var(--fs-lg);padding:8px 0">\\(2^3 + 1^3 = 8 + 1 = 9\\) m³</div>
+  </div>
+  <div class="ex-card vis" style="border-top-color:var(--green-b);text-align:center">
+    <div style="font-size:var(--fs-md);font-weight:800;color:var(--navy)">Lo que mostró el cubo</div>
+    <div class="kbig" style="font-size:var(--fs-lg);padding:8px 0">\\((2+1)^3 = 3^3 = 27\\) m³</div>
+  </div>
 </div>
 <div class="error-box" data-c="1">
   <div class="error-title">El error del estudiante</div>
-  <div class="error-txt">Suponer que \\((2+1)^3 = 2^3 + 1^3 = 8 + 1 = 9\\). Pero \\(3^3 = 27\\). Faltan <strong style="color:var(--red-b)">18 m³</strong> de piezas que la suma simple no ve.</div>
-  <div style="font-size:var(--fs-sm);color:var(--text2);font-style:italic;margin-top:6px">Las piezas faltantes son los prismas 3a²b + 3ab² — las mismas que encontraste al cortar el cubo en el celular.</div>
+  <div class="error-txt">Sumó solo el cubo grande y el cubo pequeño. Olvidó las piezas que aparecen <em>entre</em> ellos: faltan <strong style="color:var(--red-b)">27 − 9 = 18 m³</strong>.</div>
+</div>
+<div class="soc-fml" data-c="2" style="font-size:var(--fs-md)">
+  3 prismas de \\(2\\times2\\times1\\) → \\(3\\cdot 4 = 12\\) m³ &ensp;+&ensp; 3 prismas de \\(2\\times1\\times1\\) → \\(3\\cdot 2 = 6\\) m³ &ensp;=&ensp; <strong>18 m³</strong>
 </div>`,
-onReveal:function(n){document.querySelectorAll('[data-c="'+n+'"]').forEach(function(e){e.classList.add('vis')})}},
+onReveal:rv},
 
 /* ═══ 3 · LAS 8 PIEZAS INTERACTIVAS ════════════════════ */
 {bread:'Sem. 3 · Sesión 1 · (a+b)³',badge:'FORMALIZACIÓN',badgeColor:'#219EBC',clicks:4,fL:'Sem. 3 · Las 8 piezas del cubo',html:`
@@ -484,32 +645,109 @@ onReveal:function(n){document.querySelectorAll('[data-c="'+n+'"]').forEach(funct
 </div>`,
 onReveal:function(n){document.querySelectorAll('[data-c="'+n+'"]').forEach(function(e){e.classList.add('vis')})}},
 
-/* ═══ 4 · YO HAGO ═══════════════════════════════════════ */
-{bread:'Sem. 3 · Sesión 1 · (a+b)³',badge:'YO HAGO',badgeColor:'#219EBC',clicks:8,fL:'Sem. 3 · Sesión 1 · Ejemplo resuelto',html:`
+/* ═══ YO HAGO · EJEMPLO 1 (x+2)³ ═══════════════════════ */
+{bread:'Sem. 3 · Sesión 1 · (a+b)³',badge:'YO HAGO',badgeColor:'#219EBC',clicks:6,fL:'Sem. 3 · Sesión 1 · Ejemplo resuelto 1 de 2',html:`
 <div class="title-row">
   <div class="accent-bar" style="background:#219EBC"></div>
   <div style="flex:1">
-    <div class="slide-title">Expandir paso a paso</div>
-    <div class="slide-instr">Identifica a y b, luego aplica: a³ + 3a²b + 3ab² + b³</div>
+    <div class="slide-title">Ejemplo 1: término por término</div>
+    <div class="slide-instr">Antes de cada clic, pregunta al grupo: ¿qué pieza del cubo sigue y cuánto vale?</div>
   </div>
 </div>
-<div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--gap)">
-  <div class="ex-card vis" style="border-top-color:#219EBC">
-    <div class="ex-head"><div class="ex-num" style="background:#219EBC">1</div><div class="ex-title">Expandir \\((x+2)^3\\)</div></div>
-    <div class="paso-row" data-c="1" style="border-left-color:#219EBC"><div class="paso-num" style="background:#219EBC">①</div><div class="paso-body"><strong>Identificar:</strong> \\(a = x,\\quad b = 2\\)</div></div>
-    <div class="paso-row" data-c="2" style="border-left-color:#219EBC"><div class="paso-num" style="background:#219EBC">②</div><div class="paso-body"><strong>Plantear:</strong> \\(a^3 + 3a^2b + 3ab^2 + b^3\\)</div></div>
-    <div class="paso-row" data-c="3" style="border-left-color:#219EBC"><div class="paso-num" style="background:#219EBC">③</div><div class="paso-body"><strong>Sustituir:</strong> \\(x^3 + 3(x^2)(2) + 3(x)(4) + 8\\)</div></div>
-    <div class="result-bar" data-c="4" style="font-size:var(--fs-lg)">\\(= x^3 + 6x^2 + 12x + 8\\)<br><span style="font-size:var(--fs-xs);color:#8ECAE6">Verif: (1+2)³ = 27 = 1+6+12+8 ✓</span></div>
+<div class="we-problem">
+  <div class="we-expr">\\((\\textcolor{#1A7FA0}{x}+\\textcolor{#C47C1A}{2})^3\\)</div>
+  <div class="we-ids" data-c="1"><span class="chip chip-a">\\(a = x\\)</span><span class="chip chip-b">\\(b = 2\\)</span></div>
+  <div class="we-mold" data-c="1">Molde: \\(a^3 + 3a^2b + 3ab^2 + b^3\\)</div>
+</div>
+<div class="we-terms">
+  <div class="we-term" data-c="2">
+    <div class="we-origin">1 cubo grande</div>
+    <div class="we-tpl">\\(a^3\\)</div>
+    <div class="we-sub">\\((\\textcolor{#1A7FA0}{x})^3\\)</div>
+    <div class="we-res">\\(x^3\\)</div>
   </div>
-  <div class="ex-card vis" style="border-top-color:var(--green)">
-    <div class="ex-head"><div class="ex-num" style="background:var(--green)">2</div><div class="ex-title">Expandir \\((2a+3)^3\\)</div></div>
-    <div class="paso-row" data-c="5" style="border-left-color:var(--green)"><div class="paso-num" style="background:var(--green)">①</div><div class="paso-body"><strong>Identificar:</strong> \\(a = 2a,\\quad b = 3\\)</div></div>
-    <div class="paso-row" data-c="6" style="border-left-color:var(--green)"><div class="paso-num" style="background:var(--green)">②</div><div class="paso-body"><strong>Plantear:</strong> \\((2a)^3 + 3(2a)^2(3) + 3(2a)(3^2) + 3^3\\)</div></div>
-    <div class="paso-row" data-c="7" style="border-left-color:var(--green)"><div class="paso-num" style="background:var(--green)">③</div><div class="paso-body"><strong>Sustituir:</strong> \\(8a^3 + 3(4a^2)(3) + 3(2a)(9) + 27\\)</div></div>
-    <div class="result-bar" data-c="8" style="font-size:var(--fs-lg)">\\(= 8a^3 + 36a^2 + 54a + 27\\)<br><span style="font-size:var(--fs-xs);color:var(--amber-b)">⚠ (2a)³ = 8a³, no 2a³</span></div>
+  <div class="we-term" data-c="3">
+    <div class="we-origin">3 prismas anchos</div>
+    <div class="we-tpl">\\(3a^2b\\)</div>
+    <div class="we-sub">\\(3(\\textcolor{#1A7FA0}{x})^2(\\textcolor{#C47C1A}{2})\\)</div>
+    <div class="we-res">\\(+\\,6x^2\\)</div>
   </div>
-</div>`,
-onReveal:function(n){document.querySelectorAll('[data-c="'+n+'"]').forEach(function(e){e.classList.add('vis')})}},
+  <div class="we-term" data-c="4">
+    <div class="we-origin">3 prismas delgados</div>
+    <div class="we-tpl">\\(3ab^2\\)</div>
+    <div class="we-sub">\\(3(\\textcolor{#1A7FA0}{x})(\\textcolor{#C47C1A}{2})^2\\)<br>\\(= 3(x)(4)\\)</div>
+    <div class="we-res">\\(+\\,12x\\)</div>
+  </div>
+  <div class="we-term" data-c="5">
+    <div class="we-origin">1 cubo pequeño</div>
+    <div class="we-tpl">\\(b^3\\)</div>
+    <div class="we-sub">\\((\\textcolor{#C47C1A}{2})^3\\)</div>
+    <div class="we-res">\\(+\\,8\\)</div>
+  </div>
+</div>
+<div class="result-bar we-final" data-c="6">\\((x+2)^3 = x^3 + 6x^2 + 12x + 8\\)<span class="we-check">Verifica con x = 1: (1 + 2)³ = 27 y 1 + 6 + 12 + 8 = 27 ✓</span></div>`,
+onReveal:rvFocus},
+
+/* ═══ YO HAGO · EJEMPLO 2 (2y+3)³ ══════════════════════ */
+{bread:'Sem. 3 · Sesión 1 · (a+b)³',badge:'YO HAGO',badgeColor:'#219EBC',clicks:6,fL:'Sem. 3 · Sesión 1 · Ejemplo resuelto 2 de 2',html:`
+<div class="title-row">
+  <div class="accent-bar" style="background:#219EBC"></div>
+  <div style="flex:1">
+    <div class="slide-title">Ejemplo 2: cuando a tiene coeficiente</div>
+    <div class="slide-instr">Aquí a no es una letra sola: a es todo el término 2y, con su coeficiente.</div>
+  </div>
+</div>
+<div class="we-problem">
+  <div class="we-expr">\\((\\textcolor{#1A7FA0}{2y}+\\textcolor{#C47C1A}{3})^3\\)</div>
+  <div class="we-ids" data-c="1"><span class="chip chip-a">\\(a = 2y\\)</span><span class="chip chip-b">\\(b = 3\\)</span></div>
+  <div class="we-mold" data-c="1">Molde: \\(a^3 + 3a^2b + 3ab^2 + b^3\\)</div>
+</div>
+<div class="we-terms">
+  <div class="we-term" data-c="2">
+    <div class="we-origin">1 cubo grande</div>
+    <div class="we-tpl">\\(a^3\\)</div>
+    <div class="we-sub">\\((\\textcolor{#1A7FA0}{2y})^3\\)<br>\\(= 2^3\\cdot y^3\\)</div>
+    <div class="we-res">\\(8y^3\\)</div>
+  </div>
+  <div class="we-term" data-c="3">
+    <div class="we-origin">3 prismas anchos</div>
+    <div class="we-tpl">\\(3a^2b\\)</div>
+    <div class="we-sub">\\(3(\\textcolor{#1A7FA0}{2y})^2(\\textcolor{#C47C1A}{3})\\)<br>\\(= 3(4y^2)(3)\\)</div>
+    <div class="we-res">\\(+\\,36y^2\\)</div>
+  </div>
+  <div class="we-term" data-c="4">
+    <div class="we-origin">3 prismas delgados</div>
+    <div class="we-tpl">\\(3ab^2\\)</div>
+    <div class="we-sub">\\(3(\\textcolor{#1A7FA0}{2y})(\\textcolor{#C47C1A}{3})^2\\)<br>\\(= 3(2y)(9)\\)</div>
+    <div class="we-res">\\(+\\,54y\\)</div>
+  </div>
+  <div class="we-term" data-c="5">
+    <div class="we-origin">1 cubo pequeño</div>
+    <div class="we-tpl">\\(b^3\\)</div>
+    <div class="we-sub">\\((\\textcolor{#C47C1A}{3})^3\\)</div>
+    <div class="we-res">\\(+\\,27\\)</div>
+  </div>
+</div>
+<div class="result-bar we-final" data-c="6">\\((2y+3)^3 = 8y^3 + 36y^2 + 54y + 27\\)<span class="we-notes"><span class="we-check">Verifica con y = 1: 5³ = 125 = 8 + 36 + 54 + 27 ✓</span><span class="we-warn">⚠ (2y)³ = 8y³, no 2y³</span></span></div>`,
+onReveal:rvFocus},
+
+/* ═══ PREGUNTA BISAGRA ══════════════════════════════════ */
+{bread:'Sem. 3 · Sesión 1 · Diagnóstico',badge:'PREGUNTA BISAGRA',badgeColor:'var(--purple)',clicks:1,fL:'Sem. 3 · Sesión 1 · ¿Estamos listos para practicar?',html:`
+<div class="title-row">
+  <div class="accent-bar" style="background:var(--purple)"></div>
+  <div style="flex:1">
+    <div class="slide-title">¿Cuál es el desarrollo de \\((n+5)^3\\)?</div>
+    <div class="slide-instr">Piensa 30 segundos. A la cuenta de tres, muestra con los dedos: 1, 2, 3 o 4.</div>
+  </div>
+</div>
+<div class="hinge-grid">
+  <div class="hinge-opt"><div class="hinge-top"><div class="hinge-n">1</div><div class="hinge-expr">\\(n^3 + 125\\)</div></div><div class="hinge-why" data-c="1">Sumó solo los cubos: olvidó los 6 prismas.</div></div>
+  <div class="hinge-opt"><div class="hinge-top"><div class="hinge-n">2</div><div class="hinge-expr">\\(n^3 + 15n^2 + 15n + 125\\)</div></div><div class="hinge-why" data-c="1">En \\(3ab^2\\) no elevó \\(b\\) al cuadrado.</div></div>
+  <div class="hinge-opt ok"><div class="hinge-top"><div class="hinge-n">3</div><div class="hinge-expr">\\(n^3 + 15n^2 + 75n + 125\\)</div></div><div class="hinge-why" data-c="1">✓ Correcta: \\(3(n)^2(5) = 15n^2\\) y \\(3(n)(5)^2 = 75n\\).</div></div>
+  <div class="hinge-opt"><div class="hinge-top"><div class="hinge-n">4</div><div class="hinge-expr">\\(n^3 + 3n^2 + 3n + 125\\)</div></div><div class="hinge-why" data-c="1">Usó 1-3-3-1, pero olvidó multiplicar por \\(b\\) y por \\(b^2\\).</div></div>
+</div>
+<div class="predict-note" data-c="1" style="font-size:var(--fs-sm)">Si la mayoría eligió 3, pasamos a la práctica. Si hubo muchos 1, 2 o 4, repetimos un ejemplo antes de avanzar.</div>`,
+onReveal:rvHinge},
 
 /* ═══ 5 · HACEMOS CONSIGNA ══════════════════════════════ */
 {bread:'Sem. 3 · Sesión 1 · (a+b)³',badge:'HACEMOS',badgeColor:'var(--green)',clicks:0,fL:'Sem. 3 · Sesión 1 · Consigna',html:`
@@ -556,78 +794,169 @@ onReveal:function(n){document.querySelectorAll('[data-c="'+n+'"]').forEach(funct
 </div>`,
 onReveal:function(n){document.querySelectorAll('[data-c="'+n+'"]').forEach(function(e){e.classList.add('vis')})}},
 
-/* ═══ 7 · SESIÓN 2 DIVIDER ══════════════════════════════ */
+/* ═══ TÚ HACES · TICKET DE SALIDA SESIÓN 1 ═══════════════ */
+{bread:'Sem. 3 · Sesión 1 · Ticket de salida',badge:'TÚ HACES',badgeColor:'#FB8500',clicks:0,fL:'Sem. 3 · Sesión 1 · Evidencia individual',html:`
+<div class="title-row">
+  <div class="accent-bar" style="background:#FB8500"></div>
+  <div style="flex:1">
+    <div class="slide-title">Ticket de salida — Sesión 1</div>
+    <div class="slide-instr">Trabajo individual en media hoja con tu nombre. Tienes 5 minutos y lo entregas al salir.</div>
+  </div>
+</div>
+<div class="ticket-grid">
+  <div class="ex-card vis" style="border-top-color:#FB8500">
+    <div class="ex-head"><div class="ex-num" style="background:#FB8500">1</div><div class="ex-title">Expande \\((y+3)^3\\)</div></div>
+    <div class="ex-ctx">Escribe junto a cada término de qué pieza del cubo viene. Verifica con \\(y = 1\\).</div>
+    <span class="ticket-crit">Criterio 2</span>
+  </div>
+  <div class="ex-card vis" style="border-top-color:var(--red-b)">
+    <div class="ex-head"><div class="ex-num" style="background:var(--red-b)">2</div><div class="ex-title">Encuentra el error</div></div>
+    <div class="ticket-err">Mateo escribió: \\((2x+1)^3 = 2x^3 + 6x^2 + 6x + 1\\)</div>
+    <div class="ex-ctx">¿En qué términos se equivocó? Escribe el desarrollo correcto y explica el error con las piezas del cubo.</div>
+    <span class="ticket-crit">Criterios 1 y 2</span>
+  </div>
+</div>`},
+
+/* ═══ SESIÓN 2 DIVIDER ══════════════════════════════════ */
 {cls:'s-sesion',noH:true,noF:true,clicks:0,html:`
 <div class="ses-inner">
-  <div class="ses-num-panel" style="background:var(--amber)"><div class="ses-lbl">Sesión</div><div class="ses-num">2</div></div>
+  <div class="ses-num-panel"><div class="ses-lbl">Sesión</div><div class="ses-num">2</div></div>
   <div class="ses-content">
     <div class="ses-title">Cubo de una diferencia + Cuadrado de un trinomio</div>
-    <div class="ses-sub">Contraste de signos (a+b)³ vs (a−b)³ · las 9 regiones de (a+b+c)²</div>
+    <div class="ses-sub">(a−b)³ no es una fórmula nueva: es (a + (−b))³ · las 9 regiones de (a+b+c)²</div>
     <div class="ses-agenda">
-      <div class="ses-agenda-lbl">Momentos HTML (25 min)</div>
-      <div class="ses-item"><div class="ses-item-time" style="background:var(--amber)">8 min</div><div class="ses-item-txt">Comparación: ¿qué cambia en el cubo de una diferencia?</div></div>
-      <div class="ses-item"><div class="ses-item-time" style="background:var(--amber)">10 min</div><div class="ses-item-txt">Cuadrado de un trinomio: las 9 regiones</div></div>
-      <div class="ses-item"><div class="ses-item-time" style="background:var(--amber)">7 min</div><div class="ses-item-txt">Práctica mixta: cubos y trinomios</div></div>
+      <div class="ses-agenda-lbl">Momentos HTML</div>
+      <div class="ses-item"><div class="ses-item-time">8 min</div><div class="ses-item-txt">(a−b)³ como (a + (−b))³ + ejemplo término por término</div></div>
+      <div class="ses-item"><div class="ses-item-time">10 min</div><div class="ses-item-txt">Trinomio: modelo de 9 regiones + ejemplo término por término</div></div>
+      <div class="ses-item"><div class="ses-item-time">10 min</div><div class="ses-item-txt">Práctica mixta + ticket de salida</div></div>
     </div>
   </div>
 </div>`},
 
-/* ═══ 8 · COMPARACIÓN (a+b)³ vs (a−b)³ ════════════════ */
-{bread:'Sem. 3 · Sesión 2 · (a−b)³',badge:'FORMALIZACIÓN',badgeColor:'var(--amber)',clicks:2,fL:'Sem. 3 · Sesión 2 · Comparación',html:`
+/* ═══ (a−b)³ = (a + (−b))³ ═════════════════════════════ */
+{bread:'Sem. 3 · Sesión 2 · (a−b)³',badge:'FORMALIZACIÓN',badgeColor:'var(--amber)',clicks:3,fL:'Sem. 3 · Sesión 2 · Restar b es sumar −b',html:`
 <div class="title-row">
   <div class="accent-bar" style="background:var(--amber)"></div>
   <div style="flex:1">
-    <div class="slide-title">¿Qué cambia entre (a+b)³ y (a−b)³?</div>
-    <div class="slide-instr">Los signos se alternan: +, −, +, −. ¿Por qué?</div>
+    <div class="slide-title">¿Qué cambia en \\((a-b)^3\\)?</div>
+    <div class="slide-instr">No necesitamos una fórmula nueva: restar b es lo mismo que sumar −b.</div>
   </div>
 </div>
-<div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--gap)">
-  <div class="ex-card vis" style="border-top-color:#219EBC;text-align:center">
-    <div style="font-size:var(--fs-md);font-weight:800;color:var(--navy)">Cubo de una SUMA</div>
-    <div class="kbig kbig-xxl" style="padding:20px 0">\\((a+b)^3 = a^3 \\mathbin{\\color{#219EBC}{+}} 3a^2b \\mathbin{\\color{#219EBC}{+}} 3ab^2 \\mathbin{\\color{#219EBC}{+}} b^3\\)</div>
-    <div style="font-size:var(--fs-sm);color:var(--text2)">Todos los signos son <strong style="color:#219EBC">positivos</strong></div>
-  </div>
-  <div class="ex-card" style="border-top-color:var(--amber);text-align:center" data-c="1">
-    <div style="font-size:var(--fs-md);font-weight:800;color:var(--navy)">Cubo de una DIFERENCIA</div>
-    <div class="kbig kbig-xxl" style="padding:20px 0">\\((a-b)^3 = a^3 \\mathbin{\\color{#B83232}{-}} 3a^2b \\mathbin{\\color{#219EBC}{+}} 3ab^2 \\mathbin{\\color{#B83232}{-}} b^3\\)</div>
-    <div style="font-size:var(--fs-sm);color:var(--text2)">Los signos se <strong style="color:var(--red)">alternan</strong>: +, −, +, −</div>
-  </div>
+<div class="ex-card vis" style="border-top-color:#219EBC;text-align:center">
+  <div style="font-size:var(--fs-sm);font-weight:800;color:var(--text3)">Lo que ya sabemos</div>
+  <div class="kbig" style="font-size:var(--fs-lg)">\\((a+\\textcolor{#C47C1A}{b})^3 = a^3 + 3a^2\\textcolor{#C47C1A}{b} + 3a\\textcolor{#C47C1A}{b}^2 + \\textcolor{#C47C1A}{b}^3\\)</div>
 </div>
-<div class="soc-fml" data-c="2" style="margin-top:var(--gap)">
-  <strong>¿Por qué se alternan?</strong> Cada vez que \\(b\\) tiene exponente <em>impar</em> (\\(b^1\\) o \\(b^3\\)), el signo negativo sobrevive. Cuando \\(b\\) tiene exponente <em>par</em> (\\(b^2\\)), el negativo se cancela.<br>
-  <span style="font-size:var(--fs-sm);color:var(--text2)">Patrón: exponente de b impar → signo negativo · exponente de b par → signo positivo.</span>
-</div>`,
-onReveal:function(n){document.querySelectorAll('[data-c="'+n+'"]').forEach(function(e){e.classList.add('vis')})}},
+<div class="paso-row" data-c="1" style="border-left-color:var(--amber)"><div class="paso-num" style="background:var(--amber)">①</div><div class="paso-body kbig">Reescribir: \\((a-b)^3 = \\big(a + (\\textcolor{#B83232}{-b})\\big)^3\\)</div></div>
+<div class="paso-row" data-c="2" style="border-left-color:var(--amber)"><div class="paso-num" style="background:var(--amber)">②</div><div class="paso-body kbig">Usar el mismo molde: \\(a^3 + 3a^2(\\textcolor{#B83232}{-b}) + 3a(\\textcolor{#B83232}{-b})^2 + (\\textcolor{#B83232}{-b})^3\\)</div></div>
+<div class="sign-grid" data-c="3">
+  <div class="sign-card neg">\\((-b)^1 = -b\\)<em class="sg-lbl">impar → negativo</em></div>
+  <div class="sign-card pos">\\((-b)^2 = +b^2\\)<em class="sg-lbl">par → positivo</em></div>
+  <div class="sign-card neg">\\((-b)^3 = -b^3\\)<em class="sg-lbl">impar → negativo</em></div>
+</div>
+<div class="result-bar" data-c="3" style="font-size:var(--fs-xl)">\\((a-b)^3 = a^3 - 3a^2b + 3ab^2 - b^3\\)</div>`,
+onReveal:rv},
 
-/* ═══ 9 · CUADRADO DE UN TRINOMIO ══════════════════════ */
-{bread:'Sem. 3 · Sesión 2 · (a+b+c)²',badge:'FORMALIZACIÓN',badgeColor:'var(--amber)',clicks:6,fL:'Sem. 3 · Sesión 2 · Cuadrado de trinomio',html:`
+/* ═══ YO HAGO · (x−4)³ ═════════════════════════════════ */
+{bread:'Sem. 3 · Sesión 2 · (a−b)³',badge:'YO HAGO',badgeColor:'var(--amber)',clicks:6,fL:'Sem. 3 · Sesión 2 · Ejemplo resuelto: cubo de una diferencia',html:`
 <div class="title-row">
   <div class="accent-bar" style="background:var(--amber)"></div>
   <div style="flex:1">
-    <div class="slide-title">Cuadrado de un trinomio: (a+b+c)²</div>
-    <div class="slide-instr">Un cuadrado dividido en 9 regiones. 3 cuadrados + 6 rectángulos (3 dobles productos).</div>
+    <div class="slide-title">Ejemplo: b lleva su signo</div>
+    <div class="slide-instr">Antes de cada clic: ¿cuántas veces aparece −4 en este término? ¿Qué signo queda?</div>
   </div>
 </div>
-<div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--gap)">
-  <div class="ex-card vis" style="border-top-color:var(--amber);text-align:center">
-    <div style="font-size:var(--fs-md);font-weight:800;color:var(--navy)">La fórmula</div>
-    <div class="kbig kbig-xxl" style="padding:20px 0;line-height:1.5">\\((a+b+c)^2 =\\)<br>\\(a^2+b^2+c^2\\)<br>\\(+\\,2ab+2ac+2bc\\)</div>
-    <div style="font-size:var(--fs-sm);color:var(--text2);line-height:1.6">
-      <strong>3 cuadrados</strong> (uno por cada término)<br>
-      + <strong>3 dobles productos</strong> (una pareja por cada par de términos)
-    </div>
+<div class="we-problem">
+  <div class="we-expr">\\((\\textcolor{#1A7FA0}{x}\\textcolor{#C47C1A}{-4})^3\\)</div>
+  <div class="we-ids" data-c="1"><span class="chip chip-a">\\(a = x\\)</span><span class="chip chip-b">\\(b = -4\\)</span></div>
+  <div class="we-mold" data-c="1">Molde: \\(a^3 + 3a^2b + 3ab^2 + b^3\\)</div>
+</div>
+<div class="we-terms">
+  <div class="we-term" data-c="2">
+    <div class="we-origin">sin b → positivo</div>
+    <div class="we-tpl">\\(a^3\\)</div>
+    <div class="we-sub">\\((\\textcolor{#1A7FA0}{x})^3\\)</div>
+    <div class="we-res">\\(x^3\\)</div>
   </div>
-  <div class="ex-card vis" style="border-top-color:var(--green)">
-    <div class="ex-head"><div class="ex-num" style="background:var(--green)">Ej</div><div class="ex-title">\\((x+2y+3)^2\\)</div></div>
-    <div class="paso-row" data-c="1" style="border-left-color:var(--green)"><div class="paso-num" style="background:var(--green)">①</div><div class="paso-body"><strong>Identificar:</strong> \\(a = x,\\quad b = 2y,\\quad c = 3\\)</div></div>
-    <div class="paso-row" data-c="2" style="border-left-color:var(--green)"><div class="paso-num" style="background:var(--green)">②</div><div class="paso-body"><strong>Cuadrados:</strong> \\(x^2 + (2y)^2 + 3^2 = x^2 + 4y^2 + 9\\)</div></div>
-    <div class="paso-row" data-c="3" style="border-left-color:var(--green)"><div class="paso-num" style="background:var(--green)">③</div><div class="paso-body"><strong>Doble (a,b):</strong> \\(2(x)(2y) = 4xy\\)</div></div>
-    <div class="paso-row" data-c="4" style="border-left-color:var(--green)"><div class="paso-num" style="background:var(--green)">④</div><div class="paso-body"><strong>Doble (a,c):</strong> \\(2(x)(3) = 6x\\)</div></div>
-    <div class="paso-row" data-c="5" style="border-left-color:var(--green)"><div class="paso-num" style="background:var(--green)">⑤</div><div class="paso-body"><strong>Doble (b,c):</strong> \\(2(2y)(3) = 12y\\)</div></div>
-    <div class="result-bar" data-c="6" style="font-size:var(--fs-lg)">\\(= x^2 + 4y^2 + 9 + 4xy + 6x + 12y\\)</div>
+  <div class="we-term" data-c="3">
+    <div class="we-origin">b una vez → negativo</div>
+    <div class="we-tpl">\\(3a^2b\\)</div>
+    <div class="we-sub">\\(3(\\textcolor{#1A7FA0}{x})^2(\\textcolor{#C47C1A}{-4})\\)</div>
+    <div class="we-res">\\(-\\,12x^2\\)</div>
+  </div>
+  <div class="we-term" data-c="4">
+    <div class="we-origin">b dos veces → positivo</div>
+    <div class="we-tpl">\\(3ab^2\\)</div>
+    <div class="we-sub">\\(3(\\textcolor{#1A7FA0}{x})(\\textcolor{#C47C1A}{-4})^2\\)<br>\\(= 3(x)(16)\\)</div>
+    <div class="we-res">\\(+\\,48x\\)</div>
+  </div>
+  <div class="we-term" data-c="5">
+    <div class="we-origin">b tres veces → negativo</div>
+    <div class="we-tpl">\\(b^3\\)</div>
+    <div class="we-sub">\\((\\textcolor{#C47C1A}{-4})^3\\)</div>
+    <div class="we-res">\\(-\\,64\\)</div>
+  </div>
+</div>
+<div class="result-bar we-final" data-c="6">\\((x-4)^3 = x^3 - 12x^2 + 48x - 64\\)<span class="we-check">Verifica con x = 5: (5 − 4)³ = 1 y 125 − 300 + 240 − 64 = 1 ✓</span></div>`,
+onReveal:rvFocus},
+
+/* ═══ TRINOMIO · MODELO DE 9 REGIONES ══════════════════ */
+{bread:'Sem. 3 · Sesión 2 · (a+b+c)²',badge:'FORMALIZACIÓN',badgeColor:'var(--amber)',clicks:5,fL:'Sem. 3 · Sesión 2 · Cuadrado de un trinomio',html:`
+<div class="title-row">
+  <div class="accent-bar" style="background:var(--amber)"></div>
+  <div style="flex:1">
+    <div class="slide-title">Cuadrado de un trinomio: las 9 regiones</div>
+    <div class="slide-instr">Un cuadrado de lado a + b + c se divide en 9 regiones. ¿Cuáles se repiten?</div>
+  </div>
+</div>
+<div class="area-layout">
+  <div class="area-model" role="img" aria-label="Cuadrado de lado a más b más c dividido en nueve regiones">
+    <div></div><div class="area-lbl">a</div><div class="area-lbl">b</div><div class="area-lbl">c</div>
+    <div class="area-lbl">a</div>
+    <div class="ar"><div class="ar-fill ar-sq" data-c="1">a²</div></div>
+    <div class="ar"><div class="ar-fill ar-ab" data-c="2">ab</div></div>
+    <div class="ar"><div class="ar-fill ar-ac" data-c="3">ac</div></div>
+    <div class="area-lbl">b</div>
+    <div class="ar"><div class="ar-fill ar-ab" data-c="2">ab</div></div>
+    <div class="ar"><div class="ar-fill ar-sq" data-c="1">b²</div></div>
+    <div class="ar"><div class="ar-fill ar-bc" data-c="4">bc</div></div>
+    <div class="area-lbl">c</div>
+    <div class="ar"><div class="ar-fill ar-ac" data-c="3">ac</div></div>
+    <div class="ar"><div class="ar-fill ar-bc" data-c="4">bc</div></div>
+    <div class="ar"><div class="ar-fill ar-sq" data-c="1">c²</div></div>
+  </div>
+  <div class="area-steps">
+    <div class="paso-row" data-c="1" style="border-left-color:#1C3A6E"><div class="paso-body"><strong>3 cuadrados</strong> en la diagonal: \\(a^2 + b^2 + c^2\\)</div></div>
+    <div class="paso-row" data-c="2" style="border-left-color:#1A6B5A"><div class="paso-body"><strong>2 rectángulos</strong> \\(ab\\): \\(+\\,2ab\\)</div></div>
+    <div class="paso-row" data-c="3" style="border-left-color:var(--amber)"><div class="paso-body"><strong>2 rectángulos</strong> \\(ac\\): \\(+\\,2ac\\)</div></div>
+    <div class="paso-row" data-c="4" style="border-left-color:var(--purple)"><div class="paso-body"><strong>2 rectángulos</strong> \\(bc\\): \\(+\\,2bc\\)</div></div>
+    <div class="result-bar" data-c="5" style="font-size:var(--fs-lg)">\\((a+b+c)^2 = a^2+b^2+c^2+2ab+2ac+2bc\\)</div>
   </div>
 </div>`,
-onReveal:function(n){document.querySelectorAll('[data-c="'+n+'"]').forEach(function(e){e.classList.add('vis')})}},
+onReveal:rv},
+
+/* ═══ YO HAGO · (x+2y+3)² ══════════════════════════════ */
+{bread:'Sem. 3 · Sesión 2 · (a+b+c)²',badge:'YO HAGO',badgeColor:'var(--amber)',clicks:8,fL:'Sem. 3 · Sesión 2 · Ejemplo resuelto: trinomio',html:`
+<div class="title-row">
+  <div class="accent-bar" style="background:var(--amber)"></div>
+  <div style="flex:1">
+    <div class="slide-title">Ejemplo: una región por clic</div>
+    <div class="slide-instr">Primera fila: los 3 cuadrados. Segunda fila: los 3 dobles productos, uno por cada pareja.</div>
+  </div>
+</div>
+<div class="we-problem slim">
+  <div class="we-expr">\\((\\textcolor{#1A7FA0}{x}+\\textcolor{#C47C1A}{2y}+\\textcolor{#6C3483}{3})^2\\)</div>
+  <div class="we-ids" data-c="1"><span class="chip chip-a">\\(a = x\\)</span><span class="chip chip-b">\\(b = 2y\\)</span><span class="chip chip-c">\\(c = 3\\)</span></div>
+</div>
+<div class="we-terms t3">
+  <div class="we-term" data-c="2"><div class="we-origin">región a · a</div><div class="we-sub"><span class="we-tpl">\\(a^2\\)</span> &nbsp;→&nbsp; \\((\\textcolor{#1A7FA0}{x})^2\\)</div><div class="we-res">\\(x^2\\)</div></div>
+  <div class="we-term" data-c="3"><div class="we-origin">región b · b</div><div class="we-sub"><span class="we-tpl">\\(b^2\\)</span> &nbsp;→&nbsp; \\((\\textcolor{#C47C1A}{2y})^2\\)</div><div class="we-res">\\(+\\,4y^2\\)</div></div>
+  <div class="we-term" data-c="4"><div class="we-origin">región c · c</div><div class="we-sub"><span class="we-tpl">\\(c^2\\)</span> &nbsp;→&nbsp; \\((\\textcolor{#6C3483}{3})^2\\)</div><div class="we-res">\\(+\\,9\\)</div></div>
+  <div class="we-term" data-c="5"><div class="we-origin">2 regiones a · b</div><div class="we-sub"><span class="we-tpl">\\(2ab\\)</span> &nbsp;→&nbsp; \\(2(\\textcolor{#1A7FA0}{x})(\\textcolor{#C47C1A}{2y})\\)</div><div class="we-res">\\(+\\,4xy\\)</div></div>
+  <div class="we-term" data-c="6"><div class="we-origin">2 regiones a · c</div><div class="we-sub"><span class="we-tpl">\\(2ac\\)</span> &nbsp;→&nbsp; \\(2(\\textcolor{#1A7FA0}{x})(\\textcolor{#6C3483}{3})\\)</div><div class="we-res">\\(+\\,6x\\)</div></div>
+  <div class="we-term" data-c="7"><div class="we-origin">2 regiones b · c</div><div class="we-sub"><span class="we-tpl">\\(2bc\\)</span> &nbsp;→&nbsp; \\(2(\\textcolor{#C47C1A}{2y})(\\textcolor{#6C3483}{3})\\)</div><div class="we-res">\\(+\\,12y\\)</div></div>
+</div>
+<div class="result-bar we-final row" data-c="8">\\((x+2y+3)^2 = x^2+4y^2+9+4xy+6x+12y\\)<span class="we-check">x = y = 1: 6² = 36 = 1+4+9+4+6+12 ✓</span></div>`,
+onReveal:rvFocus},
 
 /* ═══ 10 · HACEMOS MIXTA CONSIGNA ══════════════════════ */
 {bread:'Sem. 3 · Sesión 2 · Práctica',badge:'HACEMOS',badgeColor:'var(--green)',clicks:0,fL:'Sem. 3 · Sesión 2 · Consigna',html:`
@@ -674,24 +1003,47 @@ onReveal:function(n){document.querySelectorAll('[data-c="'+n+'"]').forEach(funct
 </div>`,
 onReveal:function(n){document.querySelectorAll('[data-c="'+n+'"]').forEach(function(e){e.classList.add('vis')})}},
 
-/* ═══ 12 · SESIÓN 3 DIVIDER ═════════════════════════════ */
+/* ═══ TÚ HACES · TICKET DE SALIDA SESIÓN 2 ═══════════════ */
+{bread:'Sem. 3 · Sesión 2 · Ticket de salida',badge:'TÚ HACES',badgeColor:'#FB8500',clicks:0,fL:'Sem. 3 · Sesión 2 · Evidencia individual',html:`
+<div class="title-row">
+  <div class="accent-bar" style="background:#FB8500"></div>
+  <div style="flex:1">
+    <div class="slide-title">Ticket de salida — Sesión 2</div>
+    <div class="slide-instr">Trabajo individual en media hoja con tu nombre. Tienes 5 minutos y lo entregas al salir.</div>
+  </div>
+</div>
+<div class="ticket-grid">
+  <div class="ex-card vis" style="border-top-color:#FB8500">
+    <div class="ex-head"><div class="ex-num" style="background:#FB8500">1</div><div class="ex-title">Expande \\((m-2)^3\\)</div></div>
+    <div class="ex-ctx">Escríbelo primero como \\(\\big(m + (-2)\\big)^3\\) y justifica el signo de cada término.</div>
+    <span class="ticket-crit">Criterio 2</span>
+  </div>
+  <div class="ex-card vis" style="border-top-color:var(--red-b)">
+    <div class="ex-head"><div class="ex-num" style="background:var(--red-b)">2</div><div class="ex-title">Convence a Sara</div></div>
+    <div class="ticket-err">Sara dice: \\((a-b)^3 = a^3 - b^3\\)</div>
+    <div class="ex-ctx">Demuéstrale con \\(a = 3,\\ b = 1\\) que no es cierto. ¿Qué términos le faltan?</div>
+    <span class="ticket-crit">Criterios 1 y 2</span>
+  </div>
+</div>`},
+
+/* ═══ SESIÓN 3 DIVIDER ══════════════════════════════════ */
 {cls:'s-sesion',noH:true,noF:true,clicks:0,html:`
 <div class="ses-inner">
   <div class="ses-num-panel" style="background:#FB8500"><div class="ses-lbl">Sesión</div><div class="ses-num">3</div></div>
   <div class="ses-content">
-    <div class="ses-title">Cálculo mental + Tabla de contraste</div>
-    <div class="ses-sub">Atajos numéricos con productos notables · Perímetro vs Área vs Volumen</div>
+    <div class="ses-title">Covariación + Cálculo mental con cubos</div>
+    <div class="ses-sub">Perímetro vs. área vs. volumen · los incrementos esconden el cubo del binomio · Pascal</div>
     <div class="ses-agenda">
-      <div class="ses-agenda-lbl">Momentos HTML (25 min)</div>
-      <div class="ses-item"><div class="ses-item-time" style="background:#FB8500">8 min</div><div class="ses-item-txt">Tabla covariacional: 3 magnitudes, 1 mismo cambio</div></div>
-      <div class="ses-item"><div class="ses-item-time" style="background:#FB8500">10 min</div><div class="ses-item-txt">Cálculo mental: atajos de la Plaza Minorista</div></div>
-      <div class="ses-item"><div class="ses-item-time" style="background:#FB8500">7 min</div><div class="ses-item-txt">Metacognición + Semáforo de cierre</div></div>
+      <div class="ses-agenda-lbl">Momentos HTML</div>
+      <div class="ses-item"><div class="ses-item-time" style="background:#FB8500">10 min</div><div class="ses-item-txt">Tabla covariacional: predecir y explicar los incrementos</div></div>
+      <div class="ses-item"><div class="ses-item-time" style="background:#FB8500">8 min</div><div class="ses-item-txt">Cálculo mental con cubos + triángulo de Pascal</div></div>
+      <div class="ses-item"><div class="ses-item-time" style="background:#FB8500">7 min</div><div class="ses-item-txt">Metacognición + semáforo con los criterios de la semana</div></div>
     </div>
   </div>
 </div>`},
 
-/* ═══ 13 · TABLA DE CONTRASTE COVARIACIONAL ════════════ */
-{bread:'Sem. 3 · Sesión 3 · Covariación',badge:'SÍNTESIS',badgeColor:'var(--navy)',clicks:4,fL:'Sem. 3 · Tabla de contraste covariacional',html:`
+/* ═══ TABLA DE CONTRASTE COVARIACIONAL ═══════════════════ */
+{bread:'Sem. 3 · Sesión 3 · Covariación',badge:'SÍNTESIS',badgeColor:'var(--navy)',clicks:5,fL:'Sem. 3 · Tabla de contraste covariacional',html:`
 <div class="title-row">
   <div class="accent-bar" style="background:var(--navy)"></div>
   <div style="flex:1">
@@ -704,44 +1056,81 @@ onReveal:function(n){document.querySelectorAll('[data-c="'+n+'"]').forEach(funct
   <tr class="tabla-row vis"><td>2</td><td>8</td><td>—</td><td>4</td><td>—</td><td>8</td><td>—</td></tr>
   <tr class="tabla-row" data-c="1"><td>3</td><td>12</td><td class="delta">+4</td><td>9</td><td class="delta">+5</td><td>27</td><td class="delta">+19</td></tr>
   <tr class="tabla-row" data-c="2"><td>4</td><td>16</td><td class="delta">+4</td><td>16</td><td class="delta">+7</td><td>64</td><td class="delta">+37</td></tr>
-  <tr class="tabla-row" data-c="3"><td>5</td><td>20</td><td class="delta">+4</td><td>25</td><td class="delta">+9</td><td>125</td><td class="delta">+61</td></tr>
+  <tr class="tabla-row" data-c="4"><td>5</td><td>20</td><td class="delta">+4</td><td>25</td><td class="delta">+9</td><td>125</td><td class="delta">+61</td></tr>
 </table>
-<div class="concl-grid" data-c="4" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:var(--gap);margin-top:var(--gap)">
+<div class="predict-box" data-c="3">
+  <div class="predict-lbl">Predice antes del clic</div>
+  <div class="predict-row" style="font-size:var(--fs-md)"><span>Arista 4 → 5: Δ Perím. = ___</span><span>Δ Área = ___</span><span>Δ Vol. = ___</span></div>
+</div>
+<div class="concl-grid" data-c="5" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:var(--gap)">
   <div style="background:#219EBC;color:#fff;border-radius:12px;padding:clamp(10px,1.2vh,16px) clamp(10px,1.2vw,16px);text-align:center;font-size:var(--fs-sm);font-weight:700;line-height:1.5">Perímetro<br><span style="font-weight:400;font-size:.9em">Crece <strong>siempre +4</strong><br>(cambio constante)</span></div>
-  <div style="background:var(--amber);color:#fff;border-radius:12px;padding:clamp(10px,1.2vh,16px) clamp(10px,1.2vw,16px);text-align:center;font-size:var(--fs-sm);font-weight:700;line-height:1.5">Área<br><span style="font-weight:400;font-size:.9em">Crece <strong>+5, +7, +9…</strong><br>(cambio creciente)</span></div>
-  <div style="background:var(--red-b);color:#fff;border-radius:12px;padding:clamp(10px,1.2vh,16px) clamp(10px,1.2vw,16px);text-align:center;font-size:var(--fs-sm);font-weight:700;line-height:1.5">Volumen<br><span style="font-weight:400;font-size:.9em">Crece <strong>+19, +37, +61…</strong><br>(cambio acelerado)</span></div>
+  <div style="background:var(--amber);color:#fff;border-radius:12px;padding:clamp(10px,1.2vh,16px) clamp(10px,1.2vw,16px);text-align:center;font-size:var(--fs-sm);font-weight:700;line-height:1.5">Área<br><span style="font-weight:400;font-size:.9em">Crece <strong>+5, +7, +9…</strong><br>(el cambio aumenta de 2 en 2)</span></div>
+  <div style="background:var(--red-b);color:#fff;border-radius:12px;padding:clamp(10px,1.2vh,16px) clamp(10px,1.2vw,16px);text-align:center;font-size:var(--fs-sm);font-weight:700;line-height:1.5">Volumen<br><span style="font-weight:400;font-size:.9em">Crece <strong>+19, +37, +61…</strong><br>(el cambio aumenta cada vez más)</span></div>
 </div>`,
-onReveal:function(n){document.querySelectorAll('[data-c="'+n+'"]').forEach(function(e){e.classList.add('vis')})}},
+onReveal:rv},
 
-/* ═══ 14 · CÁLCULO MENTAL ══════════════════════════════ */
+/* ═══ ¿DE DÓNDE SALEN +19, +37, +61? ════════════════════ */
+{bread:'Sem. 3 · Sesión 3 · Covariación',badge:'SÍNTESIS',badgeColor:'var(--navy)',clicks:6,fL:'Sem. 3 · Los incrementos esconden el cubo del binomio',html:`
+<div class="title-row">
+  <div class="accent-bar" style="background:var(--navy)"></div>
+  <div style="flex:1">
+    <div class="slide-title">¿De dónde salen +19, +37, +61?</div>
+    <div class="slide-instr">Cuando la arista pasa de x a x + 1, ¿qué piezas se le agregan al cubo?</div>
+  </div>
+</div>
+<div class="paso-row" data-c="1" style="border-left-color:var(--navy)"><div class="paso-num" style="background:var(--navy)">①</div><div class="paso-body kbig">Cambio del volumen: \\(\\Delta V = (x+1)^3 - x^3\\)</div></div>
+<div class="paso-row" data-c="2" style="border-left-color:var(--navy)"><div class="paso-num" style="background:var(--navy)">②</div><div class="paso-body kbig">Cubo del binomio: \\(\\Delta V = \\cancel{x^3} + 3x^2 + 3x + 1 - \\cancel{x^3} = 3x^2 + 3x + 1\\)</div></div>
+<div class="cube-grid slim" style="grid-template-columns:repeat(3,1fr)">
+  <div class="cube-piece cp-a2b" data-c="3"><div class="cp-count">3 placas</div><div class="cp-expr">\\(3x^2\\)</div><div class="cp-val">una por cada cara que crece</div></div>
+  <div class="cube-piece cp-ab2" data-c="3"><div class="cp-count">3 barras</div><div class="cp-expr">\\(3x\\)</div><div class="cp-val">en las aristas nuevas</div></div>
+  <div class="cube-piece cp-b3" data-c="3"><div class="cp-count">1 cubito</div><div class="cp-expr">\\(1\\)</div><div class="cp-val">en la esquina</div></div>
+</div>
+<div class="tri-grid">
+  <div class="soc-fml" data-c="4" style="font-size:var(--fs-sm);text-align:left">
+    <strong>Comprobamos con la tabla</strong><br>
+    \\(x = 2:\\ 12 + 6 + 1 = 19\\) ✓<br>\\(x = 3:\\ 27 + 9 + 1 = 37\\) ✓<br>\\(x = 4:\\ 48 + 12 + 1 = 61\\) ✓
+  </div>
+  <div class="soc-fml" data-c="4" style="font-size:var(--fs-sm);text-align:left;border-color:var(--amber)">
+    <strong>Lo mismo pasa con el área</strong><br>
+    \\(\\Delta A = (x+1)^2 - x^2\\)<br>\\(= 2x + 1\\) → 5, 7, 9 ✓
+  </div>
+  <div class="predict-box" data-c="5">
+    <div class="predict-lbl">Reto</div>
+    <div style="font-size:var(--fs-sm);font-weight:700;color:var(--navy)">De arista 5 a 6, ¿cuánto crece el volumen? Sin calcular 6³ − 5³.</div>
+    <div class="predict-note" data-c="6">\\(3(5)^2 + 3(5) + 1 = 75 + 15 + 1 = 91\\) m³</div>
+  </div>
+</div></div>`,
+onReveal:rv},
+
+/* ═══ CÁLCULO MENTAL CON CUBOS ══════════════════════════ */
 {bread:'Sem. 3 · Sesión 3 · Cálculo mental',badge:'TÚ HACES',badgeColor:'#FB8500',clicks:0,fL:'Sem. 3 · Sesión 3 · Consigna',html:`
 <div class="title-row">
   <div class="accent-bar" style="background:#FB8500"></div>
   <div style="flex:1">
     <div class="slide-title">Atajos de la Plaza Minorista</div>
-    <div class="slide-instr">Un comerciante necesita calcular rápido, sin calculadora. ¿Qué producto notable usarías?</div>
+    <div class="slide-instr">Un comerciante calcula rápido, sin calculadora. ¿Qué producto notable usarías?</div>
   </div>
 </div>
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--gap)">
   <div class="ex-card vis" style="border-top-color:#FB8500">
-    <div class="ex-head"><div class="ex-num" style="background:#FB8500">1</div><div class="ex-title">\\(102^2\\)</div></div>
-    <div class="ex-ctx">Descompón: (100 + 2)². Cuadrado de una suma.</div>
+    <div class="ex-head"><div class="ex-num" style="background:#FB8500">1</div><div class="ex-title">\\(11^3\\)</div></div>
+    <div class="ex-ctx">Piénsalo como (10 + 1)³. ¿Cuánto vale cada una de las 4 piezas?</div>
   </div>
   <div class="ex-card vis" style="border-top-color:#FB8500">
-    <div class="ex-head"><div class="ex-num" style="background:#FB8500">2</div><div class="ex-title">\\(98 \\times 102\\)</div></div>
-    <div class="ex-ctx">¿Suma por diferencia? (100 − 2)(100 + 2).</div>
+    <div class="ex-head"><div class="ex-num" style="background:#FB8500">2</div><div class="ex-title">\\(21^3\\)</div></div>
+    <div class="ex-ctx">(20 + 1)³. Empieza por 20³ = 8000.</div>
   </div>
   <div class="ex-card vis" style="border-top-color:#FB8500">
-    <div class="ex-head"><div class="ex-num" style="background:#FB8500">3</div><div class="ex-title">\\(99^2\\)</div></div>
-    <div class="ex-ctx">Cuadrado de una diferencia: (100 − 1)².</div>
+    <div class="ex-head"><div class="ex-num" style="background:#FB8500">3</div><div class="ex-title">\\(102^2\\)</div></div>
+    <div class="ex-ctx">Repaso: (100 + 2)². Cuadrado de una suma.</div>
   </div>
-  <div class="ex-card vis" style="border-top-color:#FB8500">
-    <div class="ex-head"><div class="ex-num" style="background:#FB8500">4</div><div class="ex-title">\\(51^2\\)</div></div>
-    <div class="ex-ctx">(50 + 1)². ¿Cuánto es 2·50·1?</div>
+  <div class="ex-card vis" style="border-top-color:var(--purple)">
+    <div class="ex-head"><div class="ex-num" style="background:var(--purple)">★</div><div class="ex-title">Reto: \\(99^3\\)</div></div>
+    <div class="ex-ctx">(100 − 1)³. Aquí b = −1: cuidado con los signos.</div>
   </div>
 </div>`},
 
-/* ═══ 15 · CÁLCULO MENTAL SOCIALIZACIÓN ════════════════ */
+/* ═══ CÁLCULO MENTAL SOCIALIZACIÓN ══════════════════════ */
 {bread:'Sem. 3 · Sesión 3 · Cálculo mental',badge:'SOCIALIZACIÓN',badgeColor:'#FB8500',clicks:4,fL:'Sem. 3 · Sesión 3 · Respuestas',html:`
 <div class="title-row">
   <div class="accent-bar" style="background:#FB8500"></div>
@@ -751,38 +1140,59 @@ onReveal:function(n){document.querySelectorAll('[data-c="'+n+'"]').forEach(funct
   </div>
 </div>
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--gap)">
-  <div class="ex-card" style="border-top-color:#FB8500" data-c="1"><div class="ex-head"><div class="ex-num" style="background:#FB8500">1</div><div class="ex-title">\\(102^2\\)</div></div><div class="ex-sol"><strong style="color:var(--acc)">Cuadrado de una suma</strong><br>\\((100+2)^2 = 10000 + 400 + 4 = \\mathbf{10404}\\)</div></div>
-  <div class="ex-card" style="border-top-color:#FB8500" data-c="2"><div class="ex-head"><div class="ex-num" style="background:#FB8500">2</div><div class="ex-title">\\(98 \\times 102\\)</div></div><div class="ex-sol"><strong style="color:var(--acc)">Suma por diferencia</strong><br>\\((100-2)(100+2) = 10000 - 4 = \\mathbf{9996}\\)</div></div>
-  <div class="ex-card" style="border-top-color:#FB8500" data-c="3"><div class="ex-head"><div class="ex-num" style="background:#FB8500">3</div><div class="ex-title">\\(99^2\\)</div></div><div class="ex-sol"><strong style="color:var(--acc)">Cuadrado de una diferencia</strong><br>\\((100-1)^2 = 10000 - 200 + 1 = \\mathbf{9801}\\)</div></div>
-  <div class="ex-card" style="border-top-color:#FB8500" data-c="4"><div class="ex-head"><div class="ex-num" style="background:#FB8500">4</div><div class="ex-title">\\(51^2\\)</div></div><div class="ex-sol"><strong style="color:var(--acc)">Cuadrado de una suma</strong><br>\\((50+1)^2 = 2500 + 100 + 1 = \\mathbf{2601}\\)</div></div>
+  <div class="ex-card" style="border-top-color:#FB8500" data-c="1"><div class="ex-head"><div class="ex-num" style="background:#FB8500">1</div><div class="ex-title">\\(11^3\\)</div></div><div class="ex-sol"><strong style="color:var(--acc)">Cubo de una suma</strong><br>\\((10+1)^3 = 1000 + 300 + 30 + 1 = \\mathbf{1331}\\)<br><em>¿Notas algo en los dígitos 1-3-3-1?</em></div></div>
+  <div class="ex-card" style="border-top-color:#FB8500" data-c="2"><div class="ex-head"><div class="ex-num" style="background:#FB8500">2</div><div class="ex-title">\\(21^3\\)</div></div><div class="ex-sol"><strong style="color:var(--acc)">Cubo de una suma</strong><br>\\((20+1)^3 = 8000 + 1200 + 60 + 1 = \\mathbf{9261}\\)</div></div>
+  <div class="ex-card" style="border-top-color:#FB8500" data-c="3"><div class="ex-head"><div class="ex-num" style="background:#FB8500">3</div><div class="ex-title">\\(102^2\\)</div></div><div class="ex-sol"><strong style="color:var(--acc)">Cuadrado de una suma</strong><br>\\((100+2)^2 = 10000 + 400 + 4 = \\mathbf{10404}\\)</div></div>
+  <div class="ex-card" style="border-top-color:var(--purple)" data-c="4"><div class="ex-head"><div class="ex-num" style="background:var(--purple)">★</div><div class="ex-title">\\(99^3\\)</div></div><div class="ex-sol"><strong style="color:var(--acc)">Cubo de una diferencia</strong><br>\\((100-1)^3 = 1\\,000\\,000 - 30\\,000 + 300 - 1 = \\mathbf{970\\,299}\\)</div></div>
 </div>`,
-onReveal:function(n){document.querySelectorAll('[data-c="'+n+'"]').forEach(function(e){e.classList.add('vis')})}},
+onReveal:rv},
 
-/* ═══ 16 · METACOGNICIÓN ═══════════════════════════════ */
+/* ═══ TRIÁNGULO DE PASCAL ═══════════════════════════════ */
+{bread:'Sem. 3 · Sesión 3 · Pascal',badge:'CONEXIÓN',badgeColor:'var(--teal)',clicks:4,fL:'Sem. 3 · Los coeficientes tienen un patrón',html:`
+<div class="title-row">
+  <div class="accent-bar" style="background:var(--teal)"></div>
+  <div style="flex:1">
+    <div class="slide-title">Los coeficientes tienen un patrón</div>
+    <div class="slide-instr">En cada fila, los números del medio son la suma de los dos que tienen encima.</div>
+  </div>
+</div>
+<div class="pas">
+  <div class="pas-row"><div class="pas-nums"><span>1</span></div><div class="pas-id"><span>\\((a+b)^0 = 1\\)</span><span class="num">\\(11^0 = 1\\)</span></div></div>
+  <div class="pas-row" data-c="1"><div class="pas-nums"><span>1</span><span>1</span></div><div class="pas-id"><span>\\((a+b)^1 = a + b\\)</span><span class="num">\\(11^1 = 11\\)</span></div></div>
+  <div class="pas-row" data-c="2"><div class="pas-nums"><span>1</span><span>2</span><span>1</span></div><div class="pas-id"><span>\\((a+b)^2 = a^2 + 2ab + b^2\\)</span><span class="num">\\(11^2 = 121\\)</span></div></div>
+  <div class="pas-row" data-c="3"><div class="pas-nums"><span>1</span><span>3</span><span>3</span><span>1</span></div><div class="pas-id"><span>\\((a+b)^3 = a^3 + 3a^2b + 3ab^2 + b^3\\)</span><span class="num">\\(11^3 = 1331\\)</span></div></div>
+</div>
+<div class="soc-fml" data-c="4" style="font-size:var(--fs-md)">
+  1 cubo grande · 3 prismas anchos · 3 prismas delgados · 1 cubo pequeño → <strong>1 · 3 · 3 · 1</strong><br>
+  <span style="font-size:var(--fs-sm);color:var(--text2)">Reto para el cuaderno: ¿cuál sería la fila siguiente?</span>
+</div>`,
+onReveal:rv},
+
+/* ═══ METACOGNICIÓN ════════════════════════════════════ */
 {bread:'Sem. 3 · Cierre global',badge:'METACOGNICIÓN',badgeColor:'var(--teal)',clicks:4,fL:'Sem. 3 · Cierre global de la semana',html:`
 <div class="title-row">
   <div class="accent-bar" style="background:var(--teal)"></div>
   <div style="flex:1">
     <div class="slide-title">Cierre — pienso sobre lo que pensé</div>
-    <div class="slide-instr">Responde en el cuaderno y marca tu semáforo.</div>
+    <div class="slide-instr">Responde en el cuaderno y marca tu semáforo con los 3 criterios de la semana.</div>
   </div>
 </div>
 <div class="meta-q">
   <div class="meta-qlbl">Pregunta metacognitiva de la semana</div>
-  <div class="meta-qtxt">«Si un mismo cambio de un metro produce efectos tan distintos en el perímetro, el área y el volumen, ¿qué información me da realmente conocer solo el resultado final de una operación?»</div>
+  <div class="meta-qtxt">«¿Por qué no basta con sumar 1 m³ al volumen cuando la arista crece 1 m? Explícalo con las piezas del cubo.»</div>
 </div>
-<div style="background:#fff;border:2px solid var(--border);border-radius:12px;padding:clamp(12px,1.4vh,18px) clamp(14px,1.8vw,22px);font-size:var(--fs-sm);color:var(--text2);line-height:1.7" class="var-row" data-c="1">
+<div style="background:#fff;border:2px solid var(--border);border-radius:12px;padding:clamp(12px,1.4vh,18px) clamp(14px,1.8vw,22px);font-size:var(--fs-sm);color:var(--text2);line-height:1.7" data-c="1">
   <strong style="color:var(--navy)">En el cuaderno:</strong>
   (1) ¿Por qué el mismo aumento de 1 m afecta distinto al perímetro, al área y al volumen?
-  (2) ¿En qué situación real te serviría el atajo de cálculo mental?
+  (2) ¿Qué error cometí más esta semana, de coeficiente o de signo, y cómo lo voy a evitar?
   (3) ¿Qué relación ves entre el triángulo de Pascal y las piezas del cubo?
 </div>
 <div class="semaforo">
-  <div class="sema-item" data-c="2"><div class="sema-circle" style="background:#27AE60"></div><div class="sema-txt">Expando cubos de binomio y cuadrados de trinomio con seguridad.<span class="sema-sub">Distingo los signos en (a−b)³ y puedo usar atajos de cálculo mental.</span></div></div>
-  <div class="sema-item" data-c="3"><div class="sema-circle" style="background:#E08C20"></div><div class="sema-txt">Aplico las fórmulas, pero me confundo con los coeficientes o los signos.<span class="sema-sub">Necesito repasar las 8 piezas del cubo y la regla de signos alternos.</span></div></div>
-  <div class="sema-item" data-c="4"><div class="sema-circle" style="background:#C0392B"></div><div class="sema-txt">Necesito más práctica antes de avanzar.<span class="sema-sub">Repasaré con los videos y volveré a la actividad del celular para contar las piezas.</span></div></div>
+  <div class="sema-item" data-c="2"><div class="sema-circle" style="background:#27AE60"></div><div class="sema-txt">Logro los 3 criterios.<span class="sema-sub">Explico las piezas, expando sin errores de coeficiente ni de signo y uso atajos de cálculo mental.</span></div></div>
+  <div class="sema-item" data-c="3"><div class="sema-circle" style="background:#E08C20"></div><div class="sema-txt">Logro el criterio 1, pero me confundo en el 2 o en el 3.<span class="sema-sub">Repaso los ejemplos término por término y la idea de que (a − b)³ = (a + (−b))³.</span></div></div>
+  <div class="sema-item" data-c="4"><div class="sema-circle" style="background:#C0392B"></div><div class="sema-txt">Todavía no logro el criterio 1.<span class="sema-sub">Vuelvo a la actividad del celular a contar piezas y veo el primer video de refuerzo.</span></div></div>
 </div>`,
-onReveal:function(n){document.querySelectorAll('[data-c="'+n+'"]').forEach(function(e){e.classList.add('vis')})}},
+onReveal:rv},
 
 /* ═══ 17 · RECURSOS ═════════════════════════════════════ */
 {bread:'Sem. 3 · Recursos',badge:'RECURSOS',badgeColor:'#219EBC',clicks:0,fL:'Sem. 3 · Recursos y práctica adicional',html:`
@@ -812,11 +1222,12 @@ onReveal:function(n){document.querySelectorAll('[data-c="'+n+'"]').forEach(funct
     <div style="font-size:var(--fs-sm);font-weight:800;color:var(--navy);margin-bottom:10px">📋 Práctica adicional</div>
     <div style="font-size:var(--fs-xs);color:var(--text2);line-height:1.7">
       Expande e indica la fórmula usada:<br>
-      (1)&nbsp;\\((y+5)^3\\)<br>
+      (1)&nbsp;\\((y+6)^3\\)<br>
       (2)&nbsp;\\((2m-3)^3\\)<br>
       (3)&nbsp;\\((a-b+c)^2\\)<br>
       (4)&nbsp;Cálculo mental: \\(103^2\\)<br>
-      (5)&nbsp;Cálculo mental: \\(47 \\times 53\\)
+      (5)&nbsp;Cálculo mental: \\(47 \\times 53\\)<br>
+      (6)&nbsp;Cálculo mental: \\(31^3\\)
     </div>
   </div>
   <div style="background:#fff;border:2.5px solid var(--border);border-radius:14px;border-top:5px solid var(--teal);padding:clamp(14px,1.8vh,20px) clamp(14px,1.8vw,22px)">
@@ -831,6 +1242,13 @@ onReveal:function(n){document.querySelectorAll('[data-c="'+n+'"]').forEach(funct
 ];/* fin SLIDES */
 
 
+
+
+/* ── Revelado por clic (limitado a la diapositiva activa) ── */
+function rvRoot(){return (typeof deck!=='undefined'&&deck.querySelector('.slide.active'))||document;}
+function rv(n){rvRoot().querySelectorAll('[data-c="'+n+'"]').forEach(function(e){e.classList.add('vis')});}
+function rvFocus(n){rv(n);rvRoot().querySelectorAll('.we-term').forEach(function(e){e.classList.toggle('now',e.getAttribute('data-c')===String(n))});}
+function rvHinge(n){rv(n);var g=rvRoot().querySelector('.hinge-grid');if(g)g.classList.add('done');}
 
 /* ═══════════════════════════════════════════════════════════
    MOTOR DE PRESENTACIÓN
@@ -875,6 +1293,7 @@ function show(idx,dir){
   document.getElementById('ncnt').textContent=`${idx+1} / ${SLIDES.length}`;
   document.getElementById('pbar').style.width=(((idx+1)/SLIDES.length)*100)+'%';
   document.getElementById('pbar').setAttribute('aria-valuenow',idx+1);
+  document.getElementById('pbar').setAttribute('aria-valuemax',SLIDES.length);
   saveProgress(idx,0);
 }
 
