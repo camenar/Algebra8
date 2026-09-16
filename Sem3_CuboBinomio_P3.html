@@ -295,8 +295,6 @@ main.body::-webkit-scrollbar-thumb:hover { background: rgba(0,0,0,0.3); }
 .cov-table .delta{font-weight:800;color:var(--acc)}
 .cov-table tr.tabla-row{opacity:0;transition:opacity .4s}
 .cov-table tr.tabla-row.vis{opacity:1}
-.concl-box{opacity:0;transform:translateY(12px);transition:opacity .45s,transform .45s}
-.concl-box.vis{opacity:1;transform:none}
 
 /* ── NAVEGACIÓN ──────────────────────────────────────── */
 #nav{position:fixed;bottom:clamp(14px,1.8vh,22px);left:50%;transform:translateX(-50%);
@@ -329,7 +327,11 @@ main.body::-webkit-scrollbar-thumb:hover { background: rgba(0,0,0,0.3); }
 
 .katex{font-size:1.2em !important}
 .katex-display{margin:0 !important}
-.kbig .katex{font-size:1.8em !important}
+.kbig .katex{font-size:1.4em !important}
+.kbig.kbig-xl .katex{font-size:2.1em !important}
+.kbig.kbig-xxl .katex{font-size:2.4em !important}
+.concl-grid{opacity:0;transform:translateY(8px);transition:opacity .45s,transform .45s}
+.concl-grid.vis{opacity:1;transform:none}
 
 @media(max-width:1100px) and (orientation:landscape){
   :root{
@@ -582,12 +584,12 @@ onReveal:function(n){document.querySelectorAll('[data-c="'+n+'"]').forEach(funct
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--gap)">
   <div class="ex-card vis" style="border-top-color:#219EBC;text-align:center">
     <div style="font-size:var(--fs-md);font-weight:800;color:var(--navy)">Cubo de una SUMA</div>
-    <div class="kbig" style="padding:16px 0">\\((a+b)^3 = a^3 \\color{#219EBC}{+} 3a^2b \\color{#219EBC}{+} 3ab^2 \\color{#219EBC}{+} b^3\\)</div>
+    <div class="kbig kbig-xxl" style="padding:20px 0">\\((a+b)^3 = a^3 \\mathbin{\\color{#219EBC}{+}} 3a^2b \\mathbin{\\color{#219EBC}{+}} 3ab^2 \\mathbin{\\color{#219EBC}{+}} b^3\\)</div>
     <div style="font-size:var(--fs-sm);color:var(--text2)">Todos los signos son <strong style="color:#219EBC">positivos</strong></div>
   </div>
   <div class="ex-card" style="border-top-color:var(--amber);text-align:center" data-c="1">
     <div style="font-size:var(--fs-md);font-weight:800;color:var(--navy)">Cubo de una DIFERENCIA</div>
-    <div class="kbig" style="padding:16px 0">\\((a-b)^3 = a^3 \\color{#B83232}{-} 3a^2b \\color{#219EBC}{+} 3ab^2 \\color{#B83232}{-} b^3\\)</div>
+    <div class="kbig kbig-xxl" style="padding:20px 0">\\((a-b)^3 = a^3 \\mathbin{\\color{#B83232}{-}} 3a^2b \\mathbin{\\color{#219EBC}{+}} 3ab^2 \\mathbin{\\color{#B83232}{-}} b^3\\)</div>
     <div style="font-size:var(--fs-sm);color:var(--text2)">Los signos se <strong style="color:var(--red)">alternan</strong>: +, −, +, −</div>
   </div>
 </div>
@@ -609,7 +611,7 @@ onReveal:function(n){document.querySelectorAll('[data-c="'+n+'"]').forEach(funct
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--gap)">
   <div class="ex-card vis" style="border-top-color:var(--amber);text-align:center">
     <div style="font-size:var(--fs-md);font-weight:800;color:var(--navy)">La fórmula</div>
-    <div class="kbig" style="padding:16px 0">\\((a+b+c)^2 = a^2+b^2+c^2+2ab+2ac+2bc\\)</div>
+    <div class="kbig kbig-xxl" style="padding:20px 0;line-height:1.5">\\((a+b+c)^2 =\\)<br>\\(a^2+b^2+c^2\\)<br>\\(+\\,2ab+2ac+2bc\\)</div>
     <div style="font-size:var(--fs-sm);color:var(--text2);line-height:1.6">
       <strong>3 cuadrados</strong> (uno por cada término)<br>
       + <strong>3 dobles productos</strong> (una pareja por cada par de términos)
@@ -689,7 +691,7 @@ onReveal:function(n){document.querySelectorAll('[data-c="'+n+'"]').forEach(funct
 </div>`},
 
 /* ═══ 13 · TABLA DE CONTRASTE COVARIACIONAL ════════════ */
-{bread:'Sem. 3 · Sesión 3 · Covariación',badge:'SÍNTESIS',badgeColor:'var(--navy)',clicks:6,fL:'Sem. 3 · Tabla de contraste covariacional',html:`
+{bread:'Sem. 3 · Sesión 3 · Covariación',badge:'SÍNTESIS',badgeColor:'var(--navy)',clicks:4,fL:'Sem. 3 · Tabla de contraste covariacional',html:`
 <div class="title-row">
   <div class="accent-bar" style="background:var(--navy)"></div>
   <div style="flex:1">
@@ -704,10 +706,10 @@ onReveal:function(n){document.querySelectorAll('[data-c="'+n+'"]').forEach(funct
   <tr class="tabla-row" data-c="2"><td>4</td><td>16</td><td class="delta">+4</td><td>16</td><td class="delta">+7</td><td>64</td><td class="delta">+37</td></tr>
   <tr class="tabla-row" data-c="3"><td>5</td><td>20</td><td class="delta">+4</td><td>25</td><td class="delta">+9</td><td>125</td><td class="delta">+61</td></tr>
 </table>
-<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:var(--gap);margin-top:var(--gap)">
-  <div class="concl-box" data-c="4" style="background:#219EBC;color:#fff;border-radius:12px;padding:clamp(10px,1.2vh,16px) clamp(10px,1.2vw,16px);text-align:center;font-size:var(--fs-sm);font-weight:700;line-height:1.5">Perímetro<br><span style="font-weight:400;font-size:.9em">Crece <strong>siempre +4</strong><br>(cambio constante)</span></div>
-  <div class="concl-box" data-c="5" style="background:var(--amber);color:#fff;border-radius:12px;padding:clamp(10px,1.2vh,16px) clamp(10px,1.2vw,16px);text-align:center;font-size:var(--fs-sm);font-weight:700;line-height:1.5">Área<br><span style="font-weight:400;font-size:.9em">Crece <strong>+5, +7, +9…</strong><br>(cambio creciente)</span></div>
-  <div class="concl-box" data-c="6" style="background:var(--red-b);color:#fff;border-radius:12px;padding:clamp(10px,1.2vh,16px) clamp(10px,1.2vw,16px);text-align:center;font-size:var(--fs-sm);font-weight:700;line-height:1.5">Volumen<br><span style="font-weight:400;font-size:.9em">Crece <strong>+19, +37, +61…</strong><br>(cambio acelerado)</span></div>
+<div class="concl-grid" data-c="4" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:var(--gap);margin-top:var(--gap)">
+  <div style="background:#219EBC;color:#fff;border-radius:12px;padding:clamp(10px,1.2vh,16px) clamp(10px,1.2vw,16px);text-align:center;font-size:var(--fs-sm);font-weight:700;line-height:1.5">Perímetro<br><span style="font-weight:400;font-size:.9em">Crece <strong>siempre +4</strong><br>(cambio constante)</span></div>
+  <div style="background:var(--amber);color:#fff;border-radius:12px;padding:clamp(10px,1.2vh,16px) clamp(10px,1.2vw,16px);text-align:center;font-size:var(--fs-sm);font-weight:700;line-height:1.5">Área<br><span style="font-weight:400;font-size:.9em">Crece <strong>+5, +7, +9…</strong><br>(cambio creciente)</span></div>
+  <div style="background:var(--red-b);color:#fff;border-radius:12px;padding:clamp(10px,1.2vh,16px) clamp(10px,1.2vw,16px);text-align:center;font-size:var(--fs-sm);font-weight:700;line-height:1.5">Volumen<br><span style="font-weight:400;font-size:.9em">Crece <strong>+19, +37, +61…</strong><br>(cambio acelerado)</span></div>
 </div>`,
 onReveal:function(n){document.querySelectorAll('[data-c="'+n+'"]').forEach(function(e){e.classList.add('vis')})}},
 
